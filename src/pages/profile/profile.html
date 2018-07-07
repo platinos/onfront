@@ -1,0 +1,94 @@
+<ion-header>
+
+    <ion-toolbar>
+    
+      <!-- <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+            </ion-searchbar> -->
+      <button ion-button menuToggle>
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+    
+      <ion-title>
+        <img src="assets/imgs/title-logo.png" width="50px">
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-toolbar class="profile" color="primary">
+  
+    <img class="profile-image" src="assets/imgs/anu-bhardwaj.png">
+    <h4>{{person.name}}</h4>
+    <h5>@{{person.uname}}</h5>
+  </ion-toolbar>
+  <!-- Price -->
+
+<ion-card [hidden]="!checkProfilePage('wallet')">
+  <ion-card-header>
+    <button ion-button icon-only clear (click)="changeProfilePage('trends')">
+      <ion-icon name="analytics"></ion-icon>
+    </button>
+    Wallet 
+  </ion-card-header>
+  <ion-card-content>
+    <canvas #doughnutCanvas></canvas>
+  </ion-card-content>
+</ion-card>
+
+  <ion-card [hidden]="!checkProfilePage('trends')">
+    <ion-card-header>
+      <button ion-button icon-only clear (click)="changeProfilePage('wallet')">
+        <ion-icon name="logo-bitcoin"></ion-icon>
+      </button>
+      Trends
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+<!-- Action Buttons -->
+<ion-fab right bottom>
+  <button ion-fab color="primary">
+    <ion-icon name="flash"></ion-icon>
+  </button>
+  <ion-fab-list side="top">
+    <button ion-fab (click)="gotoPage('AddfundsPage')">
+      <ion-icon name="add" color='icons'></ion-icon>
+      <ion-label>Add Funds</ion-label>
+    </button>
+    <button ion-fab (click)="gotoPage('WalletPage')">
+      <ion-icon name="logo-bitcoin" color='icons'></ion-icon>
+      <ion-label>My Wallet</ion-label>
+    </button>
+    <button ion-fab (click)="gotoPage('SendrecievePage')">
+      <ion-icon name="swap" color='icons'></ion-icon>
+      <ion-label>Send & Recieve</ion-label>
+    </button>
+    <button ion-fab (click)="gotoPage('MarketPage')">
+      <ion-icon name="analytics" color='icons'></ion-icon>
+      <ion-label>Watch Market</ion-label>
+    </button>
+    <button ion-fab (click)="gotoPage('ProjectPage')">
+      <ion-icon name="color-wand" color='icons'></ion-icon>
+      <ion-label>Projects</ion-label>
+    </button>
+    <button ion-fab (click)="gotoPage('ShopPage')">
+      <ion-icon name="cart" color='icons'></ion-icon>
+      <ion-label>Sheq Shop</ion-label>
+    </button>
+    <button ion-fab (click)="gotoPage('ChatscreenPage')">
+      <ion-icon name="flash" color='icons'></ion-icon>
+      <ion-label>Sheq Smartbot</ion-label>
+    </button>
+  </ion-fab-list>
+</ion-fab>
+</ion-content>

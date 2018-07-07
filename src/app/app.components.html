@@ -1,0 +1,30 @@
+<ion-split-pane>
+
+    <!-- logged in menu -->
+    <ion-menu id="loggedInMenu" [content]="content">
+
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Sheq Wallet</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content class="outer-content">
+            <ion-list>
+                <ion-list-header (click)="openPage(ProfilePage)">
+                    <ion-avatar item-start>
+                        <!-- <img src={{userPic}}> -->
+                    </ion-avatar>
+                    <!-- <h2>Welcome {{userName}}</h2> -->
+                    <!-- <p>{{userEmail}}</p> -->
+                </ion-list-header>
+                <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
+                    <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+                    {{p.title}}
+                </button>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+    <!-- main navigation -->
+    <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main name="app"></ion-nav>
+
+</ion-split-pane>

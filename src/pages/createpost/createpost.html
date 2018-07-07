@@ -1,0 +1,63 @@
+<!--
+  Generated template for the CreatepostPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Post Project Story</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon item-right name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-grid>
+    <ion-row text-center justify-content-around>
+      <ion-col>
+        <div (click)="choose(style)">
+          <ion-icon name="attach" style="zoom:4.0;" color='icons'></ion-icon>
+          <h4 class="card-title" color='icons'>Media</h4>
+        </div>
+        
+      </ion-col>
+      <ion-col>
+        <div (click)="choose(style)">
+          <ion-icon name="card" style="zoom:4.0;" color='icons'></ion-icon>
+          <h4 class="card-title" color='icons'>Funds</h4>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div (click)="choose(style)">
+          <ion-icon name="pricetags" style="zoom:4.0;" color='icons'></ion-icon>
+          <h4 class="card-title" color='icons'>Tags</h4>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-textarea rows="8" placeholder="Whats on your mind today?"></ion-textarea>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center>
+      <ion-col>
+      <button ion-button round large>POST</button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+
+
+</ion-content>
