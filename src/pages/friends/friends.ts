@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
 
-/**
- * Generated class for the FriendsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,11 +13,18 @@ export class FriendsPage {
   filteredusers = [];
   showOptionsToggle = false;
   chatpages = '' ;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  userResponse: [string];
+  users: any;
+  usersResponse: any;
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
+    
   }
 
   ionViewDidLoad() {
     this.chatpages = 'chats';
+    this.getUsers();
+    
   }
   searchuser(searchbar) {
     this.filteredusers = this.temparr;
@@ -50,4 +52,14 @@ export class FriendsPage {
       this.chatpages = 'friends';
     else this.chatpages = 'chats';
   }
+  getUsers() {
+    this.restProvider.getData('users')
+      .then(data => {
+        this.users = data;
+        this.userResponse = this.users.response;
+      });
+
+  }
+  
+  
 }

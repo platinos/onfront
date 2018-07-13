@@ -12,6 +12,13 @@ export class WalletPage {
 
   @ViewChild('doughnutCanvas') doughnutCanvas;
   doughnutChart: any;
+  walletCoins = [{ 'name': 'Bitcoin', 'value': 122, 'icon': 'bitcoin.png' }, 
+    { 'name': 'Ether', 'value': 122, 'icon': 'ether.png'}, 
+    { 'name': 'Angur', 'value': 122, 'icon': 'angur.png' }, 
+    { 'name': 'Dash', 'value': 122, 'icon': 'dash.png'} 
+    //{ 'name': 'Litecoin', 'value': 122, 'icon': 'litecoin.png' }, 
+    //{ 'name': 'Iota', 'value': 122, 'icon': 'iota.png' }
+  ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

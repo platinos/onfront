@@ -1,0 +1,42 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+
+    <ion-title>Signup</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="masters">
+
+  <img class="logo" src="assets/imgs/SHEQ_gold_ID.png" alt="Sheq Wallet">
+
+
+
+  <div class="login" text-center>
+    
+
+    <form [formGroup]="form" (ngSubmit)="logIn()">
+      <ion-list no-lines>
+        
+        <ion-item margin-bottom>
+          <ion-input placeholder="Enter your phone number" type="tel" formControlName="phoneNo"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Confirm Password" type="password" formControlName="confirmpassword"></ion-input>
+        </ion-item>
+        
+
+
+        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">Register</button>
+      </ion-list>
+    </form>
+<button ion-button clear icon-end color="primary" (click)="gotoLogin()">
+  Already a member?
+</button>
+  </div>
+
+
+</ion-content>

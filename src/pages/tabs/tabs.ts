@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserData } from '../../providers/user-data';
 
 /**
  * Generated class for the TabsPage page.
@@ -18,11 +19,15 @@ export class TabsPage {
   tab2 = 'StoriesPage';
   tab3 = 'FriendsPage';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  private user: UserData) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TabsPage');
   }
-
+  logout() {
+    //this.app.getRootNav().push('SupportPage');
+    this.user.logout();
+  }
 }

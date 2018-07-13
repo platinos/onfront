@@ -1,13 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
-
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { UserData } from '../../providers/user-data';
 
 @IonicPage()
 @Component({
@@ -21,16 +15,16 @@ export class ProfilePage {
   @ViewChild('lineCanvas') lineCanvas;
   doughnutChart: any;
   lineChart: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.person = { name: "Anu Bhardwaj", uname: "anu"};
+  constructor(public navCtrl: NavController, public navParams: NavParams, public user:UserData) {
+    this.person = { name:"Anu" , uname: "anu"};
     this.profilePages = "trends";
   }
 
   ionViewDidLoad() {
-    let person = JSON.parse(localStorage.getItem('PERSON'));
-    if (person) {
-      this.person = person;
-    }
+    this.user.getPhone().then((phone) => { 
+      this.person.uname = phone;
+    })
+    
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 
@@ -38,7 +32,6 @@ export class ProfilePage {
       data: {
         labels: ["Bitcoin", "Ether", "Angur", "Dash", "Litecoin", "Iota"],
         datasets: [{
-          //label: '# of Votes',
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
             'rgb(255, 99, 132)',

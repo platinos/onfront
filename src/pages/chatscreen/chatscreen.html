@@ -15,19 +15,19 @@
 <ion-content #content>
   <div class="chatwindow">
     <ion-list no-lines>
-      <ion-item *ngFor="let item of [1,23,45,8]" text-wrap>
+      <ion-item *ngFor="let message of messagesList" text-wrap>
         <ion-avatar item-left>
           <img src="assets/imgs/item1.png">
         </ion-avatar>
         <div class="bubble me">
-          <h3>Hey there!</h3>
+          <h3>{{message.message}}</h3>
           <!-- <img src="lorem ipsum doler met"> -->
         </div>
         <ion-avatar item-right>
           <img src="assets/imgs/Anu-Bhardwaj.png">
         </ion-avatar>
         <div class="bubble you">
-          <h3>Ya. Hi. How are you?</h3>
+          <h3>hmm...</h3>
           <!-- <img src="{{item.message}}" *ngIf="imgornot[i]"> -->
         </div>
       </ion-item>
@@ -58,7 +58,7 @@
   <ion-toolbar class="no-border" color="white">
     <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>
     <ion-buttons end>
-      <button ion-button large (click)="addmessage()">
+      <button ion-button large (click)="send()">
         <ion-icon name="send" color="primary"></ion-icon>
       </button>
     </ion-buttons>
