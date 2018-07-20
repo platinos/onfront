@@ -13,54 +13,41 @@
 
 
 <ion-content #content>
-  <div class="chatwindow">
-    <ion-list no-lines>
-      <ion-item *ngFor="let message of messagesList" text-wrap>
-        <ion-avatar item-left>
-          <img src="assets/imgs/item1.png">
-        </ion-avatar>
-        <div class="bubble me">
-          <h3>{{message.message}}</h3>
-          <!-- <img src="lorem ipsum doler met"> -->
-        </div>
-        <ion-avatar item-right>
-          <img src="assets/imgs/Anu-Bhardwaj.png">
-        </ion-avatar>
-        <div class="bubble you">
-          <h3>hmm...</h3>
-          <!-- <img src="{{item.message}}" *ngIf="imgornot[i]"> -->
-        </div>
-      </ion-item>
-    </ion-list>
-  </div>
-  <!-- <div class="chatwindow">
-    <ion-list no-lines>
-      <ion-item *ngFor="let item of [1,23,45,8]; let i = index" text-wrap>
-        <ion-avatar item-left *ngIf="item.sentby === buddy.uid">
-          <img src="{{buddy.photoURL}}">
-        </ion-avatar>
-        <div class="bubble me" *ngIf="item.sentby === buddy.uid">
-          <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
-        </div>
-        <ion-avatar item-right *ngIf="item.sentby != buddy.uid">
-          <img src="{{photoURL}}">
-        </ion-avatar>
-        <div class="bubble you" *ngIf="item.sentby != buddy.uid">
-          <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>
-          <img src="{{item.message}}" *ngIf="imgornot[i]">
-        </div>
-      </ion-item>
-    </ion-list>
-  </div> -->
+  <ion-grid>
+    <ion-row *ngFor="let message of messagesList">
+
+      <ion-col col-9 *ngIf="message.from !== nickname" class="message" [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+        <span class="user_name">{{ message.from }}:</span>
+        <br>
+        <span>{{ message.text }}</span>
+        <div class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+      </ion-col>
+
+      <ion-col offset-3 col-9 *ngIf="message.from === nickname" class="message" [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+        <span class="user_name">{{ message.from }}:</span>
+        <br>
+        <span>{{ message.text }}</span>
+        <div class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
-<ion-footer ion-fixed>
-  <ion-toolbar class="no-border" color="white">
-    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>
-    <ion-buttons end>
-      <button ion-button large (click)="send()">
-        <ion-icon name="send" color="primary"></ion-icon>
-      </button>
-    </ion-buttons>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row class="message_row">
+      <ion-col col-9>
+        <ion-item no-lines>
+          <ion-input type="text" placeholder="Type a message" [(ngModel)]="newmessage"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button clear color="primary" (click)="send()" [disabled]="message === ''">
+          Send
+        </button>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-footer>

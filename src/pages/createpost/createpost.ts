@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-
-
-/**
- * Generated class for the CreatepostPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RestProvider } from '../../providers/rest/rest';
+import { UserData } from '../../providers/user-data';
 
 @IonicPage()
 @Component({
@@ -15,16 +10,34 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'createpost.html',
 })
 export class CreatepostPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-  }
-
+  public form: FormGroup;
   
-  ionViewDidLoad() {
-   
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    private _FB: FormBuilder,
+    public rs: RestProvider,
+    public user: UserData) {
+    this.form = this._FB.group({
+      'contentText': ['', Validators.required]});
+  }
+  ionViewDidLoad() { 
   }
   dismiss() {;
     this.viewCtrl.dismiss();
+  }
+  postContent(){
+    let uid = "";
+    this.user.getUserId().then((userName) => {
+      uid  = userName;
+      let contentText: any = this.form.controls['contentText'].value;
+      this.rs.addData('content/post/'+uid,{content: contentText}).then(data =>{
+        this.dismiss();
+    });
+    });
+    
+    
+    
   }
 
 }

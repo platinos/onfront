@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, Content, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
-/**
- * Generated class for the ChatscreenPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { UserData } from '../../providers/user-data';
 
 @IonicPage()
 @Component({
@@ -19,9 +14,19 @@ export class ChatscreenPage {
   name;
   newmessage;
   messagesList;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  sender;
+  reciever;
+
+  @ViewChild(Content) contentArea: Content;
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public user: UserData) {
     this.ref = firebase.database().ref('messages');
+    this.user.getUsername().then((userId) => {
+      this.sender = userId;
+      console.log(this.sender);
+    });
+
   }
 
   ionViewWillEnter() {
@@ -48,19 +53,24 @@ export class ChatscreenPage {
       data.forEach(data => {
         tmp.push({
           key: data.key,
-          name: data.val().name,
-          message: data.val().message
+          text: data.val().text,
+          from: data.val().from,
+          to: data.val().to,
+          created: data.val().created
         })
       });
       this.messagesList = tmp;
+      this.contentArea.scrollToBottom();
     });
+    
   }
   send() {
     // add new data to firebase
-    this.ref.push({
-      name: "Anu Bhardwaj",
-      message: this.newmessage
-    });
+    this.ref.push(
+      { text: this.newmessage, from: this.sender, to: this.reciever, created: new Date() }
+      );
+    this.newmessage = "";
+    this.contentArea.scrollToBottom();
   }
 
   

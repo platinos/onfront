@@ -3,8 +3,6 @@
 
     <ion-toolbar>
     
-      <!-- <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
-        </ion-searchbar> -->
       <button ion-button menuToggle>
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
@@ -24,11 +22,11 @@
 <ion-content class="cards-bg social-cards">
 
 
-<ion-card *ngFor="let content of contentList">
+<ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)">
 
   <ion-item>
     <ion-avatar item-start>
-      <img src="assets/imgs/Anu-Bhardwaj.png">
+      <img src="assets/imgs/user.png">
     </ion-avatar>
     <h2>{{content.PostByUser.name}}</h2>
     <p>Yesterday</p>
@@ -44,13 +42,13 @@
     <ion-col>
       <button ion-button icon-start clear small>
         <ion-icon name="download"></ion-icon>
-        <div>124 Saves</div>
+        <div>{{content.likesCount}} Saves</div>
       </button>
     </ion-col>
     <ion-col>
       <button ion-button icon-start clear small>
         <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
+        <div>{{content.commentsCount}} Comments</div>
       </button>
     </ion-col>
     <ion-col>

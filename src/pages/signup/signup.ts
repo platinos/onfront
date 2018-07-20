@@ -16,6 +16,7 @@ export class SignupPage {
     private _FB: FormBuilder,
     public auth: AuthenticationProvider) {
     this.form = this._FB.group({
+      'name': ['', Validators.required],
       'phoneNo': ['', Validators.required],
       'confirmpassword': ['', Validators.required],
       'password': ['', Validators.required],
@@ -24,21 +25,16 @@ export class SignupPage {
   }
   logIn(): void {
     let
+      name: any = this.form.controls['name'].value,
       phoneNo: any = this.form.controls['phoneNo'].value,
       password: any = this.form.controls['password'].value,
       confirmpassword: any = this.form.controls['confirmpassword'].value;
-
       if(password === confirmpassword){
-        this.auth.signup(phoneNo, password);
-        this.navCtrl.setRoot('OnboardPage');
+        this.auth.signup(name,phoneNo, password);
       }
-    
-    
-   
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+  ionViewDidLoad() {console.log('ionViewDidLoad SignupPage');
   }
   gotoLogin(){
     this.navCtrl.push('LoginPage');

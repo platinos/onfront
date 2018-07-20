@@ -10,13 +10,10 @@ export class HeaderMenuComponent {
 
   text: string;
 
-  constructor(private auth: AuthenticationProvider, public navCtrl: NavController) {
-    console.log('Hello HeaderMenuComponent Component');
-    this.text = 'Hello World';
+  constructor(private auth: AuthenticationProvider) {
   }
   logout() {
     this.auth.logout();
-    this.navCtrl.setRoot('StartingPage');
   }
 
 }

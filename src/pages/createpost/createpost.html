@@ -23,6 +23,7 @@
 
 
   <ion-grid>
+    <form [formGroup]="form" (ngSubmit)="postContent()">
     <ion-row text-center justify-content-around>
       <ion-col>
         <div (click)="choose(style)">
@@ -46,14 +47,15 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-textarea rows="8" placeholder="Whats on your mind today?"></ion-textarea>
+        <ion-textarea rows="8" placeholder="Whats on your mind today?" formControlName="contentText"></ion-textarea>
       </ion-col>
     </ion-row>
     <ion-row text-center>
       <ion-col>
-      <button ion-button round large>POST</button>
+      <button ion-button round large [disabled]="!form.valid">POST</button>
       </ion-col>
     </ion-row>
+    </form>
 
 
   </ion-grid>

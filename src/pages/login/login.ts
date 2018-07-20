@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationProvider } from '../../providers/authentication/authentication';
 //import { Storage } from '@ionic/storage';
 
 
@@ -15,7 +16,8 @@ export class LoginPage {
   public form: FormGroup;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private _FB: FormBuilder) {
+    private _FB: FormBuilder,
+  private auth: AuthenticationProvider) {
     this.form = this._FB.group({
       'phoneNo': ['', Validators.required],
       'password': ['', Validators.required]
@@ -26,24 +28,12 @@ export class LoginPage {
     let
       phoneNo: any = this.form.controls['phoneNo'].value,
       password: any = this.form.controls['password'].value;
-     /*this.storage.get('hasSeenTutorial')
-      .then((hasSeenTutorial) => {
-        console.log(hasSeenTutorial);
-
-        if (hasSeenTutorial === 'true') {
-        }
-        else{
-          this.navCtrl.setRoot('OnboardPage');
-        }
-      }
-    );*/
-
-    this.navCtrl.setRoot('OnboardPage');
+    
+    this.auth.login(phoneNo, password);
     
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
   }
   gotoLogin() {
     this.navCtrl.push('SignupPage');

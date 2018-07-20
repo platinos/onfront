@@ -5,7 +5,6 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class UserData {
-  _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
@@ -19,13 +18,13 @@ export class UserData {
 
   login(userData: any): void {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(userData.username, userData.phone, userData.pic);
+    this.setUsername(userData.username, userData.userId, userData.phone, userData.pic);
     this.events.publish('user:login');
   };
 
-  signup(username: string, phone: string): void {
+  signup(name:string, userId: string, phone: string): void {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username, phone, '');
+    this.setUsername(name, userId, phone, '');
     this.events.publish('user:signup');
   };
 
@@ -36,14 +35,20 @@ export class UserData {
     this.events.publish('user:logout');
   };
 
-  setUsername(username: string, phone: string, pic: string): void {
+  setUsername(username: string, userId:string, phone: string, pic: string): void {
     this.storage.set('username', username);
     this.storage.set('phone', phone);
+    this.storage.set('userId', userId);
     this.storage.set('pic', pic);
   };
 
   getUsername(): Promise<string> {
     return this.storage.get('username').then((value) => {
+      return value;
+    });
+  };
+  getUserId(): Promise<string> {
+    return this.storage.get('userId').then((value) => {
       return value;
     });
   };

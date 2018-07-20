@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from "@ionic/storage";
 
 
 @IonicPage()
@@ -26,7 +27,8 @@ export class OnboardPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -34,6 +36,8 @@ export class OnboardPage {
   }
 
   gotoLogin() {
-    this.navCtrl.setRoot('TabsPage');
+    this.navCtrl.setRoot('TabsPage').then(() => {
+      this.storage.set('hasSeenTutorial', 'true');
+    });
   }
 }

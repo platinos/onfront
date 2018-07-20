@@ -9,20 +9,26 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  public person: { name: string, uname: string};
+  public person: { name: string, phone: string, userId: string};
   profilePages = "trends";
   @ViewChild('doughnutCanvas') doughnutCanvas;
   @ViewChild('lineCanvas') lineCanvas;
   doughnutChart: any;
   lineChart: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public user:UserData) {
-    this.person = { name:"Anu" , uname: "anu"};
+    this.person = { name:"Anu" , phone: "anu", userId: ""};
     this.profilePages = "trends";
   }
 
   ionViewDidLoad() {
     this.user.getPhone().then((phone) => { 
-      this.person.uname = phone;
+      this.person.phone = phone;
+    })
+    this.user.getUsername().then((userName) => {
+      this.person.name = userName;
+    })
+    this.user.getUserId().then((userId) => {
+      this.person.userId = userId;
     })
     
 
