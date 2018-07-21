@@ -44,8 +44,10 @@ export class FriendsPage {
     this.showOptionsToggle = !this.showOptionsToggle;
   }
 
-  gotoPage(page){
-    this.navCtrl.push(page);
+  gotoPage(page, data){
+    console.log(data);
+    
+    this.navCtrl.push(page, {"friendId": data});
   }
   swipeEvent(event){
     if(event.direction === 2)
@@ -57,6 +59,8 @@ export class FriendsPage {
       .then(data => {
         this.users = data;
         this.userResponse = this.users.response;
+        console.log(data);
+        
       });
 
   }

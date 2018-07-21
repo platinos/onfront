@@ -23,15 +23,13 @@ export class AuthenticationProvider {
     this.rs.addData("users/login", { 'uname': uname, 'password': pass }).then(data => {
       this.dataList = data;
       this.dataError = this.dataList.error;
-      
-      
       if (this.dataError === undefined || this.dataError === null){
       this.dataResponse = this.dataList.response;
         setTimeout(() => {
           loading.dismiss();
         }, 2000);
+        this.user.login({ username: this.dataResponse[0].name, userId: this.dataResponse[0]._id, phone: this.dataResponse[0].phone });
 
-        this.user.login({'phone': uname});
       }
       else{
         loading.setContent("Could not log in. check your credentials");

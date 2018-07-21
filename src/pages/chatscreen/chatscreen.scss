@@ -11,11 +11,11 @@ page-chatscreen {
     }
     .my_message {
         background: color($colors, primary) !important;
-        color: #000 !important;
+        color: color($colors, light) !important;
     }
     .other_message {
-        background: #dcdcdc !important;
-        color: #000 !important;
+        background: color($colors, light) !important;
+        color: color($colors, primary) !important;
     }
     .time {
         color: #afafaf;
