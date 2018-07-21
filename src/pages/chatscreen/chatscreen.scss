@@ -25,5 +25,15 @@ page-chatscreen {
     .message_row {
         background-color: #fff;
     }
+    .avatar{
+        width: 100px;
+    }
+    .titleicon {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align:center;
+}
 
 }
