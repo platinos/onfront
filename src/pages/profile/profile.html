@@ -27,21 +27,47 @@
     <h4>{{person.name}}</h4>
     <h5>@{{person.phone}}</h5>
   </ion-toolbar>
+  
+  <ion-card [hidden]="hasWallet()">
+    <ion-card-header>
+      <button ion-button icon-only clear (click)="changeProfilePage('trends')">
+        <ion-icon name="analytics"></ion-icon>
+      </button>
+      Wallet
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button outline block (click)="createWallet()">Create Wallet</button>
+    </ion-card-content>
+    
+  </ion-card>
+  
   <!-- Price -->
 
-<ion-card [hidden]="!checkProfilePage('wallet')">
+
+
+
+<ion-card [hidden]="!hasWallet()">
   <ion-card-header>
-    <button ion-button icon-only clear (click)="changeProfilePage('trends')">
+    <!-- <button ion-button icon-only clear (click)="changeProfilePage('trends')">
       <ion-icon name="analytics"></ion-icon>
-    </button>
+    </button> -->
     Wallet 
   </ion-card-header>
   <ion-card-content>
     <canvas #doughnutCanvas></canvas>
   </ion-card-content>
+  <ion-list>
+    <ion-item-divider color="light">My Assets</ion-item-divider>
+    <ion-item *ngFor="let coin of walletCoins">
+      <ion-avatar item-left>
+        <img src="assets/imgs/{{coin.icon}}">
+      </ion-avatar>
+      <h2 color="primary">{{coin.name}}</h2>
+    </ion-item>
+  </ion-list>
 </ion-card>
 
-  <ion-card [hidden]="!checkProfilePage('trends')">
+  <!-- <ion-card [hidden]="!checkProfilePage('trends')">
     <ion-card-header>
       <button ion-button icon-only clear (click)="changeProfilePage('wallet')">
         <ion-icon name="logo-bitcoin"></ion-icon>
@@ -51,7 +77,7 @@
     <ion-card-content>
       <canvas #lineCanvas></canvas>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
   
 
@@ -85,10 +111,10 @@
       <ion-icon name="cart" color='icons'></ion-icon>
       <ion-label>Sheq Shop</ion-label>
     </button>
-    <button ion-fab (click)="gotoPage('ChatscreenPage')">
+    <!-- <button ion-fab (click)="gotoPage('ChatscreenPage')">
       <ion-icon name="flash" color='icons'></ion-icon>
       <ion-label>Sheq Smartbot</ion-label>
-    </button>
+    </button> -->
   </ion-fab-list>
 </ion-fab>
 </ion-content>
