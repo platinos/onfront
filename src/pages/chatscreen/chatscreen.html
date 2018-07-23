@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-     <ion-title>
+     <ion-title (click)="openPage('UserprofilePage', reciever)">
       {{recieverName}}</ion-title>
     <ion-buttons end>
       <img src="assets/imgs/user.png" width="40px" style="display:inline-block" height="40px" />
@@ -37,18 +37,21 @@
 <ion-footer>
   <ion-toolbar>
     <ion-row class="message_row">
-      <ion-col col-9>
+      <ion-col col-8>
         <ion-item no-lines>
-          <ion-textarea type="text" placeholder="Type a message" [(ngModel)]="newmessage"></ion-textarea>
+          <ion-input type="text" placeholder="Type a message" [(ngModel)]="newmessage"></ion-input>
         </ion-item>
+      </ion-col>
+      <ion-col col-1>
+      <button ion-button icon-only color="white" (click)="attach($event)">
+        <ion-icon name="attach"></ion-icon>
+      </button>
       </ion-col>
       <ion-col col-3>
         <button ion-button clear color="primary" (click)="send()" [disabled]="message === ''">
           Send
         </button>
-        <button ion-button clear color="primary" (click)="send()" [disabled]="message === ''">
-          Attach
-        </button>
+       
       </ion-col>
     </ion-row>
   </ion-toolbar>

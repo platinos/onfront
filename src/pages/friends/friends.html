@@ -21,6 +21,10 @@
 
 
 <ion-content (swipe)="swipeEvent($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
 <ion-toolbar>
       <ion-segment [(ngModel)]="chatpages">
         <ion-segment-button value="chats">
@@ -34,7 +38,7 @@
 <div [ngSwitch]="chatpages">
 <!-- chats -->
 <ion-list *ngSwitchCase="'chats'">
-  <ion-item (click)="gotoPage('ChatscreenPage', user._id)" text-wrap no-lines *ngFor="let user of userResponse">
+  <ion-item (click)="gotoPage('ChatscreenPage', {'friendId': user._id})" text-wrap no-lines *ngFor="let user of userResponse">
       <ion-avatar item-left>
         <img src="assets/imgs/user.png">
       </ion-avatar>
@@ -44,7 +48,7 @@
 </ion-list>
 <!-- Friend list -->
     <ion-list *ngSwitchCase="'friends'">
-      <ion-item  *ngFor="let user of userResponse">
+      <ion-item  *ngFor="let user of userResponse" (click)="gotoPage('UserprofilePage', {'userId': user._id})" >
           <ion-avatar item-left>
             <img src="assets/imgs/Anu-Bhardwaj.png">
           </ion-avatar>

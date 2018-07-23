@@ -16,20 +16,20 @@ export class ProfilePage {
   doughnutChart: any;
   lineChart: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public user:UserData) {
-    this.person = { name:"Anu" , phone: "anu", userId: ""};
+    this.person = { name:"" , phone: "", userId: ""};
     this.profilePages = "trends";
   }
 
   ionViewDidLoad() {
     this.user.getPhone().then((phone) => { 
       this.person.phone = phone;
-    })
+    });
     this.user.getUsername().then((userName) => {
       this.person.name = userName;
-    })
+    });
     this.user.getUserId().then((userId) => {
       this.person.userId = userId;
-    })
+    });
     
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {

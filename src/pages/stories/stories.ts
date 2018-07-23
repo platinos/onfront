@@ -66,4 +66,10 @@ export class StoriesPage {
         this.presentPostModal(contentId);
       });
   }
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.reloadStories();
+      refresher.complete();
+    }, 2000);
+  }
 }

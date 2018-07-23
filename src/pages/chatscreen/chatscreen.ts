@@ -102,7 +102,14 @@ export class ChatscreenPage {
     this.newmessage = "";
     //this.contentArea.scrollToBottom();
   }
+  openPage(page, data){
+    console.log("clicked this with data "+data);
+    
+    this.navCtrl.push(page, {'userId': data});
+  }
+  attach(){
 
+  }
   
 
 

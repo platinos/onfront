@@ -45,9 +45,7 @@ export class FriendsPage {
   }
 
   gotoPage(page, data){
-    console.log(data);
-    
-    this.navCtrl.push(page, {"friendId": data});
+    this.navCtrl.push(page, data);
   }
   swipeEvent(event){
     if(event.direction === 2)
@@ -64,6 +62,11 @@ export class FriendsPage {
       });
 
   }
-  
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.ionViewDidLoad();
+      refresher.complete();
+    }, 2000);
+  }
   
 }
