@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { UserData } from '../../providers/user-data';
+import { RestProvider } from '../../providers/rest/rest';
 
 @IonicPage()
 @Component({
@@ -16,6 +17,7 @@ export class ProfilePage {
   doughnutChart: any;
   //lineChart: any;
   userHasWallet = false;
+  walletData:any;
   walletCoins = [{ 'name': 'Bitcoin', 'value': 122, 'icon': 'bitcoin.png' },
   { 'name': 'Ether', 'value': 122, 'icon': 'ether.png' },
   { 'name': 'Angur', 'value': 122, 'icon': 'angur.png' },
@@ -23,9 +25,14 @@ export class ProfilePage {
     //{ 'name': 'Litecoin', 'value': 122, 'icon': 'litecoin.png' }, 
     //{ 'name': 'Iota', 'value': 122, 'icon': 'iota.png' }
   ];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public user:UserData) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public user:UserData,
+    private alertCtrl: AlertController,
+    private rp: RestProvider) {
     this.person = { name:"" , phone: "", userId: ""};
     this.profilePages = "wallet";
+  
   }
 
   ionViewDidLoad() {
@@ -37,6 +44,7 @@ export class ProfilePage {
     });
     this.user.getUserId().then((userId) => {
       this.person.userId = userId;
+      this.userHasWalletInSystem();
     });
     
 
@@ -168,11 +176,65 @@ export class ProfilePage {
   }
   hasWallet(){
     return this.userHasWallet;
+     
   }
+    userHasWalletInSystem(){
+      this.rp.getData('wallet/' + this.person.userId).then(data => {
+        console.log(data);
+        this.walletData = data;
+        console.log(this.walletData.error);
+        if (this.walletData.error === undefined) {
+          this.userHasWallet = true;
+        }
+        
+      });
+    }
+  
   createWallet(){
-    this.userHasWallet = true;
+    this.presentPrompt();
     console.log("Wallet Created!");
     
+  }
+  presentPrompt() {
+    let alert = this.alertCtrl.create({
+      title: 'Create New wallet',
+      inputs: [
+        {
+          name: 'label',
+          placeholder: 'Enter Wallet Name'
+        },
+        {
+          name: 'password',
+          placeholder: 'Choose a Passphrase',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Maybe Later',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Next',
+          handler: data => {
+            //to call api
+            this.rp.addData('wallet/' + this.person.userId, {
+              "coin": "tbtc",
+              "label": data.label,
+              "password": data.password}).then(data => {
+                this.userHasWallet = true;
+                console.log(data);
+              })
+            
+           
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
