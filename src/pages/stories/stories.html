@@ -20,7 +20,10 @@
 
 
 <ion-content class="cards-bg social-cards">
-
+<ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content>
+  </ion-refresher-content>
+</ion-refresher>
 
 <ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)">
 

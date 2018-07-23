@@ -1,0 +1,83 @@
+<ion-header>
+<ion-navbar color="light">
+  <ion-title>
+    {{person.name}}'s Profile
+  </ion-title>
+</ion-navbar>
+
+
+   
+</ion-header>
+
+
+<ion-content>
+  <ion-toolbar class="profile" color="primary">
+
+    <img class="profile-image" src="assets/imgs/user.png">
+    <h4>{{person.name}}</h4>
+    <h5>{{person.phone}}</h5>
+  </ion-toolbar>
+  <!-- Price -->
+
+  <ion-card>
+    <ion-card-header>
+      
+    </ion-card-header>
+    <ion-card-content>
+      
+    </ion-card-content>
+  </ion-card>
+
+
+<ion-card *ngIf="storyTemp?.length === 0">
+
+  <ion-card-title>
+    <p>{{person.name}} has not shared any stories...</p>
+  </ion-card-title>
+ 
+</ion-card>
+
+
+<ion-card *ngFor="let content of storyTemp" (click)="presentPostModal(content.Id)">
+
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="assets/imgs/user.png">
+    </ion-avatar>
+  </ion-item>
+
+  <img src="{{content.image}}">
+
+  <ion-card-content>
+    <p>{{content.content}}</p>
+  </ion-card-content>
+  
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-start clear small>
+        <ion-icon name="download"></ion-icon>
+        <!-- <div>{{content.likes.length}} Saves</div> -->
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-start clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>{{content.comments.length}} Comments</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-start clear small>
+        <ion-icon name="open"></ion-icon>
+        <div>Apply</div>
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+
+
+
+
+</ion-content>

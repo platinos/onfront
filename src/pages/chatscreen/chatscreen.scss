@@ -10,7 +10,7 @@ page-chatscreen {
         margin-bottom: 4px !important;
     }
     .my_message {
-        background: color($colors, primary) !important;
+        background: color($colors, chatbubble) !important;
         color: color($colors, light) !important;
     }
     .other_message {
