@@ -15,7 +15,7 @@ export class ProfilePage {
 
   userHasWallet = false;
   walletData:any;
-  walletCoins = [{ 'name': 'Bitcoin', 'value': 1.925, 'icon': 'bitcoin.png' },
+  walletCoins = [{ 'name': 'Bitcoin', 'value': 0, 'icon': 'bitcoin.png' },
   { 'name': 'Ether', 'value': 0, 'icon': 'ether.png' },
   { 'name': 'Angur', 'value': 0, 'icon': 'angur.png' },
   { 'name': 'Dash', 'value': 0, 'icon': 'dash.png' }
@@ -71,6 +71,7 @@ export class ProfilePage {
         this.balancedata = data;
         this.balance = parseInt(this.balancedata.response.spendableBalance)/100000000;
         console.log(this.balance);
+        this.walletCoins[0].value = this.balance;
       });
   }
     userHasWalletInSystem(){
