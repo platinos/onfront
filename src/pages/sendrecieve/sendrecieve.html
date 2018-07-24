@@ -20,4 +20,24 @@
 
   </ion-card-content>
 </ion-card>
+
+<ion-card>
+  <ion-card-header>
+    <!-- <button ion-button icon-only clear (click)="changeProfilePage('trends')">
+      <ion-icon name="analytics"></ion-icon>
+    </button> -->
+    Transaction History 
+  </ion-card-header>
+  <ion-card-content>    
+    <ion-list>    
+      <ion-item *ngFor="let data of transferData">
+        <ion-icon *ngIf="data.value > 0" item-left color="secondary" name="arrow-dropup-circle"></ion-icon>           
+        <ion-icon *ngIf="data.value < 0" item-left color="danger" name="arrow-dropdown-circle"></ion-icon>               
+        <h3 color="primary"><b><ion-icon name="logo-bitcoin"></ion-icon>{{(data.value)/100000000}}</b> on <span text-right>{{data.date | date:'dd.MM hh:MM'}}</span></h3>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+
+</ion-card>
+ 
 </ion-content>
