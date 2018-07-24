@@ -4,9 +4,9 @@
     
       <!-- <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
             </ion-searchbar> -->
-      <button ion-button menuToggle>
+      <!-- <button ion-button menuToggle>
         <ion-icon name="ios-search-outline"></ion-icon>
-      </button>
+      </button> -->
     
       <ion-title>
         <img src="assets/imgs/title-logo.png" width="50px">
@@ -21,6 +21,10 @@
 
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar class="profile" color="primary">
   
     <img class="profile-image" src="assets/imgs/user.png">
@@ -51,11 +55,25 @@
     <!-- <button ion-button icon-only clear (click)="changeProfilePage('trends')">
       <ion-icon name="analytics"></ion-icon>
     </button> -->
-    Wallet 
+    My Wallet Balance
   </ion-card-header>
   <ion-card-content>
-    <canvas #doughnutCanvas></canvas>
+    <!-- <canvas #doughnutCanvas></canvas> -->
+    <h1 text-center>
+    <ion-icon name="logo-bitcoin" color='icons'></ion-icon> {{balance}}
+    </h1>
   </ion-card-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button block outline color="primary" (click)="gotoPage('SendcoinPage')">Send</button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage')" >Recieve</button>
+      </ion-col>
+    
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <ion-item-divider color="light">My Assets</ion-item-divider>
     <ion-item *ngFor="let coin of walletCoins">
@@ -63,6 +81,7 @@
         <img src="assets/imgs/{{coin.icon}}">
       </ion-avatar>
       <h2 color="primary">{{coin.name}}</h2>
+      <h3 text-right>{{coin.value}}</h3>
     </ion-item>
   </ion-list>
 </ion-card>

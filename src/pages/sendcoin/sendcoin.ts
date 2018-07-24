@@ -19,6 +19,7 @@ export class SendcoinPage {
   balancedata:any;
   walletid:any;
   balance:any;
+  allWallets:any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
@@ -44,8 +45,15 @@ export class SendcoinPage {
       this.person.userId = userId;
       this.getWallet();
     });
+    this.getAllWallets();
 
     
+  }
+  getAllWallets(){
+    this.rp.getData('wallet/getWallets/all/v1/v2').then(data=>{
+        this.allWallets = data;
+        this.allWallets = this.allWallets.response;
+    });
   }
 
   getWallet(){
@@ -63,17 +71,19 @@ export class SendcoinPage {
   sendCoin(){
     let
       dest: any = this.form.controls['dest'].value,
-      amount: any = this.form.controls['amount'].value;
-      
+      amount: any = parseInt(this.form.controls['amount'].value);
+    let payLoad: any = {
+      "walletId": this.walletid,
+      "destAddress": dest,
+      "amount": amount
+    };
+    console.log(payLoad);
     
-          if(this.balance<1){
-            this.presentAlert()
+          if(this.balance < amount){
+            this.presentAlert();
           }
           else{
-            this.rp.addData('wallet/makeTransaction/type', {
-              "walletId": this.walletid,
-              "destAddress": dest,          
-              "amount": amount}).then(data => {                
+            this.rp.addData('wallet/makeTransaction/type', payLoad).then(data => {                
                 console.log(data);
               });
           }
@@ -92,5 +102,35 @@ export class SendcoinPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+  presentPrompt() {
+    let alert = this.alertCtrl.create({
+      title: 'choose a recipient',
+  
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Next',
+          handler: data => {
+            console.log(data);
+            this.setDestination(data);
+          }
+        }
+      ]
+    });
+    this.allWallets.forEach((item, index) => {
+      alert.addInput({ type: 'radio', label: item.userId.name, value: item.addresses[0].address });
+    });
+    
 
+    alert.present();
+  }
+  setDestination(destId){
+        this.form.controls['dest'].setValue(destId);
+  }
 }

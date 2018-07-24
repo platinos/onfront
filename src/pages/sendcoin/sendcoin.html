@@ -17,7 +17,7 @@
   <ion-row class="logo-row">
     <ion-col></ion-col>
     <ion-col>
-      <img src="assets/imgs/send.jpg" />
+      <img src="assets/imgs/bitcoin.png" />
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
@@ -33,7 +33,7 @@
             <ion-item>
               <ion-input placeholder="Destination/Wallet" formControlName="dest" required clearInput></ion-input>
             </ion-item>
-
+            <button ion-button outline (click)="presentPrompt()">Choose Recipient</button>
 
           </ion-list>
         </ion-col>
@@ -44,7 +44,15 @@
           <button ion-button class="submit-btn"  round outline type="submit">Send</button>
         </ion-col>
       </ion-row>
-
+<!-- <ion-row>
+  <ion-col>
+    <ion-list *ngFor="let wallet of allWallets">
+        <ion-item>
+          {{wallet.userId.name}}
+        </ion-item>
+    </ion-list>
+  </ion-col>
+</ion-row> -->
     </form>
   </div>
 </ion-content>

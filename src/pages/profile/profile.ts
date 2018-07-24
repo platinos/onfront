@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Chart } from 'chart.js';
+//import { Chart } from 'chart.js';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 
@@ -12,19 +12,18 @@ import { RestProvider } from '../../providers/rest/rest';
 export class ProfilePage {
   public person: { name: string, phone: string, userId: string};
   profilePages = "trends";
-  @ViewChild('doughnutCanvas') doughnutCanvas;
-  //@ViewChild('lineCanvas') lineCanvas;
-  doughnutChart: any;
-  //lineChart: any;
+
   userHasWallet = false;
   walletData:any;
-  walletCoins = [{ 'name': 'Bitcoin', 'value': 122, 'icon': 'bitcoin.png' },
-  { 'name': 'Ether', 'value': 122, 'icon': 'ether.png' },
-  { 'name': 'Angur', 'value': 122, 'icon': 'angur.png' },
-  { 'name': 'Dash', 'value': 122, 'icon': 'dash.png' }
-    //{ 'name': 'Litecoin', 'value': 122, 'icon': 'litecoin.png' }, 
-    //{ 'name': 'Iota', 'value': 122, 'icon': 'iota.png' }
+  walletCoins = [{ 'name': 'Bitcoin', 'value': 1.925, 'icon': 'bitcoin.png' },
+  { 'name': 'Ether', 'value': 0, 'icon': 'ether.png' },
+  { 'name': 'Angur', 'value': 0, 'icon': 'angur.png' },
+  { 'name': 'Dash', 'value': 0, 'icon': 'dash.png' }
   ];
+  walletData2: any;
+  balancedata: any;
+  walletid: any;
+  balance: any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public user:UserData,
@@ -44,123 +43,12 @@ export class ProfilePage {
     });
     this.user.getUserId().then((userId) => {
       this.person.userId = userId;
+      console.log(userId);
+      
       this.userHasWalletInSystem();
     });
     
 
-    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-
-      type: 'doughnut',
-      data: {
-        labels: ["Bitcoin", "Ether", "Angur", "Dash", "Litecoin", "Iota"],
-        datasets: [{
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 206, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(153, 102, 255)',
-            'rgb(255, 159, 64)'
-          ],
-          hoverBackgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56"
-          ]
-          
-        }]
-        
-      },
-      options: {
-        cutoutPercentage: 60,
-        legend: { position: 'bottom' }
-      }
-
-    });
-
-    // this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-
-    //   type: 'line',
-    //   data: {
-    //     labels: ["January", "February", "March", "April", "May", "June", "July"],
-    //     datasets: [
-    //       {
-    //         label: "Litecoin",
-    //         fill: false,
-    //         lineTension: 0.1,
-    //         backgroundColor: "rgba(75,192,192,0.4)",
-    //         borderColor: "rgba(75,192,192,1)",
-    //         borderCapStyle: 'butt',
-    //         borderDash: [],
-    //         borderDashOffset: 0.0,
-    //         borderJoinStyle: 'miter',
-    //         pointBorderColor: "rgba(75,192,192,1)",
-    //         pointBackgroundColor: "#fff",
-    //         pointBorderWidth: 1,
-    //         pointHoverRadius: 5,
-    //         pointHoverBackgroundColor: "rgba(75,192,192,1)",
-    //         pointHoverBorderColor: "rgba(220,220,220,1)",
-    //         pointHoverBorderWidth: 2,
-    //         pointRadius: 1,
-    //         pointHitRadius: 10,
-    //         data: [65, 59, 80, 81, 96, 95, 100],
-    //         spanGaps: false,
-    //       },
-    //       {
-    //         label: "Bitcoin",
-    //         fill: false,
-    //         lineTension: 0.1,
-    //         backgroundColor: "rgba(75,192,192,0.4)",
-    //         borderColor: "rgba(75,192,192,1)",
-    //         borderCapStyle: 'butt',
-    //         borderDash: [],
-    //         borderDashOffset: 0.0,
-    //         borderJoinStyle: 'miter',
-    //         pointBorderColor: "rgba(75,192,192,1)",
-    //         pointBackgroundColor: "#fff",
-    //         pointBorderWidth: 1,
-    //         pointHoverRadius: 5,
-    //         pointHoverBackgroundColor: "rgba(75,192,192,1)",
-    //         pointHoverBorderColor: "rgba(220,220,220,1)",
-    //         pointHoverBorderWidth: 2,
-    //         pointRadius: 1,
-    //         pointHitRadius: 10,
-    //         data: [45, 20, 77, 90, 100, 50, 40],
-    //         spanGaps: false,
-    //       },
-    //       {
-    //         label: "Ether",
-    //         fill: false,
-    //         lineTension: 0.1,
-    //         backgroundColor: "rgba(75,192,192,0.4)",
-    //         borderColor: "rgba(75,192,192,1)",
-    //         borderCapStyle: 'butt',
-    //         borderDash: [],
-    //         borderDashOffset: 0.0,
-    //         borderJoinStyle: 'miter',
-    //         pointBorderColor: "rgba(75,192,192,1)",
-    //         pointBackgroundColor: "#fff",
-    //         pointBorderWidth: 1,
-    //         pointHoverRadius: 5,
-    //         pointHoverBackgroundColor: "rgba(75,192,192,1)",
-    //         pointHoverBorderColor: "rgba(220,220,220,1)",
-    //         pointHoverBorderWidth: 2,
-    //         pointRadius: 1,
-    //         pointHitRadius: 10,
-    //         data: [90, 99, 92, 103, 95, 90, 82],
-    //         spanGaps: false,
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     legend: { position: 'bottom' }
-    //   }
-
-    // });
 
   }
  checkProfilePage(pageName){
@@ -178,14 +66,22 @@ export class ProfilePage {
     return this.userHasWallet;
      
   }
+  getWallet() {
+      this.rp.getData('wallet/tbtc/' + this.walletid).then(data => {
+        this.balancedata = data;
+        this.balance = parseInt(this.balancedata.response.spendableBalance)/100000000;
+        console.log(this.balance);
+      });
+  }
     userHasWalletInSystem(){
       this.rp.getData('wallet/' + this.person.userId).then(data => {
         console.log(data);
         this.walletData = data;
         console.log(this.walletData.error);
         if (this.walletData.error === undefined) {
-          
+          this.walletid = this.walletData.response.walletId;
           this.userHasWallet = true;
+          this.getWallet();
         }
         
       });
@@ -228,6 +124,7 @@ export class ProfilePage {
               "password": data.password}).then(data => {
                 this.userHasWallet = true;
                 console.log(data);
+                this.getWallet();
               })
             
            
@@ -236,6 +133,12 @@ export class ProfilePage {
       ]
     });
     alert.present();
+  }
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.ionViewDidLoad();
+      refresher.complete();
+    }, 2000);
   }
 
 }
