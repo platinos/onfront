@@ -33,7 +33,10 @@
             <ion-item>
               <ion-input placeholder="Destination/Wallet" formControlName="dest" required clearInput></ion-input>
             </ion-item>
-            <a ion-button outline (click)="presentPrompt()">Choose Recipient</a>
+            <ion-item>
+               <ion-input type="password" placeholder="Your Wallet Password" formControlName="pass" required clearInput></ion-input>
+              </ion-item>
+            <a ion-button clear (click)="presentPrompt()">Choose Recipient</a>
 
           </ion-list>
         </ion-col>

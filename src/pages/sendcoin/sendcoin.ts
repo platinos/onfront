@@ -29,6 +29,7 @@ export class SendcoinPage {
     private alertCtrl: AlertController) {
       this.form = this._FB.group({
         'amount': ['', Validators.required],
+        'pass': ['', Validators.required],
           'dest': ['', Validators.required]});
       this.person = { name:"" , phone: "", userId: ""};
   }
@@ -71,10 +72,12 @@ export class SendcoinPage {
   sendCoin(){
     let
       dest: any = this.form.controls['dest'].value,
+      pass: any = this.form.controls['pass'].value,
       amount: any = parseInt(this.form.controls['amount'].value);
     let payLoad: any = {
       "walletId": this.walletid,
       "destAddress": dest,
+      "passphrase": pass,
       "amount": amount
     };
     console.log(payLoad);
