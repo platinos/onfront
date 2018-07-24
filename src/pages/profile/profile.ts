@@ -184,6 +184,7 @@ export class ProfilePage {
         this.walletData = data;
         console.log(this.walletData.error);
         if (this.walletData.error === undefined) {
+          
           this.userHasWallet = true;
         }
         

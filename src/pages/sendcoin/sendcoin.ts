@@ -6,12 +6,6 @@ import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
-/**
- * Generated class for the SendcoinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -48,43 +42,47 @@ export class SendcoinPage {
     });
     this.user.getUserId().then((userId) => {
       this.person.userId = userId;
+      this.getWallet();
     });
 
+    
+  }
+
+  getWallet(){
+    this.rp.getData('wallet/' + this.person.userId).then(data => {
+      this.walletData = data;
+      this.walletid = this.walletData.response.walletId;
+      //if(this.walletid!=undefined){
+      this.rp.getData('wallet/tbtc/' + this.walletid).then(data1 => {
+        this.balancedata = data1;
+        this.balance = this.balancedata.response.balance;
+        console.log(this.balance);
+      });
+    });
   }
   sendCoin(){
     let
       dest: any = this.form.controls['dest'].value,
       amount: any = this.form.controls['amount'].value;
       
-    this.rp.getData('wallet/' + this.person.userId).then(data => {     
-      this.walletData = data;
-      this.walletid=this.walletData.response.walletId;
-      //if(this.walletid!=undefined){
-        this.rp.getData('wallet/tbtc/' + this.walletid).then(data1 =>{
-          this.balancedata=data1;
-          this.balance=this.balancedata.response.balance;
-          console.log(this.balance)
-          // if(this.balance<1){
-          //   this.presentAlert()
-          // }
-          // else{
+    
+          if(this.balance<1){
+            this.presentAlert()
+          }
+          else{
             this.rp.addData('wallet/makeTransaction/type', {
               "walletId": this.walletid,
               "destAddress": dest,          
-              "amount": data}).then(data => {                
+              "amount": amount}).then(data => {                
                 console.log(data);
-              })
-          //}
-          });
-      //}
-     
-    });
+              });
+          }
     
   }
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Low Balance',
-      subTitle: 'Please Maintainthe balance for transfer',
+      subTitle: 'Please Maintain the balance for transfer',
       buttons: ['Dismiss']
     });
     alert.present();
