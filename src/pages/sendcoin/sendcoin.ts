@@ -88,10 +88,39 @@ export class SendcoinPage {
           else{
             this.rp.addData('wallet/makeTransaction/type', payLoad).then(data => {                
                 console.log(data);
+                let temp:any = data;
+                if(temp.error===undefined)
+                {
+                  this.successAlert(payLoad);
+                }
+                else{
+                  this.unsuccsessAlert(temp.error);
+                }
               });
           }
     
   }
+
+  unsuccsessAlert(err){
+    let alert = this.alertCtrl.create({
+      title: 'Transaction Failed',
+      subTitle: err.result.error ,
+      buttons: ['Dismiss']
+    });
+    this.form.reset();
+    alert.present();
+  }
+  
+  successAlert(payLoad){
+    let alert = this.alertCtrl.create({
+      title: 'Transaction Successful',
+      subTitle: 'Transfered '+payLoad.amount +' successfully.' ,
+      buttons: ['Dismiss']
+    });
+    this.form.reset();
+    alert.present();
+  }
+
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Low Balance',
