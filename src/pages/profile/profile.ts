@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Platform } from 'ionic-angular';
 //import { Chart } from 'chart.js';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
@@ -28,7 +28,9 @@ export class ProfilePage {
     public navParams: NavParams, 
     public user:UserData,
     private alertCtrl: AlertController,
-    private rp: RestProvider) {
+    private rp: RestProvider,
+    public actionSheetCtrl: ActionSheetController,
+    public platform: Platform) {
     this.person = { name:"" , phone: "", userId: ""};
     this.profilePages = "wallet";
   
@@ -58,9 +60,15 @@ export class ProfilePage {
     this.profilePages = pageName;
  
   }
-  gotoPage(page) {
-    
+  gotoPage(page, data:any = null) {
+    if(data===null)
     this.navCtrl.push(page);
+    else{
+      console.log(data);
+      
+      this.navCtrl.push(page, {'data': data});
+    }
+ 
   }
   hasWallet(){
     return this.userHasWallet;
@@ -141,5 +149,49 @@ export class ProfilePage {
       refresher.complete();
     }, 2000);
   }
+
+
+  paymentmethodPrompt() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose Payment Mode',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [
+         {
+          text: 'Send to Wallet',
+          icon: !this.platform.is('ios') ? 'at' : null,
+          handler: () => {
+            this.gotoPage("SendcoinPage", 'walletid');
+            //console.log('Archive clicked');
+          }
+        },
+        {
+          text: 'Scan QR',
+          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+          handler: () => {
+            //console.log('Archive clicked');
+            this.gotoPage("SendcoinPage", 'qrcode');
+          }
+        },
+        {
+          text: 'Select from contacts', 
+          //icon: 'contacts',
+          icon: !this.platform.is('ios') ? 'contacts' : null,
+          handler: () => {
+            this.gotoPage("SendcoinPage", 'contacts');
+           // console.log('Archive clicked');
+          }
+        },
+         {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            //console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
 
 }

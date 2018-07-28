@@ -8,6 +8,19 @@ page-profile {
     text-align: center;
     color: #ffffff;
 }
-
-
+action-sheets-basic-page{
+.ion-md-qr-scanner {
+    color: #ED4248;
+  }
+  .ion-md-contacts{
+    color: #508AE4;
+  }
+  .ion-md-at {
+    color: #31D55F;
+  }
+  .action-sheet-cancel ion-icon,
+  .action-sheet-destructive ion-icon {
+    color: #757575;
+  }
+}
 }

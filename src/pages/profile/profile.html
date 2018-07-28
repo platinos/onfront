@@ -66,10 +66,10 @@
   <ion-grid>
     <ion-row>
       <ion-col text-center>
-        <button ion-button block outline color="primary" (click)="gotoPage('SendcoinPage')">Send</button>
+        <button ion-button block outline color="primary" (click)="paymentmethodPrompt()">Send</button>
       </ion-col>
       <ion-col text-center>
-        <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage')" >Recieve</button>
+        <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage', walletid)" >Recieve</button>
       </ion-col>
     
     </ion-row>

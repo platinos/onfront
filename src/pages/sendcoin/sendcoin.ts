@@ -30,7 +30,7 @@ export class SendcoinPage {
       this.form = this._FB.group({
         'amount': ['', Validators.required],
         'pass': ['', Validators.required],
-          'dest': ['', Validators.required]});
+        'dest': ['', Validators.required]});
       this.person = { name:"" , phone: "", userId: ""};
   }
 
@@ -137,7 +137,7 @@ export class SendcoinPage {
   presentPrompt() {
     let alert = this.alertCtrl.create({
       title: 'choose a recipient',
-  
+    
       buttons: [
         {
           text: 'Cancel',
@@ -157,6 +157,7 @@ export class SendcoinPage {
     });
     this.allWallets.forEach((item, index) => {
       alert.addInput({ type: 'radio', label: item.userId.name, value: item.addresses[0].address });
+      
     });
     
 
