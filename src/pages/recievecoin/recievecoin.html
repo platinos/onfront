@@ -19,55 +19,48 @@
 
 
 <ion-content class="login-content" padding>
+<br>
+<br>
+<br>
   <ion-row class="logo-row">
     <ion-col></ion-col>
     <ion-col text-center>
-     <img src={{qrImage}} width="200">
+     <img src={{qrImage}} width="150px">
       <br>
-    <a>My wallet Id: {{walletid}}</a> 
+    <a [hidden]="!receiveAddress">My Wallet Address: <b>{{receiveAddress}}</b></a> 
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row [hidden]="!receiveAddress">
     <ion-col text-center>
       <button ion-button icon-start color="primary">
         <ion-icon name="share"></ion-icon> Share QR
       </button>
-      
     </ion-col>
   </ion-row>
+ 
+<ion-card>
+  <ion-card-content>
   <div class="login-box">
-    <form (ngSubmit)="login()" #registerForm="ngForm">
+    <form (ngSubmit)="requestPayment()"  [formGroup]="form">
       <ion-row>
         <ion-col>
-          <ion-list>
 
-            <ion-item>
-              <ion-input placeholder="Amount" name="amount" required clearInput></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Phone Number" name="" required clearInput></ion-input>
-            </ion-item>
-
-
-          </ion-list>
-        </ion-col>
+              <ion-input placeholder="Amount" formControlName="amount"  required clearInput></ion-input>
+           </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col text-center>
-          <button ion-button icon-only color="icons">
-            <ion-icon name="mail"></ion-icon>
-          </button>
-          <button ion-button icon-only color="icons">
-            <ion-icon name="print"></ion-icon>
-          </button>
-          <button ion-button icon-only color="icons">
-            <ion-icon name="swap"></ion-icon>
+          <button ion-button icon-start color="primary">
+            <ion-icon name="mail"></ion-icon> Request Payment
           </button>
         </ion-col>
       </ion-row>
 
     </form>
   </div>
+  </ion-card-content>
+  
+  </ion-card>
 </ion-content>

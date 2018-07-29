@@ -133,7 +133,7 @@ export class ProfilePage {
               "password": data.password}).then(data => {
                 this.userHasWallet = true;
                 console.log(data);
-                this.getWallet();
+                //this.getWallet();
               })
             
            

@@ -1,0 +1,31 @@
+<!--
+  Generated template for the SenderslistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Choose Contact</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon item-right name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-list>
+  <ion-item (click)="gotoPage('ChatscreenPage', {'friendId': user._id})" text-wrap no-lines *ngFor="let user of userResponse">
+    <ion-avatar item-left>
+      <img src="assets/imgs/user.png">
+    </ion-avatar>
+    <h2 color="primary">{{user.name}}</h2>
+    <p>last seen 1 hour ago</p>
+  </ion-item>
+</ion-list>
+</ion-content>

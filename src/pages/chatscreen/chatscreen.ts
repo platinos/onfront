@@ -3,6 +3,7 @@ import { IonicPage, NavController, Content, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -22,13 +23,18 @@ export class ChatscreenPage {
   recieverName;
   temp: any;
   ready = false;
+  amount: any;
 
   @ViewChild(Content) contentArea: Content;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public user: UserData,
-    public restProvider: RestProvider) {
+    public restProvider: RestProvider,
+    private sanitizer: DomSanitizer) {
     this.reciever = this.navParams.get('friendId');
+    this.newmessage = this.navParams.get('message');
+    this.amount = this.navParams.get('amount');
+
   }
 
   ionViewWillEnter() {
@@ -69,6 +75,8 @@ export class ChatscreenPage {
             
             this.ref1.on('value', data => {
               let tmp = [];
+              //console.log(data.val());
+              
               data.forEach(data => {
                 tmp.push({
                   key: data.key,
@@ -77,7 +85,9 @@ export class ChatscreenPage {
                   sender: data.val().sender,
                   from: data.val().from,
                   to: data.val().to,
-                  created: data.val().created
+                  created: data.val().created,
+                  type: data.val().type,
+                  amount: data.val().amount
                 })
               });
               this.messagesList = tmp;
@@ -93,12 +103,22 @@ export class ChatscreenPage {
   }
   send() {
     // add new data to firebase
+    if (this.newmessage == "Hey! Send "+this.amount+" bitcoins to my wallet."){
     this.ref1.push(
-      { sender: this.senderName, text: this.newmessage, from: this.sender, created: new Date().toDateString() }
+      { sender: this.senderName, text: this.newmessage, type: "transfer", amount: this.amount, from: this.sender, created: new Date().toDateString() }
       );
     this.ref2.push(
-      { sender: this.senderName, text: this.newmessage, from: this.sender, created: new Date().toDateString() }
+      { sender: this.senderName, text: this.newmessage, type: "transfer", amount: this.amount, from: this.sender, created: new Date().toDateString() }
     );
+  }
+  else{
+      this.ref1.push(
+        { sender: this.senderName, text: this.newmessage,  from: this.sender, created: new Date().toDateString() }
+      );
+      this.ref2.push(
+        { sender: this.senderName, text: this.newmessage, from: this.sender, created: new Date().toDateString() }
+      );
+  }
     this.newmessage = "";
     //this.contentArea.scrollToBottom();
   }
@@ -109,6 +129,33 @@ export class ChatscreenPage {
   }
   attach(){
 
+  }
+  payAmount(amount){
+    
+    this.restProvider.getData('wallet/' + this.reciever).then(data => {
+      console.log(data);
+      let temp:any = data;
+      if (temp.error === undefined) {
+        let tempWalletId = temp.response.walletId;
+        //console.log("Found wallet" + tempWalletId);
+        
+        this.restProvider.getData('wallet/tbtc/' + tempWalletId).then(data => {
+          let tempWalletdata: any = data;
+         
+          let addressee = tempWalletdata.response.receiveAddress.address;
+          //console.log("Found address " + addressee);
+          console.log("Sending amount: " + amount + " to " + addressee);
+          this.navCtrl.push('SendcoinPage', { 'amount': amount, 'destAddress':addressee });
+
+        });
+      }
+
+    });
+
+    
+    
+    
+    
   }
   
 

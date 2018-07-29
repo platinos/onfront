@@ -32,6 +32,14 @@ export class SendcoinPage {
         'pass': ['', Validators.required],
         'dest': ['', Validators.required]});
       this.person = { name:"" , phone: "", userId: ""};
+       let amount = this.navParams.get('amount');
+       let recipient = this.navParams.get('destAddress');
+        console.log(amount+recipient);
+        
+        this.form.controls['amount'].setValue(amount);
+        this.form.controls['dest'].setValue(recipient);
+      
+
   }
 
 
@@ -70,10 +78,16 @@ export class SendcoinPage {
     });
   }
   sendCoin(){
+    let sendingAlert = this.alertCtrl.create({
+      title: 'Initiating Transfer',
+      subTitle: '<img src="assets/imgs/loading.gif"><br>Please wait.'
+    });
+  
+    sendingAlert.present();
     let
-      dest: any = this.form.controls['dest'].value,
-      pass: any = this.form.controls['pass'].value,
-      amount: any = parseInt(this.form.controls['amount'].value);
+      dest:any = this.form.controls['dest'].value,
+      pass:any = this.form.controls['pass'].value,
+      amount:any = parseInt(this.form.controls['amount'].value);
     let payLoad: any = {
       "walletId": this.walletid,
       "destAddress": dest,
@@ -83,12 +97,14 @@ export class SendcoinPage {
     console.log(payLoad);
     
           if(this.balance < amount){
+            sendingAlert.dismiss();
             this.presentAlert();
           }
           else{
             this.rp.addData('wallet/makeTransaction/type', payLoad).then(data => {                
                 console.log(data);
                 let temp:any = data;
+              sendingAlert.dismiss();
                 if(temp.error===undefined)
                 {
                   this.successAlert(payLoad);
@@ -119,6 +135,9 @@ export class SendcoinPage {
     });
     this.form.reset();
     alert.present();
+  }
+  sendingAlert() {
+    
   }
 
   presentAlert() {

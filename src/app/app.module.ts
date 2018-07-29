@@ -19,7 +19,7 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     MyApp,
     HomePage,
     CreatepostPage,
-    HeaderMenuComponent
+    HeaderMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +40,7 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
     AuthenticationProvider,
-    UserData
+    UserData,
   ]
 })
 export class AppModule {}
