@@ -5,8 +5,6 @@ import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-sendcoin',
@@ -32,9 +30,10 @@ export class SendcoinPage {
         'pass': ['', Validators.required],
         'dest': ['', Validators.required]});
       this.person = { name:"" , phone: "", userId: ""};
-       let amount = this.navParams.get('amount');
-       let recipient = this.navParams.get('destAddress');
-        console.log(amount+recipient);
+      let paramData = this.navParams.get('data');
+    let amount = paramData.amount;
+    let recipient = paramData.destAddress;
+        console.log("got values: "+amount+recipient);
         
         this.form.controls['amount'].setValue(amount);
         this.form.controls['dest'].setValue(recipient);
@@ -87,7 +86,7 @@ export class SendcoinPage {
     let
       dest:any = this.form.controls['dest'].value,
       pass:any = this.form.controls['pass'].value,
-      amount:any = parseInt(this.form.controls['amount'].value);
+      amount:any = parseFloat(this.form.controls['amount'].value)*100000000;
     let payLoad: any = {
       "walletId": this.walletid,
       "destAddress": dest,
@@ -114,7 +113,6 @@ export class SendcoinPage {
                 }
               });
           }
-    
   }
 
   unsuccsessAlert(err){
@@ -130,7 +128,7 @@ export class SendcoinPage {
   successAlert(payLoad){
     let alert = this.alertCtrl.create({
       title: 'Transaction Successful',
-      subTitle: 'Transfered '+payLoad.amount +' successfully.' ,
+      subTitle: 'Transfered '+ (parseFloat(payLoad.amount)/100000000) +' successfully.' ,
       buttons: ['Dismiss']
     });
     this.form.reset();

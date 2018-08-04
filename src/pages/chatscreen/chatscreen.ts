@@ -145,7 +145,7 @@ export class ChatscreenPage {
           let addressee = tempWalletdata.response.receiveAddress.address;
           //console.log("Found address " + addressee);
           console.log("Sending amount: " + amount + " to " + addressee);
-          this.navCtrl.push('SendcoinPage', { 'amount': amount, 'destAddress':addressee });
+          this.navCtrl.push('SendcoinPage', {'data': { 'amount': amount, 'destAddress':addressee }});
 
         });
       }

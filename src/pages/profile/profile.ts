@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Platform, ModalController } from 'ionic-angular';
 //import { Chart } from 'chart.js';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
@@ -30,7 +30,8 @@ export class ProfilePage {
     private alertCtrl: AlertController,
     private rp: RestProvider,
     public actionSheetCtrl: ActionSheetController,
-    public platform: Platform) {
+    public platform: Platform,
+    public modalCtrl: ModalController) {
     this.person = { name:"" , phone: "", userId: ""};
     this.profilePages = "wallet";
   
@@ -79,6 +80,7 @@ export class ProfilePage {
         this.balancedata = data;
         this.balance = parseInt(this.balancedata.response.spendableBalance)/100000000;
         console.log(this.balance);
+        console.log(this.balancedata);
         this.walletCoins[0].value = this.balance;
       });
   }
@@ -133,7 +135,7 @@ export class ProfilePage {
               "password": data.password}).then(data => {
                 this.userHasWallet = true;
                 console.log(data);
-                //this.getWallet();
+                this.getWallet();
               })
             
            
@@ -164,21 +166,43 @@ export class ProfilePage {
             //console.log('Archive clicked');
           }
         },
-        {
-          text: 'Scan QR',
-          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
-          handler: () => {
-            //console.log('Archive clicked');
-            this.gotoPage("SendcoinPage", 'qrcode');
-          }
-        },
+        // {
+        //   text: 'Scan QR',
+        //   icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+        //   handler: () => {
+        //     //console.log('Archive clicked');
+        //     this.gotoPage("SendcoinPage", 'qrcode');
+        //   }
+        // },
         {
           text: 'Select from contacts', 
           //icon: 'contacts',
           icon: !this.platform.is('ios') ? 'contacts' : null,
           handler: () => {
-            this.gotoPage("SendcoinPage", 'contacts');
-           // console.log('Archive clicked');
+            let senders = this.modalCtrl.create('SenderslistPage');
+            senders.present();
+            senders.onDidDismiss(data => {
+              if (data !== undefined) {
+
+                this.rp.getData('wallet/' + data.friendId).then(data => {
+                  console.log(data);
+                  let temp: any = data;
+                  if (temp.error === undefined) {
+                    let tempWalletId = temp.response.walletId;
+                    
+                    this.rp.getData('wallet/tbtc/' + tempWalletId).then(data => {
+                      let tempWalletdata: any = data;
+
+                      let addressee = tempWalletdata.response.receiveAddress.address;
+                      console.log("Sending to: "+ addressee);
+                      
+                      this.gotoPage("SendcoinPage", { 'destAddress': addressee });
+                    });
+                    
+                  }});  
+              }
+            });
+            
           }
         },
          {

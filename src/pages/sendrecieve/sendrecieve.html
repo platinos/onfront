@@ -8,11 +8,11 @@
 
 
 <ion-content>
-<ion-card>
+<!-- <ion-card>
   <ion-card-content>
     <canvas #doughnutCanvas></canvas>
   </ion-card-content>
-</ion-card>
+</ion-card> -->
 <ion-card>
   <ion-card-content text-center>
     <button ion-button round outline (click)="presentCreateModal('SendcoinPage')">SEND</button>
@@ -30,10 +30,10 @@
   </ion-card-header>
   <ion-card-content>    
     <ion-list>    
-      <ion-item *ngFor="let data of transferData">
-        <ion-icon *ngIf="data.value > 0" item-left color="secondary" name="arrow-dropup-circle"></ion-icon>           
-        <ion-icon *ngIf="data.value < 0" item-left color="danger" name="arrow-dropdown-circle"></ion-icon>               
-        <h3 color="primary"><b><ion-icon name="logo-bitcoin"></ion-icon>{{(data.value)/100000000}}</b> on <span text-right>{{data.date | date:'dd.MM hh:mm'}}</span></h3>
+      <ion-item *ngFor="let data of transferData" >
+        <ion-icon *ngIf="data.value > 0" item-left [ngClass]="{secondary: data.state === 'confirmed', warning: data.state === 'unconfirmed'}" name="arrow-dropup-circle"></ion-icon>           
+        <ion-icon *ngIf="data.value < 0" item-left [ngClass]="{secondary: data.state === 'confirmed', warning: data.state === 'unconfirmed'}" name="arrow-dropdown-circle"></ion-icon>               
+        <h3><b><ion-icon name="logo-bitcoin"></ion-icon>{{(data.value)/100000000}}</b> on <span text-right>{{data.date | date:'dd.MM hh:mm'}}</span></h3>
       </ion-item>
     </ion-list>
   </ion-card-content>
