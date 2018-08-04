@@ -1,6 +1,6 @@
 
 
-## [Installation](https://platinos.github.io/SHEQ-Ionic/installation) [Docs](https://platinos.github.io/SHEQ-Ionic/docs)
+## Jump to: [Installation](https://platinos.github.io/SHEQ-Ionic/installation)  |  [Docs](https://platinos.github.io/SHEQ-Ionic/docs)
 
 ## Design Guidelines
 
