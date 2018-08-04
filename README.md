@@ -1,8 +1,6 @@
 
-# SHEQ App
 
- THE WORLD’S FIRST CLOSED LOOP CRYPTO COMMUNITY CO-INVESTING SUPER APP
-
+## [Installation](https://platinos.github.io/SHEQ-Ionic/installation) [Docs](https://platinos.github.io/SHEQ-Ionic/docs)
 
 ## Design Guidelines
 
