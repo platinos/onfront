@@ -1,8 +1,8 @@
 
 
-## Jump to: [Installation](https://platinos.github.io/SHEQ-Ionic/installation)  |  [Docs](https://platinos.github.io/SHEQ-Ionic/docs)
+### Jump to: [Installation](https://platinos.github.io/SHEQ-Ionic/installation)  |  [Docs](https://platinos.github.io/SHEQ-Ionic/docs)
 
-## Design Guidelines
+# Design Guidelines
 
 > “Design is not just what it looks like and feels like. Design is how it works.” - Steve Jobs
 
