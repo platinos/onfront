@@ -21,6 +21,6 @@ Sheq app is a hybrid mobile application based on Ionic 3. Main target platforms 
 8. Consider Accessiblity
 9. Avoid Jargons
 
-## Minimize Cognitive Load
+## Minimize Cognitive Load <a id="Minimize-Cognitive-Load"></a>
 
 Ionic apps are built with Cordova. Cordova is a means of packaging html/css/js into apps that can run on mobile devices and provides a plugin architecture for accessing native functionality beyond the reach of JS run from a web browser. As such, Ionic apps have the Cordova file structure.
