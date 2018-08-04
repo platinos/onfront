@@ -22,7 +22,7 @@ Sheq is a hybrid mobile application based on Ionic 3. Main target platforms for 
 8. [Avoid Jargons](#jargons)
 9. [Meaningful Error Messages](#errors)
 
-### Minimize Cognitive Load <a id="Minimize-Cognitive-Load"></a>
+###  <a id="Minimize-Cognitive-Load"></a>Minimize Cognitive Load
 Cognitive load refers here to the amount of brain power required to use the app. The human brain has a limited amount of processing power, and when an app provides too much information at once, it might overwhelm the user and make them abandon the task.
 
 ### Decluttering <a id="decluttering"></a>
