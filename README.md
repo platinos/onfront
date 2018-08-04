@@ -48,7 +48,7 @@ Typing on a small mobile screen isn’t the most comfortable experience. In fact
 -   Provide input masks. Field masking is a technique that helps users format inputted text. A mask appears once a user focuses on a field, and it formats the text automatically as the field is being filled out, helping users to focus on the required data and to more easily notice errors.
 - Use smart features such as autocomplete.
 - Dynamically validate field values. It’s frustrating when, after submitting data, you have to go back and correct mistakes. Whenever possible, check field values immediately after entry so that users can correct them right away.
-- -   Customize the keyboard for the type of query. Display a numeric keyboard when asking for phone number, and include the @ button when asking for an email address. Ensure that this feature is implemented consistently throughout the app, rather than only for certain forms.
+- Customize the keyboard for the type of query. Display a numeric keyboard when asking for phone number, and include the @ button when asking for an email address. Ensure that this feature is implemented consistently throughout the app, rather than only for certain forms.
 
 ### Use Visual Weight for Important Elements <a id="visual-weight"></a>
 The most important element on the screen should have the most visual weight. Adding more weight to an element is possible with font weight, size and color.
