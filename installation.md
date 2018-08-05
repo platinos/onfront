@@ -8,7 +8,7 @@
 
 -   [Download the installer](https://nodejs.org/)  for Node.js 6 or greater.
 -   Install the ionic CLI globally:  `npm install -g ionic`
--   Install the ionic CLI globally:  `npm install -g cordova`
+-   Install the cordova globally:  `npm install -g cordova`
 -   Clone this repository:  `git clone https://github.com/platinos/SHEQ-Ionic.git`.
 -   Run  `npm install`  from the project root.
 -   Run  `ionic serve --lab`  in a terminal from the project root.
