@@ -68,7 +68,7 @@ export class FriendsPage {
         },
       ],
       buttons: [
-        { text: 'Cancel' },
+        'Cancel',
         {
           text: 'Invite',
           handler: ({ userName }) => this.addFriend(userName),
