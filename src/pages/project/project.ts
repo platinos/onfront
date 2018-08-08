@@ -1,28 +1,23 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-project',
   templateUrl: 'project.html',
 })
 export class ProjectPage {
-  allimages = [{
-    'src': 'assets/imgs/item1.png'
-  }, {
-      'src': 'assets/imgs/item1.png'
-  }, {
-      'src': 'assets/imgs/item1.png'
-  }, {
-      'src': 'assets/imgs/item1.png'
-  }];
+  allimages = [
+    { src: 'assets/imgs/item1.png' },
+    { src: 'assets/imgs/item1.png' },
+    { src: 'assets/imgs/item1.png' },
+    { src: 'assets/imgs/item1.png' },
+  ];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProjectPage');
   }
-
 }
