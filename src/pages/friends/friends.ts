@@ -2,19 +2,21 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 
+type User = {
+  name: string,
+};
+
 @IonicPage()
 @Component({
   selector: 'page-friends',
   templateUrl: 'friends.html',
 })
 export class FriendsPage {
-  temparr = [];
-  filteredusers = [];
-  showOptionsToggle = false;
   chatpages = '' ;
-  userResponse: [string];
-  users: any;
-  // usersResponse: any;
+  usersList: User[];
+  usersListFiltered: User[];
+  isSearchToggled = false;
+  searchString: '';
 
   constructor(
     public navCtrl: NavController,
@@ -27,18 +29,19 @@ export class FriendsPage {
     this.getUsers();
   }
 
-  searchUser(searchbar) {
-    this.filteredusers = this.temparr;
-    const q = searchbar.target.value;
-    if (q.trim() === '') return;
+  filterData() {
+    this.usersListFiltered = [...this.usersList];
+    console.log(this.usersListFiltered);
 
-    this.filteredusers = this.filteredusers.filter(
-      v => v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1,
-    );
+    if (this.searchString) {
+      this.usersListFiltered = this.usersListFiltered.filter(user =>
+        user.name.toLowerCase().includes(this.searchString.toLowerCase()),
+      );
+    }
   }
 
-  showOptions(){
-    this.showOptionsToggle = !this.showOptionsToggle;
+  toggleSearch() {
+    this.isSearchToggled = !this.isSearchToggled;
   }
 
   gotoPage(page, data) {
@@ -51,10 +54,9 @@ export class FriendsPage {
 
   getUsers() {
     this.restProvider.getData('users')
-      .then((data) => {
-        this.users = data;
-        this.userResponse = this.users.response;
-        console.log(data);
+      .then(({ response }) => {
+        this.usersList = response;
+        this.filterData();
       });
   }
 
@@ -85,7 +87,7 @@ export class FriendsPage {
   doRefresh(refresher) {
     setTimeout(
       () => {
-        this.ionViewDidLoad();
+        this.getUsers();
         refresher.complete();
       },
       2000);

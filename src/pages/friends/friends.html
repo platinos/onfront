@@ -1,22 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <!--
-      <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
-      </ion-searchbar>
-    -->
-    <!--
-      <button ion-button menuToggle>
+  <ion-toolbar *ngIf="!isSearchToggled">
+    <ion-title>
+      <img src="assets/imgs/title-logo.png" width="50px" />
+    </ion-title>
+
+    <ion-buttons start>
+      <button ion-button (click)="toggleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
       </button>
-    -->
-    <ion-title>
-      <img src="assets/imgs/title-logo.png" width="50px">
-    </ion-title>
+    </ion-buttons>
+
     <ion-buttons end>
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="isSearchToggled">
+    <ion-searchbar
+      [(ngModel)]="searchString"
+      [showCancelButton]="true"
+      (ionInput)="filterData()"
+      (ionCancel)="toggleSearch()"
+    >
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -39,9 +48,9 @@
 
     <!-- chats -->
     <ion-list *ngSwitchCase="'chats'">
-      <ion-item *ngFor="let user of userResponse" (click)="gotoPage('ChatscreenPage', {friendId: user._id})" text-wrap no-lines>
+      <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('ChatscreenPage', {friendId: user._id})" text-wrap no-lines>
         <ion-avatar item-left>
-          <img src="assets/imgs/user.png">
+          <img src="assets/imgs/user.png" />
         </ion-avatar>
         <h2 color="primary">{{user.name}}</h2>
         <p>last seen 1 hour ago</p>
@@ -55,9 +64,9 @@
         Invite friends
       </button>
       <ion-list>
-        <ion-item *ngFor="let user of userResponse" (click)="gotoPage('UserprofilePage', {userId: user._id})" >
+        <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('UserprofilePage', {userId: user._id})" >
           <ion-avatar item-left>
-            <img src="assets/imgs/Anu-Bhardwaj.png">
+            <img src="assets/imgs/Anu-Bhardwaj.png" />
           </ion-avatar>
           <h2 color="primary">{{user.name}}</h2>
           <p>last seen 1 hour ago</p>

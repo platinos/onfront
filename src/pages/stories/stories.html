@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar *ngIf="!isSearchToggled">
-
     <ion-buttons start>
       <button ion-button (click)="toggleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
@@ -16,11 +15,9 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-toolbar>
 
   <ion-toolbar *ngIf="isSearchToggled">
-
     <ion-searchbar
       [(ngModel)]="searchString"
       [showCancelButton]="true"
@@ -28,7 +25,6 @@
       (ionCancel)="toggleSearch()"
     >
     </ion-searchbar>
-
     <!--
       <ion-buttons end>
         <button ion-button (click)="showFilters()">
@@ -36,7 +32,6 @@
         </button>
       </ion-buttons>
     -->
-
   </ion-toolbar>
 </ion-header>
 

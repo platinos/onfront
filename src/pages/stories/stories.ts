@@ -11,15 +11,18 @@ import {
 import { CreatepostPage } from '../createpost/createpost';
 import { RestProvider } from '../../providers/rest/rest';
 
+type Story = {
+  content: string,
+};
+
 @IonicPage()
 @Component({
   selector: 'page-stories',
   templateUrl: 'stories.html',
 })
 export class StoriesPage {
-
-  contentList: any;
-  contentListFiltered: any;
+  contentList: Story[];
+  contentListFiltered: Story[];
   newComment: string = '';
   userID: any;
   isSearchToggled = false;
@@ -50,7 +53,7 @@ export class StoriesPage {
 
     if (this.searchString) {
       this.contentListFiltered = this.contentListFiltered.filter(story =>
-        story.content && story.content.indexOf(this.searchString) !== -1,
+        story.content && story.content.includes(this.searchString),
       );
     }
   }
