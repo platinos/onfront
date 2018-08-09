@@ -1,22 +1,57 @@
-<!--
-  Generated template for the MarketPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Market Trends</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <ion-card>
-    <ion-card-content>
-      <canvas #lineCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
+  <div class="market-page">
+    <ion-card class="market-page__main">
+      <div class="market-page__canvas-wraper">
+        <!-- graph-->
+        <canvas #lineCanvas height="300"></canvas>
+
+        <!--select currency-->
+        <div class="market-page__select-wraper">
+          <ion-img width="25" height="25" src="{{currencies[currency].image}}" class="market-page__main-currency-icon"></ion-img>
+          <ion-select [(ngModel)]="currency" (ionChange)="onSelectCurrency()" interface="popover">
+            <ion-option *ngFor="let currency of currencies; index as i" value={{i}}>
+              {{currency.name}}
+            </ion-option>
+          </ion-select>
+        </div>
+
+        <!--select period-->
+        <ion-row justify-content-around class="flat-radio">
+          <label *ngFor="let periodI of periods; index as i" class="flat-radio__label" [class.flat-radio__label_active]="period === i">
+            {{periodI.name}}
+            <input type="checkbox" value="{{i}}" (click)="setPeriod(i)" class="flat-radio__input"/>
+          </label>
+        </ion-row>
+      </div>
+
+      <!--currency summary-->
+      <ion-grid *ngIf="currencySummary" class="grid-vertical-lines">
+        <ion-row>
+          <ion-col col-3 text-center *ngFor="let param of ['open', 'high', 'low', 'close']">
+            <div text-left class="inline-block">
+              <div class="text-muted text-capitalize">{{param}}</div>
+              {{currencySummary[param]}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+    <!--currencies summary-->
+    <div class="market-page__currencies">
+        <div *ngFor="let currency of wallet; index as i" class="inline-block">
+          <ion-card *ngIf="currency.sum" class="market-page__currencies-item">
+            <div class="text-muted">{{currencies[i].symbol}}</div>
+            <div>{{currency.sum}}</div>
+            <div>{{(currency.sum * currency.price).toFixed(6)}}</div>
+          </ion-card>
+        </div>
+    </div>
+  </div>
 </ion-content>

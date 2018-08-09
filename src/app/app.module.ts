@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CreatepostPage } from '../pages/createpost/createpost';
 import { RestProvider } from '../providers/rest/rest';
+import { CurrenciesProvider } from '../providers/currencies/currencies';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserData } from '../providers/user-data';
@@ -25,22 +26,23 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    CreatepostPage
+    CreatepostPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HttpClientModule,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     RestProvider,
+    CurrenciesProvider,
     AuthenticationProvider,
     UserData,
-  ]
+  ],
 })
 export class AppModule {}
