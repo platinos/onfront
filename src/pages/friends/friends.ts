@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 
+type User = {
+  name: string,
+};
 
 @IonicPage()
 @Component({
@@ -9,64 +12,84 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'friends.html',
 })
 export class FriendsPage {
-  temparr = [];
-  filteredusers = [];
-  showOptionsToggle = false;
   chatpages = '' ;
-  userResponse: [string];
-  users: any;
-  usersResponse: any;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
-    
-  }
+  usersList: User[];
+  usersListFiltered: User[];
+  isSearchToggled = false;
+  searchString: '';
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public restProvider: RestProvider,
+    public alertCtrl: AlertController) {}
 
   ionViewDidLoad() {
     this.chatpages = 'chats';
     this.getUsers();
-    
   }
-  searchuser(searchbar) {
-    this.filteredusers = this.temparr;
-    var q = searchbar.target.value;
-    if (q.trim() == '') {
-      return;
+
+  filterData() {
+    this.usersListFiltered = [...this.usersList];
+    console.log(this.usersListFiltered);
+
+    if (this.searchString) {
+      this.usersListFiltered = this.usersListFiltered.filter(user =>
+        user.name.toLowerCase().includes(this.searchString.toLowerCase()),
+      );
     }
-
-    this.filteredusers = this.filteredusers.filter((v) => {
-      if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-        return true;
-      }
-      return false;
-    })
-  }
-  showOptions(){
-    this.showOptionsToggle = !this.showOptionsToggle;
   }
 
-  gotoPage(page, data){
+  toggleSearch() {
+    this.isSearchToggled = !this.isSearchToggled;
+  }
+
+  gotoPage(page, data) {
     this.navCtrl.push(page, data);
   }
-  swipeEvent(event){
-    if(event.direction === 2)
-      this.chatpages = 'friends';
-    else this.chatpages = 'chats';
+
+  swipeEvent(event) {
+    this.chatpages = event.direction === 2 ? 'friends' : 'chats';
   }
+
   getUsers() {
     this.restProvider.getData('users')
-      .then(data => {
-        this.users = data;
-        this.userResponse = this.users.response;
-        console.log(data);
-        
+      .then(({ response }) => {
+        this.usersList = response;
+        this.filterData();
       });
+  }
 
+  showAddFriendPrompt() {
+    const prompt = this.alertCtrl.create({
+      title: 'Invite friend',
+      inputs: [
+        {
+          name: 'userName',
+          placeholder: 'Nickname or email',
+        },
+      ],
+      buttons: [
+        'Cancel',
+        {
+          text: 'Invite',
+          handler: ({ userName }) => this.addFriend(userName),
+        },
+      ],
+    });
+    prompt.present();
   }
+
+  addFriend(userName: String) {
+    this.restProvider.addData('users', { userName });
+  }
+
   doRefresh(refresher) {
-    setTimeout(() => {
-      this.ionViewDidLoad();
-      refresher.complete();
-    }, 2000);
+    setTimeout(
+      () => {
+        this.getUsers();
+        refresher.complete();
+      },
+      2000);
   }
-  
 }

@@ -1,89 +1,109 @@
 <ion-header>
-
-  <ion-toolbar>
-
-    <!-- <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
-        </ion-searchbar> -->
-    <!-- <button ion-button menuToggle>
-      <ion-icon name="ios-search-outline"></ion-icon>
-    </button> -->
-
+  <ion-toolbar *ngIf="!isSearchToggled">
     <ion-title>
-      <img src="assets/imgs/title-logo.png" width="50px">
+      <img src="assets/imgs/title-logo.png" width="50px" />
     </ion-title>
+
+    <ion-buttons start>
+      <button ion-button (click)="toggleSearch()">
+        <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+
     <ion-buttons end>
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="isSearchToggled">
+    <ion-searchbar
+      [(ngModel)]="searchString"
+      [showCancelButton]="true"
+      (ionInput)="filterData()"
+      (ionCancel)="toggleSearch()"
+    >
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content (swipe)="swipeEvent($event)">
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-<ion-toolbar>
-      <ion-segment [(ngModel)]="chatpages">
-        <ion-segment-button value="chats">
-          Chats
-        </ion-segment-button>
-        <ion-segment-button value="friends">
-          Friends
-        </ion-segment-button>
-      </ion-segment>
-</ion-toolbar>
-<div [ngSwitch]="chatpages">
-<!-- chats -->
-<ion-list *ngSwitchCase="'chats'">
-  <ion-item (click)="gotoPage('ChatscreenPage', {'friendId': user._id})" text-wrap no-lines *ngFor="let user of userResponse">
-      <ion-avatar item-left>
-        <img src="assets/imgs/user.png">
-      </ion-avatar>
-      <h2 color="primary">{{user.name}}</h2>
-      <p>last seen 1 hour ago</p>
-    </ion-item>
-</ion-list>
-<!-- Friend list -->
-    <ion-list *ngSwitchCase="'friends'">
-      <ion-item  *ngFor="let user of userResponse" (click)="gotoPage('UserprofilePage', {'userId': user._id})" >
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="chatpages">
+      <ion-segment-button value="chats">
+        Chats
+      </ion-segment-button>
+      <ion-segment-button value="friends">
+        Friends
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div [ngSwitch]="chatpages">
+
+    <!-- chats -->
+    <ion-list *ngSwitchCase="'chats'">
+      <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('ChatscreenPage', {friendId: user._id})" text-wrap no-lines>
+        <ion-avatar item-left>
+          <img src="assets/imgs/user.png" />
+        </ion-avatar>
+        <h2 color="primary">{{user.name}}</h2>
+        <p>last seen 1 hour ago</p>
+      </ion-item>
+    </ion-list>
+
+    <!-- Friend list -->
+    <div *ngSwitchCase="'friends'">
+      <button ion-button full clear icon-start (click)="showAddFriendPrompt()">
+        <ion-icon name="person-add"></ion-icon>
+        Invite friends
+      </button>
+      <ion-list>
+        <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('UserprofilePage', {userId: user._id})" >
           <ion-avatar item-left>
-            <img src="assets/imgs/Anu-Bhardwaj.png">
+            <img src="assets/imgs/Anu-Bhardwaj.png" />
           </ion-avatar>
           <h2 color="primary">{{user.name}}</h2>
           <p>last seen 1 hour ago</p>
         </ion-item>
-    </ion-list>
-</div>
-<!-- Action Buttons -->
-<ion-fab right bottom>
-  <button ion-fab color="primary">
-    <ion-icon name="flash"></ion-icon>
-  </button>
-  <ion-fab-list side="top">
-    <button ion-fab (click)="gotoPage('ChatscreenPage')">
-      <ion-icon name="lock" color='icons'></ion-icon>
-      <ion-label>Secret Chats</ion-label>
+      </ion-list>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <ion-fab right bottom>
+    <button ion-fab color="primary">
+      <ion-icon name="flash"></ion-icon>
     </button>
-    <button ion-fab>
-      <ion-icon name="people" color='icons'></ion-icon>
-      <ion-label>Groups</ion-label>
-    </button>
-    <button ion-fab (click)="gotoPage('TransferPage')">
-      <ion-icon name="swap" color='icons'></ion-icon>
-      <ion-label>Transfer</ion-label>
-    </button>
-    <button ion-fab>
-      <ion-icon name="search" color='icons'></ion-icon>
-      <ion-label>Search</ion-label>
-    </button>
-    <!-- <button ion-fab (click)="gotoPage('ChatscreenPage')">
-      <ion-icon name="flash" color='icons'></ion-icon>
-      <ion-label>Sheq Smartbot</ion-label>
-    </button> -->
-  </ion-fab-list>
-</ion-fab>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="gotoPage('ChatscreenPage')">
+        <ion-icon name="lock" color='icons'></ion-icon>
+        <ion-label>Secret Chats</ion-label>
+      </button>
+      <button ion-fab>
+        <ion-icon name="people" color='icons'></ion-icon>
+        <ion-label>Groups</ion-label>
+      </button>
+      <button ion-fab (click)="gotoPage('TransferPage')">
+        <ion-icon name="swap" color='icons'></ion-icon>
+        <ion-label>Transfer</ion-label>
+      </button>
+      <button ion-fab>
+        <ion-icon name="search" color='icons'></ion-icon>
+        <ion-label>Search</ion-label>
+      </button>
+      <!--
+        <button ion-fab (click)="gotoPage('ChatscreenPage')">
+          <ion-icon name="flash" color='icons'></ion-icon>
+          <ion-label>Sheq Smartbot</ion-label>
+        </button>
+      -->
+    </ion-fab-list>
+  </ion-fab>
 
 </ion-content>

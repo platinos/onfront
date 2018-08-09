@@ -1,77 +1,90 @@
-
 <ion-header>
-
-    <ion-toolbar>
-    
-      <!-- <button ion-button menuToggle>
+  <ion-toolbar *ngIf="!isSearchToggled">
+    <ion-buttons start>
+      <button ion-button (click)="toggleSearch()">
         <ion-icon name="ios-search-outline"></ion-icon>
-      </button> -->
-      
-      <ion-title>
-        <img src="assets/imgs/title-logo.png" width="50px">
-      </ion-title>
+      </button>
+    </ion-buttons>
+
+    <ion-title>
+      <img src="assets/imgs/title-logo.png" width="50px">
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="isSearchToggled">
+    <ion-searchbar
+      [(ngModel)]="searchString"
+      [showCancelButton]="true"
+      (ionInput)="filterData()"
+      (ionCancel)="toggleSearch()"
+    >
+    </ion-searchbar>
+    <!--
       <ion-buttons end>
-        <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
+        <button ion-button (click)="showFilters()">
+          <ion-icon name="options"></ion-icon>
         </button>
       </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+    -->
+  </ion-toolbar>
+</ion-header>
 
 
 <ion-content class="cards-bg social-cards">
-<ion-refresher (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content>
-  </ion-refresher-content>
-</ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
 
-<ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)">
+  <ion-card *ngFor="let content of contentListFiltered" (click)="presentPostModal(content.Id)">
 
-  <ion-item>
-    <ion-avatar item-start>
-      <img src="assets/imgs/user.png">
-    </ion-avatar>
-    <h2>{{content.PostByUser.name}}</h2>
-    <p>Yesterday</p>
-  </ion-item>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/imgs/user.png" />
+      </ion-avatar>
+      <h2>{{content.PostByUser.name}}</h2>
+      <p>Yesterday</p>
+    </ion-item>
 
-  <img src="{{content.image}}">
+    <img src="{{content.image}}" />
 
-  <ion-card-content>
-    <p>{{content.content}}</p>
-  </ion-card-content>
+    <ion-card-content>
+      <p>{{content.content}}</p>
+    </ion-card-content>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="download"></ion-icon>
-        <div>{{content.likesCount}} Saves</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>{{content.commentsCount}} Comments</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="open"></ion-icon>
-        <div>Apply</div>
-      </button>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="download"></ion-icon>
+          <div>{{content.likesCount}} Saves</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>{{content.commentsCount}} Comments</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="open"></ion-icon>
+          <div>Apply</div>
+        </button>
+      </ion-col>
+    </ion-row>
 
-</ion-card>
+  </ion-card>
 
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="presentCreateModal($event)">
       <ion-icon name="create"></ion-icon>
     </button>
   </ion-fab>
+
 </ion-content>
-<style>
-  .social-cards ion-col {
-    padding: 0;
-  }
-</style>
