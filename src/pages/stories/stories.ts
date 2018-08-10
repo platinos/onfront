@@ -40,8 +40,9 @@ export class StoriesPage {
 
   getStories() {
     let loading = this.loadingCtrl.create({
-      content: 'Loading Stories.. Please wait.'
+      content: '<img src="assets/imgs/loading.gif"/> <br>  Loading Stories.. Please wait.'
     });
+    loading.setSpinner("none");
     loading.present();
     this.restProvider.getData('content')
       .then(data => {

@@ -28,6 +28,18 @@
   <ion-card-content>
     <p>{{contentList?.content}}</p>
   </ion-card-content>
+    <ion-card *ngIf="contentList?.isShared">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/user.png">
+        </ion-avatar>
+        <h2>{{contentList?.parent.user?.name}}</h2>
+        <p>Yesterday</p>
+      </ion-item>
+      <ion-card-content>
+        <p>{{contentList?.parent.content}}</p>
+      </ion-card-content>
+    </ion-card>
 
   <ion-row>
     <ion-col>

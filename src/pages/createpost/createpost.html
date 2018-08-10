@@ -26,7 +26,7 @@
     <form [formGroup]="form" (ngSubmit)="postContent()">
     <ion-row text-center justify-content-around>
       <ion-col>
-        <div (click)="choose(style)">
+        <div (click)="selectImage()">
           <ion-icon name="attach" style="zoom:4.0;" color='icons'></ion-icon>
           <h4 class="card-title" color='icons'>Media</h4>
         </div>
@@ -43,6 +43,11 @@
           <ion-icon name="pricetags" style="zoom:4.0;" color='icons'></ion-icon>
           <h4 class="card-title" color='icons'>Tags</h4>
         </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="{{storyImage}}" width="200">
       </ion-col>
     </ion-row>
     <ion-row>

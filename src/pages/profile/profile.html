@@ -26,13 +26,13 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-toolbar class="profile" color="primary">
-  
+ 
     <img class="profile-image" src="assets/imgs/user.png">
     <h4>{{person.name}}</h4>
     <h5>@{{person.phone}}</h5>
   </ion-toolbar>
   
-  <ion-card [hidden]="hasWallet()">
+  <!-- <ion-card [hidden]="hasWallet()">
     <ion-card-header>
       <button ion-button icon-only clear (click)="changeProfilePage('trends')">
         <ion-icon name="analytics"></ion-icon>
@@ -43,38 +43,58 @@
       <button ion-button outline block (click)="createWallet()">Create Wallet</button>
     </ion-card-content>
     
-  </ion-card>
+  </ion-card> -->
   
   <!-- Price -->
 
 
 
 
-<ion-card [hidden]="!hasWallet()">
-  <ion-card-header>
-    <!-- <button ion-button icon-only clear (click)="changeProfilePage('trends')">
-      <ion-icon name="analytics"></ion-icon>
-    </button> -->
-    My Wallet Balance
+<ion-card #myElement>
+  <ion-card-header (click)="animateElem()">
+    My Wallet
   </ion-card-header>
-  <ion-card-content>
-    <!-- <canvas #doughnutCanvas></canvas> -->
+
+
+
+  <ion-card-content [hidden]="hasWallet()">
+    <button ion-button outline block (click)="createWallet()">Create Wallet</button>
+  </ion-card-content>
+
+
+  <ion-card-content [hidden]="!hasWallet() || showDetails">
     <h1 text-center>
     <ion-icon name="logo-bitcoin" color='icons'></ion-icon> {{balance}}
     </h1>
-  </ion-card-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <button ion-button block outline color="primary" (click)="paymentmethodPrompt()">Send</button>
-      </ion-col>
-      <ion-col text-center>
-        <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage', walletid)" >Recieve</button>
-      </ion-col>
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <button ion-button block outline color="primary" (click)="paymentmethodPrompt()">Send</button>
+        </ion-col>
+        <ion-col text-center>
+          <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage', walletid)">Recieve</button>
+        </ion-col>
     
-    </ion-row>
-  </ion-grid>
-  <ion-list>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+  <ion-card-content [hidden]="!showDetails">
+<ion-list>
+  <ion-item-divider color="light">My Assets</ion-item-divider>
+  <ion-item *ngFor="let coin of walletCoins">
+    <ion-avatar item-left>
+      <img src="assets/imgs/{{coin.icon}}">
+    </ion-avatar>
+    <h2 color="primary">{{coin.name}}</h2>
+    <h3 text-right>{{coin.value}}</h3>
+  </ion-item>
+</ion-list>
+  </ion-card-content>
+ 
+  
+
+</ion-card>
+  <!-- <ion-list>
     <ion-item-divider color="light">My Assets</ion-item-divider>
     <ion-item *ngFor="let coin of walletCoins">
       <ion-avatar item-left>
@@ -83,9 +103,7 @@
       <h2 color="primary">{{coin.name}}</h2>
       <h3 text-right>{{coin.value}}</h3>
     </ion-item>
-  </ion-list>
-</ion-card>
-
+  </ion-list> -->
   <!-- <ion-card [hidden]="!checkProfilePage('trends')">
     <ion-card-header>
       <button ion-button icon-only clear (click)="changeProfilePage('wallet')">

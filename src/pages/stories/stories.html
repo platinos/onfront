@@ -3,9 +3,6 @@
 
     <ion-toolbar>
     
-      <!-- <button ion-button menuToggle>
-        <ion-icon name="ios-search-outline"></ion-icon>
-      </button> -->
       
       <ion-title>
         <img src="assets/imgs/title-logo.png" width="50px">
@@ -21,7 +18,8 @@
 
 <ion-content class="cards-bg social-cards">
 <ion-refresher (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content>
+  <ion-refresher-content  refreshingText='
+  <img src="assets/imgs/loading.gif" />'>
   </ion-refresher-content>
 </ion-refresher>
 
@@ -39,6 +37,20 @@
 
   <ion-card-content>
     <p>{{content.content}}</p>
+
+    <ion-card *ngIf="content?.isShared">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/user.png">
+        </ion-avatar>
+        <!-- <h2>{{content?.parent.user?.name}}</h2> -->
+        <p>Yesterday</p>
+      </ion-item>
+      <ion-card-content>
+        <p>{{content.parent?.content}}</p>
+      </ion-card-content>
+    </ion-card>
+
   </ion-card-content>
 
   <ion-row>

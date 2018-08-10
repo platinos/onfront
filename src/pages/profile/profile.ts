@@ -1,8 +1,9 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Platform, ModalController } from 'ionic-angular';
 //import { Chart } from 'chart.js';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 @IonicPage()
 @Component({
@@ -10,6 +11,8 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  @ViewChild('myElement') myElem;
+  private animator: AnimationBuilder;
   public person: { name: string, phone: string, userId: string};
   profilePages = "trends";
 
@@ -24,6 +27,7 @@ export class ProfilePage {
   balancedata: any;
   walletid: any;
   balance: any;
+  showDetails = false;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public user:UserData,
@@ -31,9 +35,11 @@ export class ProfilePage {
     private rp: RestProvider,
     public actionSheetCtrl: ActionSheetController,
     public platform: Platform,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    animationService: AnimationService) {
     this.person = { name:"" , phone: "", userId: ""};
     this.profilePages = "wallet";
+    this.animator = animationService.builder();
   
   }
 
@@ -49,6 +55,7 @@ export class ProfilePage {
       console.log(userId);
       
       this.userHasWalletInSystem();
+      
     });
     
 
@@ -93,6 +100,7 @@ export class ProfilePage {
           this.walletid = this.walletData.response.walletId;
           this.userHasWallet = true;
           this.getWallet();
+          this.animator.setType('bounce').show(this.myElem.nativeElement);
         }
         
       });
@@ -216,6 +224,11 @@ export class ProfilePage {
     });
     actionSheet.present();
   }
-
+  
+  animateElem() {
+    
+    this.animator.setType('flipInX').show(this.myElem.nativeElement);
+    this.showDetails = (this.showDetails == true) ? false : true;
+  }
 
 }
