@@ -15,6 +15,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { UserData } from '../providers/user-data';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 
+import { QRScanner } from '@ionic-native/qr-scanner';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -43,6 +45,7 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     CurrenciesProvider,
     AuthenticationProvider,
     UserData,
+    QRScanner,
   ],
 })
 export class AppModule {}

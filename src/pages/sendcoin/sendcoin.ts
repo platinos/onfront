@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 
@@ -12,11 +13,14 @@ import { RestProvider } from '../../providers/rest/rest';
 export class SendcoinPage {
   public form: FormGroup;
   public person: { name: string, phone: string, userId: string};
-  walletData:any;
-  balancedata:any;
-  walletid:any;
-  balance:any;
-  allWallets:any;
+  walletData: any;
+  balancedata: any;
+  walletid: any;
+  balance: any;
+  allWallets: any;
+
+  recipient: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -25,6 +29,7 @@ export class SendcoinPage {
     private _FB: FormBuilder,
     private rp: RestProvider,
     private alertCtrl: AlertController,
+    private qrScanner: QRScanner,
   ) {
     this.form = this._FB.group({
       amount: ['', Validators.required],
@@ -56,19 +61,19 @@ export class SendcoinPage {
     this.getAllWallets();
   }
 
-  getAllWallets(){
-    this.rp.getData('wallet/getWallets/all/v1/v2').then(data => {
+  getAllWallets() {
+    this.rp.getData('wallet/getWallets/all/v1/v2').then((data) => {
       this.allWallets = data;
       this.allWallets = this.allWallets.response;
     });
   }
 
   getWallet(){
-    this.rp.getData('wallet/' + this.person.userId).then(data => {
+    this.rp.getData('wallet/' + this.person.userId).then((data) => {
       this.walletData = data;
       this.walletid = this.walletData.response.walletId;
       // if(this.walletid!=undefined){
-      this.rp.getData('wallet/tbtc/' + this.walletid).then(data1 => {
+      this.rp.getData('wallet/tbtc/' + this.walletid).then((data1) => {
         this.balancedata = data1;
         this.balance = this.balancedata.response.balance;
         console.log(this.balance);
@@ -168,13 +173,41 @@ export class SendcoinPage {
     });
     this.allWallets.forEach((item, index) => {
       alert.addInput({ type: 'radio', label: item.userId.name, value: item.addresses[0].address });
-
     });
 
     alert.present();
   }
 
-  setDestination(destId){
+  setDestination(destId) {
     this.form.controls['dest'].setValue(destId);
+  }
+
+  scanQR() {
+    const appBody = window.document.querySelector('ion-app');
+
+    this.qrScanner.prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          const scanSub = this.qrScanner.scan().subscribe((text: string) => {
+            this.recipient = text;
+            appBody.classList.remove('transparent-body');
+            this.qrScanner.hide(); // hide camera preview
+            scanSub.unsubscribe(); // stop scanning
+          });
+
+          this.qrScanner.resumePreview();
+
+          appBody.classList.add('transparent-body');
+          this.qrScanner.show();
+
+        } else if (status.denied) {
+          alert('denied');
+        } else {
+          alert('else');
+        }
+      })
+      .catch((e: any) => {
+        alert('Error is' + e);
+      });
   }
 }
