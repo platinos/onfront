@@ -76,14 +76,20 @@ export class MarketPage {
   dataSet: ChartDataItem[][] = [];
   currencySummary: CurrencySummary;
 
-  wallet = [
-    { sum: 0.00375 },
-    { sum: 0.001345 },
-    { sum: 0 },
-    { sum: 3.56 },
-    { sum: 0 },
-    { sum: 1.2904 },
+  walletSums = [
+    0.00375,
+    0.001345,
+    0,
+    3.56,
+    0,
+    1.2904,
   ];
+
+  walletSummary: {
+    sum: number,
+    price: number,
+    trend: number,
+  }[];
 
   constructor(
     public navCtrl: NavController,
@@ -208,18 +214,21 @@ export class MarketPage {
   }
 
   updateWallet() {
-    this.wallet.forEach((wallet, currency) => {
-      const dataSet = this.dataSet[currency];
+    this.walletSummary = this.walletSums.map((walletSum, currencyI) => {
+      const dataSet = this.dataSet[currencyI];
+      const summary = {
+        sum: walletSum,
+        price: 0,
+        trend: 0,
+      };
       if (dataSet) {
         const open = dataSet[0].open;
         const close = dataSet[dataSet.length - 1].close;
 
-        wallet.price = close;
-        wallet.trend = close - open;
-      } else {
-        wallet.price = 0;
-        wallet.trend = 0;
+        summary.price = close;
+        summary.trend = close - open;
       }
+      return summary;
     });
   }
 
