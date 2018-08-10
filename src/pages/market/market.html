@@ -9,7 +9,7 @@
     <ion-card class="market-page__main">
       <div class="market-page__canvas-wraper">
         <!-- graph-->
-        <canvas #lineCanvas height="300"></canvas>
+        <canvas #lineCanvas height="200"></canvas>
 
         <!--select currency-->
         <div class="market-page__select-wraper">
@@ -45,7 +45,7 @@
 
     <!--currencies summary-->
     <div class="market-page__currencies">
-        <div *ngFor="let currency of wallet; index as i" class="inline-block">
+        <div *ngFor="let currency of walletSummary; index as i" class="inline-block">
           <ion-card *ngIf="currency.sum" class="market-page__currencies-item">
             <div class="text-muted">{{currencies[i].symbol}}</div>
             <div>{{currency.sum}}</div>
