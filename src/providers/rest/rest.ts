@@ -32,7 +32,7 @@ export class RestProvider {
     
     
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + endpoint, data)
+      this.http.put(this.apiUrl + endpoint, data)
         .subscribe(res => {
           resolve(res);
         }, (err) => {

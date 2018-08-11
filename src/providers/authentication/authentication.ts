@@ -41,7 +41,7 @@ export class AuthenticationProvider {
     });
     
   }
-  signup(name, uname, pass){
+  signup(name, uname, pass, ImageUrl, email){
       let loading = this.loadingCtrl.create({
         content: 'Creating your account... Please wait.'
       });
@@ -51,7 +51,7 @@ export class AuthenticationProvider {
       // setTimeout(() => {
       //   loading.dismiss();
       // }, 5000);
-      this.rs.addData("users/signup", { 'name':name ,'phone': uname, 'password': pass }).then(data => {
+      this.rs.addData("users/signup", { 'name':name ,'phone': uname, 'password': pass, "email":email, "ImageUrl":ImageUrl }).then(data => {
         this.dataList = data;
         this.dataError = this.dataList.error;
         if (this.dataError === undefined || this.dataError === null) {
