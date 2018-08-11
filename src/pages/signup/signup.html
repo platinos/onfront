@@ -11,35 +11,33 @@
   <img class="logo" src="assets/imgs/SHEQ_gold_ID.png" alt="Sheq Wallet">
 
 
-
-  <div class="login" text-center>
-    
-
-    <form [formGroup]="form" (ngSubmit)="logIn()">
+<div>
+  <div class="login" text-center *ngIf="flag==0">
+     <form [formGroup]="form">
       <ion-list no-lines>
-        
         <ion-item margin-bottom>
-          <ion-input placeholder="Enter your Name" type="text" formControlName="name"></ion-input>
+          <ion-input placeholder="Enter your phone number" type="tel" formControlName="phoneNo" [(ngModel)]="number"></ion-input>
         </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Enter your phone number" type="tel" formControlName="phoneNo"></ion-input>
-        </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
-        </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Confirm Password" type="password" formControlName="confirmpassword"></ion-input>
-        </ion-item>
-        
-
-
-        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">Register</button>
+        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid" (click)="isregistered()">Continue</button>
       </ion-list>
     </form>
-<button ion-button clear icon-end color="primary" (click)="gotoLogin()">
-  Already a member?
-</button>
   </div>
-
-
+    <!-- *ngIf="flag==1" -->
+  <div class="login" text-center *ngIf="flag==1">
+      <form [formGroup]="form2" (ngSubmit)="logIn()">
+       <ion-list no-lines>
+         <ion-item margin-bottom>
+           <ion-input placeholder="Enter your phone number" type="tel" formControlName="phoneNo" [(ngModel)]="number"></ion-input>
+         </ion-item>
+         <ion-item  margin-bottom >
+            <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
+          </ion-item>
+         <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">login</button>
+       </ion-list>
+     </form>
+   </div>
+   <button ion-button clear icon-end color="primary" (click)="gotoLogin()">
+      Already a member?
+    </button>
+  </div>
 </ion-content>
