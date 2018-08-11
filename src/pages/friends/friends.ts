@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 
+type User = {
+  name: string,
+};
 
 @IonicPage()
 @Component({
@@ -10,12 +13,16 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class FriendsPage {
   temparr = [];
-  filteredusers = [];
+  
   showOptionsToggle = false;
   chatpages = '' ;
   userResponse: [string];
   users: any;
   usersResponse: any;
+  usersList: User[];
+  usersListFiltered: User[];
+  isSearchToggled = false;
+  searchString: '';
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
     
@@ -26,20 +33,10 @@ export class FriendsPage {
     this.getUsers();
     
   }
-  searchuser(searchbar) {
-    this.filteredusers = this.temparr;
-    var q = searchbar.target.value;
-    if (q.trim() == '') {
-      return;
-    }
-
-    this.filteredusers = this.filteredusers.filter((v) => {
-      if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-        return true;
-      }
-      return false;
-    })
+  toggleSearch() {
+    this.isSearchToggled = !this.isSearchToggled;
   }
+ 
   showOptions(){
     this.showOptionsToggle = !this.showOptionsToggle;
   }
@@ -54,12 +51,12 @@ export class FriendsPage {
   }
   getUsers() {
     this.restProvider.getData('users')
-      .then(data => {
-        this.users = data;
-        this.userResponse = this.users.response;
-        console.log(data);
-        
+      .then(({ response }) => {
+        this.usersList = response;
+        this.filterData();
+        this.userResponse = response;
       });
+    
 
   }
   doRefresh(refresher) {
@@ -68,5 +65,18 @@ export class FriendsPage {
       refresher.complete();
     }, 2000);
   }
-  
+  filterData() {
+    this.usersListFiltered = [...this.usersList];
+    console.log(this.usersListFiltered);
+
+    if (this.searchString) {
+      this.usersListFiltered = this.usersListFiltered.filter(user =>
+        user.name.toLowerCase().includes(this.searchString.toLowerCase()),
+      );
+    }
+  }
+  showAddFriendPrompt(){
+    
+  }
+
 }

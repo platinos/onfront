@@ -13,7 +13,7 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
 export class ProfilePage {
   @ViewChild('myElement') myElem;
   private animator: AnimationBuilder;
-  public person: { name: string, phone: string, userId: string};
+  public person: { name: string, phone: string, userId: string, pic: string};
   profilePages = "trends";
 
   userHasWallet = false;
@@ -37,7 +37,7 @@ export class ProfilePage {
     public platform: Platform,
     public modalCtrl: ModalController,
     animationService: AnimationService) {
-    this.person = { name:"" , phone: "", userId: ""};
+    this.person = { name:"" , phone: "", userId: "", pic:""};
     this.profilePages = "wallet";
     this.animator = animationService.builder();
   
@@ -49,6 +49,9 @@ export class ProfilePage {
     });
     this.user.getUsername().then((userName) => {
       this.person.name = userName;
+    });
+    this.user.getPic().then((pic) => {
+      this.person.pic = pic;
     });
     this.user.getUserId().then((userId) => {
       this.person.userId = userId;

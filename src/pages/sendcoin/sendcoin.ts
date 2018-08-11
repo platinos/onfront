@@ -4,7 +4,7 @@ import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 @IonicPage()
 @Component({
   selector: 'page-sendcoin',
@@ -18,13 +18,15 @@ export class SendcoinPage {
   walletid:any;
   balance:any;
   allWallets:any;
+  recipient: string;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     public user:UserData,
     private _FB: FormBuilder,
     private rp: RestProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private qrScanner: QRScanner) {
       this.form = this._FB.group({
         'amount': ['', Validators.required],
         'pass': ['', Validators.required],
@@ -182,5 +184,35 @@ export class SendcoinPage {
   }
   setDestination(destId){
         this.form.controls['dest'].setValue(destId);
+  
+      }
+
+  scanQR() {
+    const appBody = window.document.querySelector('ion-app');
+
+    this.qrScanner.prepare()
+      .then((status: QRScannerStatus) => {
+        if (status.authorized) {
+          const scanSub = this.qrScanner.scan().subscribe((text: string) => {
+            this.recipient = text;
+            appBody.classList.remove('transparent-body');
+            this.qrScanner.hide(); // hide camera preview
+            scanSub.unsubscribe(); // stop scanning
+          });
+
+          this.qrScanner.resumePreview();
+
+          appBody.classList.add('transparent-body');
+          this.qrScanner.show();
+
+        } else if (status.denied) {
+          alert('denied');
+        } else {
+          alert('else');
+        }
+      })
+      .catch((e: any) => {
+        alert('Error is' + e);
+      });
   }
 }

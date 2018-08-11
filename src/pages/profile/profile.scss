@@ -4,9 +4,12 @@ page-profile {
         height: 80px;
         border-radius: 50%;
     }
-    .profile {
+.profile {
     text-align: center;
     color: #ffffff;
+    background: url("../../assets/imgs/banner.png");
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 action-sheets-basic-page{
 .ion-md-qr-scanner {
@@ -23,4 +26,23 @@ action-sheets-basic-page{
     color: #757575;
   }
 }
+ion-slides {
+    margin-top: 0px;
+    height: auto;
+  }
+
+  .walletCard1{
+    background: url("imgs/banner.png");
+  }
+   .walletCard2{
+    // background: url("../../assets/imgs/cardbg2.jpg");
+    background: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/J9H9WF0/beautiful-soft-silver-white-background-with-moving-light-particles-creating-a-bokeh-effect_bbtm6wree_thumbnail-full01.png");
+    background-size: cover;
+  }
+
+  .swiper-pagination-bullet{
+    margin-top: 300px;
+    background: color($colors, 'primary');
+  }
+
 }

@@ -2,8 +2,6 @@
 <ion-header>
 
     <ion-toolbar>
-    
-      
       <ion-title>
         <img src="assets/imgs/title-logo.png" width="50px">
       </ion-title>
@@ -16,14 +14,14 @@
   </ion-header>
 
 
-<ion-content class="cards-bg social-cards">
+<ion-content class="cards-bg social-cards page-bg">
 <ion-refresher (ionRefresh)="doRefresh($event)">
   <ion-refresher-content  refreshingText='
-  <img src="assets/imgs/loading.gif" />'>
+  <img src="assets/imgs/loading.gif"/>'>
   </ion-refresher-content>
 </ion-refresher>
 
-<ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)">
+<ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
 
   <ion-item>
     <ion-avatar item-start>
@@ -34,10 +32,8 @@
   </ion-item>
 
   <img src="{{content.image}}">
-
   <ion-card-content>
     <p>{{content.content}}</p>
-
     <ion-card *ngIf="content?.isShared">
       <ion-item>
         <ion-avatar item-start>

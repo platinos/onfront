@@ -16,6 +16,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { UserData } from '../providers/user-data';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader';
+import { QRScanner } from "@ionic-native/qr-scanner";
 
 
 
@@ -49,7 +50,8 @@ import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader'
     UserData,
     ImageuploaderProvider,
     Camera,
-    AnimationService
+    AnimationService,
+    QRScanner
   ]
 })
 export class AppModule {}
