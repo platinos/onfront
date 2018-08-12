@@ -91,7 +91,17 @@ export class ChatscreenPage {
                 })
               });
               this.messagesList = tmp;
-              setTimeout(() => { this.contentArea.scrollToBottom(); }, 200);
+              setTimeout(() => { 
+                try {
+                  this.contentArea.scrollToBottom();
+                }
+                catch (err)
+              {
+                console.log(err);
+                
+              }
+                
+                 }, 200);
               
             });
           });
