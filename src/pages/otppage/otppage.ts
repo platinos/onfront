@@ -51,13 +51,16 @@ console.log("verifying");
 
     this.rp.verifyOtp( this.phoneNumber, otp).then(data=>{
       console.log(data);
-      
+      //Check if success.
+      //then - this.navCtrl.push("OnboardPage");
+      //else - wrong otp. 
     }).catch(err=>{
       console.log(err);
       
     })
-
-    this.navCtrl.push("OnboardPage");
+// remove this: 
+     this.navCtrl.push("OnboardPage");
+    
    }
   }
 }
