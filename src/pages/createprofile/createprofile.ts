@@ -34,7 +34,10 @@ export class CreateprofilePage {
     private _IMG: ImageuploaderProvider,) {
     this.phoneNumber = this.navParams.get("phoneNo");
     this.form = this._FB.group({
-      'contentText': ['', Validators.required]});
+      'name': ['', Validators.required],
+      'email': ['', Validators.required],
+      'confirmpassword': ['', Validators.required],
+      'password': ['', Validators.required]});
   } 
   
 
@@ -44,7 +47,7 @@ export class CreateprofilePage {
 
 
   uploadImage(imageString): Promise<any> {
-    let image: string = 'movie-' + new Date().getTime() + '.jpg',
+    let image: string = 'profile-' + new Date().getTime() + '.jpg',
       storageRef: any,
       parseUpload: any;
 
@@ -64,25 +67,28 @@ export class CreateprofilePage {
     });
   }
 createprofile() {
-  let name: any = this.form.controls['Name'].value;
-  let Email: any = this.form.controls['Email'].value;
+  let name: any = this.form.controls['name'].value;
+  let Email: any = this.form.controls['email'].value;
   let Password: any = this.form.controls['password'].value;
+  let confirmPassword: any = this.form.controls['confirmpassword'].value;
   let Phonenumber: any = this.phoneNumber;
-  if (undefined !== this.profileimage)
-  {
-    this.uploadImage(this.profileimage)
-    .then((snapshot: any) => {
-       snapshot.ref.getDownloadURL().then(downloadURL => {
-         let uploadedImage: any = downloadURL;
-         console.log(uploadedImage);
-         this.auth.signup(name, Phonenumber, Password, uploadedImage, Email  );
-      });
-    });
+  if (Password === confirmPassword) {
+    if (undefined !== this.profileimage) {
+      this.uploadImage(this.profileimage)
+        .then((snapshot: any) => {
+          snapshot.ref.getDownloadURL().then(downloadURL => {
+            let uploadedImage: any = downloadURL;
+            console.log(uploadedImage);
+            this.auth.signup(name, Phonenumber, Password, uploadedImage, Email);
+          });
+        });
+    }
+    else {
+      this.auth.signup(name, Phonenumber, Password, "", Email);
+
+    }
   }
-else {
-  this.auth.signup(name, Phonenumber, Password,"", Email  );
- 
-}
+  
 
 }
 

@@ -10,7 +10,7 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class OtppagePage {
   flag=0;
-  OTP=0;
+  OTP:number;
   phoneNumber;
   dummyData:any;
   replyMsg: any;
@@ -52,14 +52,17 @@ console.log("verifying");
     this.rp.verifyOtp( this.phoneNumber, otp).then(data=>{
       console.log(data);
       //Check if success.
-      //then - this.navCtrl.push("OnboardPage");
-      //else - wrong otp. 
+      let verificationResult:any = data;
+      verificationResult = verificationResult.type;
+      if (verificationResult ==="success")
+        this.navCtrl.push("CreateprofilePage", { 'phoneNo': this.phoneNumber});
+      else
+        this.replyMsg = "Incorrect OTP. Try Again."
     }).catch(err=>{
       console.log(err);
       
     })
-// remove this: 
-     this.navCtrl.push("OnboardPage");
+
     
    }
   }

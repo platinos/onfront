@@ -36,8 +36,16 @@ export class SignupPage {
 
     });
   }
-  
   logIn(): void {
+    let
+      phoneNo: any = this.form2.controls['phoneNo'].value,
+      password: any = this.form2.controls['password'].value;
+
+    this.auth.login(phoneNo, password);
+
+  }
+  
+  logIn2(): void {
     let
       // name: any = this.form.controls['name'].value,
       phoneNo: any = this.form.controls['phoneNo'].value

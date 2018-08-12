@@ -7,35 +7,37 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>createprofile</ion-title>
+    <ion-title>Create Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
     <ion-list no-lines>
         <form [formGroup]="form" (ngSubmit)="createprofile()">
           <ion-item margin-bottom> 
               <div (click)="selectImage()">
-                  <ion-icon name="user" style="zoom:4.0;" color='icons'></ion-icon>
-                  <h4 class="card-title" color='icons'>Media</h4>
+                  <img class="profile-image" src="{{profileimage || 'assets/imgs/user_female.png'}}">
+                  Choose a Display Pic.
                 </div>
           </ion-item>
         <ion-item margin-bottom>
-          <ion-input placeholder="Enter your Name" type="text" formControlName="Name" ></ion-input>
+          <ion-input placeholder="Enter your Name" type="text" formControlName="name"></ion-input>
         </ion-item>
-         <ion-item margin-bottom>
-            <ion-input placeholder="Enter your Email" type="email" formControlName="email" ></ion-input>
-          </ion-item>
-        <ion-item  margin-bottom >
-           <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
-         </ion-item>
-         <ion-item  margin-bottom >
-            <ion-input placeholder="Confirm Password" type="password" formControlName="confirmpassword"></ion-input>
-          </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Enter your email" type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom>
+          <ion-input placeholder="Confirm Password" type="password" formControlName="confirmpassword"></ion-input>
+        </ion-item>
           
-        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">login</button>
+        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">Create Profile</button>
+        </form>
       </ion-list>
+    
 
 </ion-content>

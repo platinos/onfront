@@ -12,7 +12,7 @@
 
     <ion-list no-lines [hidden]="flag===1">
       <h2>Your Number : {{phoneNumber}}</h2>
-      <button ion-button color="primary" text-center outline rounded (click)="GenOTP()">GenerateOTP</button>
+      <button ion-button color="primary" text-center outline rounded (click)="GenOTP()">Send OTP</button>
     </ion-list>
 
         <h3>{{replyMsg}}</h3>
@@ -20,8 +20,9 @@
       <ion-item margin-bottom>
         <ion-input placeholder="Enter OTP" type="number" [(ngModel)]="OTP"></ion-input>
       </ion-item>
-      <button ion-button color="primary" text-center outline rounded (click)="GenOTP()">ResendOTP</button>
+     
       <button ion-button color="primary" text-center outline rounded (click)="verOTP()">Continue</button>
+      <button text-left ion-button clear icon-end color="primary" (click)="GenOTP()">Resend OTP</button>
     </ion-list>
 
 

@@ -63,9 +63,9 @@ export class RestProvider {
   }
   sendOtp(phoneNo) {
     let authKey = "147351AegMLMB0q58e0e449";
-    let msg = "Hey! Your OTP is 1234";
+    let msg = "Hey! Your OTP is ##OTP##";
     let otp = 1234;
-    let url = "http://control.msg91.com/api/sendotp.php?authkey=" + authKey + "&mobile=" + phoneNo + "&message=" + msg + "&otp=" + otp + "&sender=ELZIRE";
+    let url = "http://control.msg91.com/api/sendotp.php?authkey=" + authKey + "&mobile=" + phoneNo + "&message=##OTP##" + msg +"&sender=ELZIRE";
 
     return new Promise((resolve, reject) => {
       this.http.post(url, {}, httpOptions)
