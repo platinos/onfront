@@ -1,33 +1,28 @@
-<!--
-  Generated template for the OtppagePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>otppage</ion-title>
+    <ion-title>Verify Phone Number</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <div id="recaptcha-container"></div>
-  <div *ngIf="flag==0">
-    <ion-list no-lines>
-      <button ion-button id="GenOTP" color="primary" text-center outline rounded (click)="GenOTP()">GenerateOTP</button>
+
+    <ion-list no-lines [hidden]="flag===1">
+      <h2>Your Number : {{phoneNumber}}</h2>
+      <button ion-button color="primary" text-center outline rounded (click)="GenOTP()">GenerateOTP</button>
     </ion-list>
-  </div>
-  <div *ngIf="flag==1">
-    <ion-list no-lines>
+
+        <h3>{{replyMsg}}</h3>
+      <ion-list no-lines [hidden]="flag===0">
       <ion-item margin-bottom>
-        <ion-input placeholder="Enter OTP" type="number"></ion-input>
+        <ion-input placeholder="Enter OTP" type="number" [(ngModel)]="OTP"></ion-input>
       </ion-item>
       <button ion-button color="primary" text-center outline rounded (click)="GenOTP()">ResendOTP</button>
-      <button ion-button color="primary" text-center outline rounded (click)="verOTP()" [(ngModel)]="OTP">Continue</button>
+      <button ion-button color="primary" text-center outline rounded (click)="verOTP()">Continue</button>
     </ion-list>
-  </div>
+
 
 </ion-content>

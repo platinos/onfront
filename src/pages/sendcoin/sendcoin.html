@@ -37,7 +37,8 @@
                <ion-input type="password" placeholder="Your Wallet Password" formControlName="pass" required clearInput></ion-input>
               </ion-item>
             <a ion-button clear (click)="presentPrompt()">Choose Recipient</a>
-            <a ion-button clear (click)="scanQR()">Scan QR-code</a>
+            <a ion-button clear (click)="scan()">Scan QR-code</a>
+            <h1>{{qrText}}</h1>
 
           </ion-list>
         </ion-col>

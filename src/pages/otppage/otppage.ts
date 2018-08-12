@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as firebase from 'firebase'; 
+import { RestProvider } from '../../providers/rest/rest';
 
-/**
- * Generated class for the OtppagePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +9,13 @@ import * as firebase from 'firebase';
   templateUrl: 'otppage.html',
 })
 export class OtppagePage {
-  public flag=0;
-  public OTP=0;
-  public phoneNumber;
+  flag=0;
+  OTP=0;
+  phoneNumber;
+  dummyData:any;
+  replyMsg: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rp: RestProvider) {
     this.phoneNumber = this.navParams.get("phoneNo");
     console.log(this.phoneNumber);
     
@@ -32,37 +28,36 @@ export class OtppagePage {
   
 
   GenOTP(): void {
-    firebase.auth().settings.appVerificationDisabledForTesting = true;
-    (<any>window).recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      'size': 'invisible'
-      // 'callback': function(response) {
-      //   // reCAPTCHA solved, allow signInWithPhoneNumber.
-      //   onSignInSubmit();
-      //this.signInWithPhoneNumber();
+    this.rp.sendOtp(this.phoneNumber).then(data=>{
+      console.log(data);
+      this.dummyData = data;
+      if (this.dummyData.type === "success"){
+        this.replyMsg =   "OTP Sent to "+ this.phoneNumber;
+        this.flag = 1;
       }
-    );
-    var phoneNumber = "+917797012105";  
-    var appVerifier = (<any>window).recaptchaVerifier;
-    console.log("hello" + this.phoneNumber);
-firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    .then(function (confirmationResult) {
-      console.log(confirmationResult);
-      // SMS sent. Prompt user to type the code from the message, then sign the
-      // user in with confirmationResult.confirm(code).
-      confirmationResult.confirm("123456");
-      (<any>window).confirmationResult = confirmationResult;
-    }).catch(function (error) {
-      console.log(error);
-      // Error; SMS not sent
-      // ...
-    });
-  this.flag=1;
-  }
+      else{
+        this.replyMsg = "An error occured. please try again later."
+      }
+    }).catch(err=>{
+      console.log(err);
+      
+    })
+   }
   verOTP(): void {
   let
-   otp: any= this.OTP;
+   otp: any = this.OTP;
    if(otp){
-    this.navCtrl.push("RegisterPage");
+console.log("verifying");
+
+    this.rp.verifyOtp( this.phoneNumber, otp).then(data=>{
+      console.log(data);
+      
+    }).catch(err=>{
+      console.log(err);
+      
+    })
+
+    this.navCtrl.push("OnboardPage");
    }
   }
 }

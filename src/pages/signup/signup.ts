@@ -73,8 +73,7 @@ export class SignupPage {
     else
     {
       this.navCtrl.push("OtppagePage", {'phoneNo' : No});
-      console.log(No);
-      //this.gotoPage("otppage");
+      
     }
       });
     

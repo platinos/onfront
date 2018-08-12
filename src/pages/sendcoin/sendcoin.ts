@@ -19,6 +19,7 @@ export class SendcoinPage {
   balance:any;
   allWallets:any;
   recipient: string;
+  qrText: string;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
@@ -187,32 +188,40 @@ export class SendcoinPage {
   
       }
 
-  scanQR() {
-    const appBody = window.document.querySelector('ion-app');
+scan() {
+  
+  // Optionally request the permission early
+  this.qrScanner.prepare()
+    .then((status: QRScannerStatus) => {
+      if (status.authorized) {
+        // camera permission was granted
+        
 
-    this.qrScanner.prepare()
-      .then((status: QRScannerStatus) => {
-        if (status.authorized) {
-          const scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            this.recipient = text;
-            appBody.classList.remove('transparent-body');
-            this.qrScanner.hide(); // hide camera preview
-            scanSub.unsubscribe(); // stop scanning
-          });
-
-          this.qrScanner.resumePreview();
-
-          appBody.classList.add('transparent-body');
+        // start scanning
+        let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+          window.document.querySelector('ion-app').classList.add('transparentBody')
           this.qrScanner.show();
+          console.log('Scanned something', text);
+          this.qrText = text;
+          this.qrScanner.hide(); // hide camera preview
+          scanSub.unsubscribe(); // stop scanning
+        });
 
-        } else if (status.denied) {
-          alert('denied');
-        } else {
-          alert('else');
-        }
-      })
-      .catch((e: any) => {
-        alert('Error is' + e);
-      });
+      } else if (status.denied) {
+        // camera permission was permanently denied
+        // you must use QRScanner.openSettings() method to guide the user to the settings page
+        // then they can grant the permission from there
+        this.qrScanner.openSettings();
+      } else {
+        // permission was denied, but not permanently. You can ask for permission again at a later time.
+      }
+    })
+    .catch((e: any) => console.log('Error is:', e));
+
+
   }
+  ionViewDidLeave() {
+    window.document.querySelector('ion-app').classList.remove('transparentBody')
+  }
+
 }
