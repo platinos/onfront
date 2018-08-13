@@ -17,8 +17,7 @@ export class ProfileProvider {
     public events: Events,
     public storage: Storage,
     public app: App,
-
-  ) {}
+  ){}
 
   getProfile(): Promise<Profile> {
     return this.storage.get(profileField);
