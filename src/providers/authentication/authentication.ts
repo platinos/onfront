@@ -7,11 +7,11 @@ import { LoadingController } from 'ionic-angular';
 @Injectable()
 export class AuthenticationProvider {
 
-  dataList: any; 
+  dataList: any;
   dataResponse:any;
   dataError:any;
   constructor(public http: HttpClient, public rs: RestProvider, public user: UserData, public loadingCtrl: LoadingController) {
-   
+
   }
 
   login(uname, pass){
@@ -28,7 +28,7 @@ export class AuthenticationProvider {
         setTimeout(() => {
           loading.dismiss();
         }, 2000);
-        this.user.login({ username: this.dataResponse[0].name, userId: this.dataResponse[0]._id, phone: this.dataResponse[0].phone, pic: this.dataResponse[0].ImageUrl });
+        this.user.login({ name: this.dataResponse[0].name, userId: this.dataResponse[0]._id, phone: this.dataResponse[0].phone, pic: this.dataResponse[0].ImageUrl });
 
       }
       else{
@@ -39,7 +39,7 @@ export class AuthenticationProvider {
 
       }
     });
-    
+
   }
   signup(name, uname, pass, ImageUrl, email){
       let loading = this.loadingCtrl.create({
@@ -57,13 +57,16 @@ export class AuthenticationProvider {
         if (this.dataError === undefined || this.dataError === null) {
           this.dataResponse = this.dataList.response;
 
-          this.user.signup(this.dataResponse[0].name, this.dataResponse[0]._id, this.dataResponse[0].phone);
+          this.user.signup({
+            name: this.dataResponse[0].name,
+            userId: this.dataResponse[0]._id,
+            phone: this.dataResponse[0].phone});
         }
       });
       loading.dismiss();
 
-    
-    
+
+
   }
   logout(){
     this.user.logout();

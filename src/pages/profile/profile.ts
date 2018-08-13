@@ -1,4 +1,4 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -7,7 +7,7 @@ import {
   ActionSheetController,
   Platform,
   ModalController } from 'ionic-angular';
-import { UserData } from '../../providers/user-data';
+import { User, UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 import { AnimationService, AnimationBuilder } from 'css-animator';
 
@@ -19,7 +19,7 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
 export class ProfilePage {
   @ViewChild('myElement') myElem;
   private animator: AnimationBuilder;
-  public person: { name: string, phone: string, userId: string, pic: string};
+  public person: User = { userId: '', name: '' , phone: '', pic: '' };
   profilePages = 'trends';
 
   userHasWallet = false;
@@ -43,50 +43,35 @@ export class ProfilePage {
     public actionSheetCtrl: ActionSheetController,
     public platform: Platform,
     public modalCtrl: ModalController,
-    animationService: AnimationService
+    animationService: AnimationService,
   ) {
-    this.person = { name: '' , phone: '', userId: '', pic: ''};
     this.profilePages = 'wallet';
     this.animator = animationService.builder();
   }
 
-  ionViewDidLoad() {
-    this.user.getPhone().then(phone => this.person.phone = phone);
-    this.user.getUsername().then((userName) => {
-      this.person.name = userName;
-    });
-    this.user.getPic().then((pic) => {
-      this.person.pic = pic;
-    });
-    this.user.getUserId().then((userId) => {
-      this.person.userId = userId;
-      console.log(userId);
-
-      this.userHasWalletInSystem();
-
-    });
+  async ionViewWillEnter() {
+    this.person = await this.user.getUser();
   }
 
-  checkProfilePage(pageName){
+  checkProfilePage(pageName) {
     return !this.userHasWallet;
   }
 
-  changeProfilePage(pageName){
+  changeProfilePage(pageName) {
     this.profilePages = pageName;
   }
 
-  gotoPage(page, data:any = null) {
+  gotoPage(page: string, data: any = null) {
     if (data === null) {
       this.navCtrl.push(page);
     } else {
       console.log(data);
-      this.navCtrl.push(page, {'data': data});
+      this.navCtrl.push(page, { data });
     }
   }
 
   hasWallet() {
     return this.userHasWallet;
-
   }
 
   getWallet() {
@@ -145,8 +130,8 @@ export class ProfilePage {
             this.rp.addData('wallet/' + this.person.userId, {
               coin: 'tbtc',
               label: data.label,
-              password: data.password}
-            ).then((data) => {
+              password: data.password,
+            }).then((data) => {
               this.userHasWallet = true;
               console.log(data);
               this.getWallet();
@@ -161,7 +146,7 @@ export class ProfilePage {
   doRefresh(refresher) {
     setTimeout(
       () => {
-        this.ionViewDidLoad();
+        this.ionViewWillEnter();
         refresher.complete();
       },
       2000);
@@ -213,7 +198,8 @@ export class ProfilePage {
                       this.gotoPage('SendcoinPage', { destAddress: addressee });
                     });
 
-                  }});
+                  }
+                });
               }
             });
           },
