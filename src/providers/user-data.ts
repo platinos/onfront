@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Events, App} from 'ionic-angular';
+import { Events, App } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 export type User = {
@@ -41,7 +41,6 @@ export class UserData {
   }
 
   setUser(user: User): void {
-    console.log('setUser', user)
     this.storage.set('userId', user.userId);
     this.storage.set('username', user.name);
     this.storage.set('phone', user.phone);

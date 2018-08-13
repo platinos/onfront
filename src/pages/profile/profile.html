@@ -26,7 +26,11 @@
 
 
   <div class="profile">
-    <img class="profile-image" src="{{person.pic || 'assets/imgs/user_female.png'}}" />
+    <img
+      class="profile-image"
+      src="{{person.pic || 'assets/imgs/user_female.png'}}"
+      (click)="gotoPage('ProfileEditPage')"
+    />
     <h4>{{person.name}}</h4>
     <h5>@{{person.phone}}</h5>
   </div>
