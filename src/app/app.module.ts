@@ -14,11 +14,10 @@ import { RestProvider } from '../providers/rest/rest';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { IonicStorageModule } from '@ionic/storage';
 import { UserData } from '../providers/user-data';
+import { ProfileProvider } from '../providers/profileProvider';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader';
-import { QRScanner } from "@ionic-native/qr-scanner";
-
-
+import { QRScanner } from '@ionic-native/qr-scanner';
 
 @NgModule({
   declarations: [
@@ -26,32 +25,33 @@ import { QRScanner } from "@ionic-native/qr-scanner";
     HomePage,
     CreatepostPage,
     HeaderMenuComponent,
-    AnimatesDirective
+    AnimatesDirective,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    CreatepostPage
+    CreatepostPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     HttpClientModule,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     RestProvider,
     AuthenticationProvider,
     UserData,
+    ProfileProvider,
     ImageuploaderProvider,
     Camera,
     AnimationService,
-    QRScanner
-  ]
+    QRScanner,
+  ],
 })
 export class AppModule {}

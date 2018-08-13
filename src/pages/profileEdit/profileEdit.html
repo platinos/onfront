@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <img src="assets/imgs/title-logo.png" width="50px" />
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form (ngSubmit)="update()" [formGroup]="form">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+
+          <ion-item>
+            <ion-input placeholder="Name" formControlName="name" required clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Phone" formControlName="phone" required clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+            <button ion-button type="button" color="secondary" *ngIf="!userPic" (click)="selectImage()">Upload avatar</button>
+            <img src="{{userPic}}" width="200" (click)="selectImage()" />
+          </ion-item>
+
+          <h5>Profile</h5>
+          <ion-item>
+            <ion-datetime placeholder="DoB" displayFormat="MM/DD/YYYY" formControlName="dob"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Address" formControlName="address"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input placeholder="Status" formControlName="status"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-textarea rows="5" placeholder="About" formControlName="about"></ion-textarea>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="signup-col">
+        <button ion-button class="submit-btn" round outline type="submit">Update</button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>
