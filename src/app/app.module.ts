@@ -18,6 +18,7 @@ import { ProfileProvider } from '../providers/profileProvider';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { Contacts } from '@ionic-native/contacts';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { QRScanner } from '@ionic-native/qr-scanner';
     Camera,
     AnimationService,
     QRScanner,
+    Contacts,
   ],
 })
 export class AppModule {}

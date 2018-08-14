@@ -13,7 +13,7 @@ type User = {
 })
 export class FriendsPage {
   temparr = [];
-  
+
   showOptionsToggle = false;
   chatpages = '' ;
   userResponse: [string];
@@ -23,20 +23,20 @@ export class FriendsPage {
   usersListFiltered: User[];
   isSearchToggled = false;
   searchString: '';
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
-    
+
   }
 
   ionViewDidLoad() {
     this.chatpages = 'chats';
     this.getUsers();
-    
+
   }
   toggleSearch() {
     this.isSearchToggled = !this.isSearchToggled;
   }
- 
+
   showOptions(){
     this.showOptionsToggle = !this.showOptionsToggle;
   }
@@ -56,7 +56,7 @@ export class FriendsPage {
         this.filterData();
         this.userResponse = response;
       });
-    
+
 
   }
   doRefresh(refresher) {
@@ -75,8 +75,8 @@ export class FriendsPage {
       );
     }
   }
-  showAddFriendPrompt(){
-    
-  }
 
+  showAddFriendPrompt() {
+    this.navCtrl.push('FriendsInvitePage');
+  }
 }

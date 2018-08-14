@@ -4,7 +4,8 @@
     "no-unused-variable": [
       true
     ],
-    "max-line-length": [true, 120]
+    "max-line-length": [true, 120],
+    "object-shorthand-properties-first": false
   },
   "extends": [
     "tslint-config-airbnb"

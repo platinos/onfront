@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar start [(ngModel)]="searchString" (ionInput)="filterInvitations()" >
+    </ion-searchbar>
+
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item
+      *ngFor="let invitation of invitationsFiltered"
+      text-wrap
+      no-lines
+      (click)="sendInvitation(invitation.phoneNumber)"
+    >
+      <ion-avatar item-left>
+        <img [src]="invitation.contactPhoto || 'assets/imgs/user.png'" />
+      </ion-avatar>
+      <h2 color="primary">{{invitation.contactName}}</h2>
+      <p>{{invitation.phoneNumber}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
