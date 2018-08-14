@@ -84,7 +84,7 @@ export class ProfilePage {
     });
   }
 
-  userHasWalletInSystem(){
+  userHasWalletInSystem() {
     this.rp.getData('wallet/' + this.person.userId).then((data) => {
       console.log(data);
       this.walletData = data;
@@ -98,7 +98,7 @@ export class ProfilePage {
     });
   }
 
-  createWallet(){
+  createWallet() {
     this.presentPrompt();
     console.log('Wallet Created!');
   }
@@ -131,8 +131,9 @@ export class ProfilePage {
               coin: 'tbtc',
               label: data.label,
               password: data.password,
-            }).then((data) => {
+            }).then(({ wallet: { id: walletId } }) => {
               this.userHasWallet = true;
+              this.walletid = walletId;
               console.log(data);
               this.getWallet();
             });
@@ -202,6 +203,14 @@ export class ProfilePage {
                 });
               }
             });
+          },
+        },
+        {
+          text: 'Add Funds',
+          icon: 'add',
+          handler: () => {
+            const myaddress = this.balancedata.response.receiveAddress.address;
+            this.navCtrl.push('AddfundsPage', { data: { myaddress } });
           },
         },
         {
