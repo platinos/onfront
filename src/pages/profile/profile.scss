@@ -7,7 +7,8 @@ page-profile {
 .profile {
     text-align: center;
     color: #ffffff;
-    background: url("../../assets/imgs/banner.png");
+    // background: url("imgs/banner.png");
+    background: color($colors, "primary");
     padding-top: 10px;
     padding-bottom: 10px;
 }

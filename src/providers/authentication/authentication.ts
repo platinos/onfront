@@ -28,7 +28,7 @@ export class AuthenticationProvider {
         setTimeout(() => {
           loading.dismiss();
         }, 2000);
-        this.user.login({ name: this.dataResponse[0].name, userId: this.dataResponse[0]._id, phone: this.dataResponse[0].phone, pic: this.dataResponse[0].ImageUrl });
+        this.user.login({ name: this.dataResponse.name, userId: this.dataResponse._id, phone: this.dataResponse.phone, pic: this.dataResponse.ImageUrl });
 
       }
       else{

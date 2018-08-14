@@ -47,12 +47,22 @@ export class ProfilePage {
   ) {
     this.profilePages = 'wallet';
     this.animator = animationService.builder();
+    
+    this.userHasWalletInSystem();
   }
 
   async ionViewWillEnter() {
     this.person = await this.user.getUser();
+    console.log(this.person);
+    this.userHasWalletInSystem();
+    
   }
+  async something() {
+    this.person = await this.user.getUser();
+    console.log(this.person);
+    this.userHasWalletInSystem();
 
+  }
   checkProfilePage(pageName) {
     return !this.userHasWallet;
   }
