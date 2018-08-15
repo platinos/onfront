@@ -19,6 +19,7 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { Contacts } from '@ionic-native/contacts';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { Contacts } from '@ionic-native/contacts';
     AnimationService,
     QRScanner,
     Contacts,
+    SocialSharing,
   ],
 })
 export class AppModule {}

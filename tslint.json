@@ -5,7 +5,8 @@
       true
     ],
     "max-line-length": [true, 120],
-    "object-shorthand-properties-first": false
+    "object-shorthand-properties-first": false,
+    "no-increment-decrement": false
   },
   "extends": [
     "tslint-config-airbnb"

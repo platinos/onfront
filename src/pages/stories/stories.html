@@ -49,7 +49,7 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button icon-start clear small (click)="sendLike(content.Id)">
+        <button ion-button icon-start clear small (click)="like(content.Id)">
           <ion-icon name="download"></ion-icon>
           <div>{{content.likesCount}} Saves</div>
         </button>
@@ -61,7 +61,7 @@
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button icon-start clear small>
+        <button ion-button icon-start clear small (click)="share(content.Id)">
           <ion-icon name="open"></ion-icon>
           <div>Apply</div>
         </button>

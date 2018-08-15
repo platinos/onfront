@@ -13,7 +13,7 @@
 
 
 <ion-content>
-<ion-card> 
+<ion-card>
 
   <ion-item>
     <ion-avatar item-start>
@@ -43,15 +43,15 @@
 
   <ion-row>
     <ion-col>
-      <button ion-button icon-start clear small>
+      <button ion-button icon-start clear small (click)="like()">
         <ion-icon name="download"></ion-icon>
-        <div>{{contentList?.likes.length}} Saves</div>
+        <div>{{contentList?.likes.length}} Saves11</div>
       </button>
     </ion-col>
     <ion-col>
     </ion-col>
     <ion-col>
-      <button ion-button icon-start clear small>
+      <button ion-button icon-start clear small (click)="share()">
         <ion-icon name="open"></ion-icon>
         <div>Apply</div>
       </button>
@@ -74,6 +74,6 @@
 <h2>{{comments?.user?.name}}</h2>
 <p>{{comments?.comment}}</p>
     </ion-item>
-  </ion-list> 
+  </ion-list>
   </div>
 </ion-content>

@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController, ViewController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ModalController,
+  LoadingController,
+  ViewController,
+} from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { CreatepostPage } from '../createpost/createpost';
 import { RestProvider } from '../../providers/rest/rest';
 import { UserData, User } from '../../providers/user-data';
@@ -18,7 +26,8 @@ export class StoriesPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    public restProvider: RestProvider,
+    private socialSharing: SocialSharing,
+    private restProvider: RestProvider,
     private userProvider: UserData,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
@@ -50,6 +59,7 @@ export class StoriesPage {
     this.restProvider.getData('content')
       .then((data) => {
         this.contents = data;
+        console.log('this.contents', this.contents);
         this.contentList = this.contents.response;
         setTimeout(
           () => loading.dismiss(),
@@ -77,12 +87,24 @@ export class StoriesPage {
       });
   }
 
-  sendLike(contentId: string) {
-    console.log('SEND LIKE');
-    this.restProvider.putData(`comment/${contentId}/${this.user.userId}`, {})
-      .then((data) => {
-        console.log('RSPONSE', data);
-      });
+  private getContentById(contentId: string) {
+    return this.contentList.find(content => content.Id === contentId);
+  }
+
+  async like(contentId: string) {
+    const content = this.getContentById(contentId);
+    // TODO: remove try/catch when fix unlike request error on server
+    try {
+      await this.restProvider.putData(`content/${contentId}/${this.user.userId}`, {});
+      content.likesCount ++;
+    } catch (e) {
+      content.likesCount --;
+    }
+  }
+
+  public share(contentId: string) {
+    const content = this.getContentById(contentId);
+    this.socialSharing.share(content.content, 'SHAQ - share', content.image);
   }
 
   doRefresh(refresher) {
