@@ -110,11 +110,11 @@ export class ProfilePage {
 
   presentPrompt() {
     const alert = this.alertCtrl.create({
-      title: 'Create New wallet',
+      title: 'Setup Wallet Passcode',
       inputs: [
         {
           name: 'label',
-          placeholder: 'Enter Wallet Name',
+          placeholder: 'Enter a friendly Wallet Name',
         },
         {
           name: 'password',
@@ -139,7 +139,7 @@ export class ProfilePage {
             }).then((data) => {
               this.userHasWallet = true;
               console.log(data);
-              this.getWallet();
+              this.ionViewWillEnter();
             });
           },
         },
@@ -170,14 +170,85 @@ export class ProfilePage {
             // console.log('Archive clicked');
           },
         },
-        // {
-        //   text: 'Scan QR',
-        //   icon: !this.platform.is('ios') ? 'qr-scanner' : null,
-        //   handler: () => {
-        //     //console.log('Archive clicked');
-        //     this.gotoPage("SendcoinPage", 'qrcode');
-        //   }
-        // },
+        {
+          text: 'Add Funds',
+          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+          handler: () => {
+            //console.log('Archive clicked');
+            this.gotoPage('AddfundsPage', { 'myaddress': this.balancedata.response.receiveAddress.address })
+          }
+        },
+        {
+          text: 'Select from contacts',
+          // icon: 'contacts',
+          icon: !this.platform.is('ios') ? 'contacts' : null,
+          handler: () => {
+            const senders = this.modalCtrl.create('SenderslistPage');
+            senders.present();
+            senders.onDidDismiss((data) => {
+              if (data !== undefined) {
+
+                this.rp.getData('wallet/' + data.friendId).then((data) => {
+                  console.log(data);
+                  const temp: any = data;
+                  if (temp.error === undefined) {
+                    const tempWalletId = temp.response.walletId;
+
+                    this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
+                      const tempWalletdata: any = data;
+
+                      const addressee = tempWalletdata.response.receiveAddress.address;
+                      console.log(`Sending to: ${addressee}`);
+
+                      this.gotoPage('SendcoinPage', { destAddress: addressee });
+                    });
+
+                  }
+                });
+              }
+            });
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    actionSheet.present();
+  }
+  menuPrompt() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'What do you want to do?',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [
+        {
+          text: 'Send to Wallet',
+          icon: !this.platform.is('ios') ? 'at' : null,
+          handler: () => {
+            this.gotoPage('SendcoinPage', 'walletid');
+            
+          },
+        },
+        {
+          text: 'Watch Market',
+          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+          handler: () => {
+            //console.log('Archive clicked');
+            this.gotoPage("MarketPage");
+          }
+        },
+        {
+          text: 'Shop',
+          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+          handler: () => {
+            //console.log('Archive clicked');
+            this.gotoPage("ShopPage");
+          }
+        },
         {
           text: 'Select from contacts',
           // icon: 'contacts',
@@ -222,7 +293,9 @@ export class ProfilePage {
   }
 
   animateElem() {
+    if (this.hasWallet()){
     this.animator.setType('flipInX').show(this.myElem.nativeElement);
     this.showDetails = this.showDetails === true ? false : true;
+    }
   }
 }

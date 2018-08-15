@@ -34,8 +34,10 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #452054,
-  accent:    #dfb3a6,
+ primary:    #452054,
+  profile:    #452054,
+  accent:    #cb9c8d,
+  lighttext: #4d4d4d,
   chatbubble: #9267a1,
   icons:      #a290aa,
   secondary:  #32db64,
@@ -63,6 +65,7 @@ $toolbar-ios-title-text-color: color($colors, icons);
 $toolbar-md-background: color($colors, light);
 //$toolbar-md-active-color: color($colors, icons);
 $toolbar-md-title-text-color: color($colors, icons);
+$text-input-md-background-color: transparent;
 
 
 // App Windows Variables

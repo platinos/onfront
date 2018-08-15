@@ -37,6 +37,7 @@ export class UserData {
     this.storage.remove(this.HAS_LOGGED_IN);
     this.storage.remove('username');
     this.storage.remove('phone');
+    this.storage.remove('profile');
     this.events.publish('user:logout');
   }
 

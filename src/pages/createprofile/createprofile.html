@@ -1,43 +1,59 @@
-<!--
-  Generated template for the CreateprofilePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Create Profile</ion-title>
-  </ion-navbar>
+<ion-header no-border>
 
 </ion-header>
 
+<ion-content padding class="masters">
+  <img class="bullets" src="assets/imgs/bullets3.png" alt="Sheq Wallet">
+  <div [hidden]="flag===1">
+  <h4 text-center ion-text color="accent"><b>Awesome!</b> You're all set.</h4>
+  <h5 text-center ion-text color="accent">Let's set up your Profile and Wallet.</h5>
+  </div>
+  <div [hidden]="flag===0">
+    <img class="logo" src="assets/imgs/title-logo.png" alt="Sheq Wallet">
+    <h4 text-center ion-text color="accent">
+       Hi<b> {{uname}}!</b></h4>
+    <h5 text-center ion-text color="accent">Now we just need you to set up a secure password.</h5>
+  </div>
 
-<ion-content>
-    <ion-list no-lines>
+     
+  <div class="login" text-center>
         <form [formGroup]="form" (ngSubmit)="createprofile()">
-          <ion-item margin-bottom> 
-              <div (click)="selectImage()">
-                  <img class="profile-image" src="{{profileimage || 'assets/imgs/user_female.png'}}">
-                  Choose a Display Pic.
-                </div>
+<div [hidden]="flag==1">
+            
+  <div (click)="selectImage()">
+    <img class="bullets profileimage" src="{{profileimage || 'assets/imgs/user.png'}}">
+    <span ion-text text-center color="primary" class="bullets">Choose Profile Pic</span>
+  </div>
+        <ion-item margin-bottom style="background: transparent">
+          <ion-label color="lighttext" floating>What's your full legal name?</ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item margin-bottom style="background: transparent">
+          <ion-label color="lighttext" floating>What's your email?</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+
+        <a ion-button clear color="accent" (click)="changeFlag()"> Next </a>
+</div>
+
+
+<div [hidden]="flag==0">
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Choose a password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Enter your Name" type="text" formControlName="name"></ion-input>
-        </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Enter your email" type="email" formControlName="email"></ion-input>
-        </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
-        </ion-item>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Confirm Password" type="password" formControlName="confirmpassword"></ion-input>
-        </ion-item>
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Re-type password</ion-label>
+            <ion-input type="password" formControlName="confirmpassword"></ion-input>
+          </ion-item>
+            <a ion-button color="accent" clear (click)="changeFlag()"> Back </a>
           
-        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">Create Profile</button>
+          <button ion-button color="accent" text-center rounded [disabled]="!form.valid">Create Profile</button>
+      
+          
+        </div>
+        
         </form>
-      </ion-list>
-    
+</div>
 
 </ion-content>

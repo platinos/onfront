@@ -4,8 +4,13 @@ page-signup {
   }
 .logo {
 	  display: block;
-	  margin: 10% auto;
-	  width: 200px;
+	  margin: 5% auto;
+	  width: 100px;
+   }
+   .bullets {
+	  display: block;
+	  margin: 5% auto;
+	  width: 100px;
    }
 .bio {
 	  display: block;
@@ -13,16 +18,10 @@ page-signup {
       width: 100px;
       margin-top: 5em;
    }
-   .fyl {
-	  display: block;
-      bottom: 20px;
-      width: 28%;
-      margin: 0 auto;
-      margin-bottom: -10em;
-   }
+
 
    .login {
-      background: rgba(255, 255, 255, 1);
+     // background: rgba(255, 255, 255, 1);
       border-radius: 10px;
     //   margin: 1em;
      // padding: 2em 5em 5em 2em;
@@ -36,4 +35,8 @@ page-signup {
       	  margin: 0 0 1.5em 0;
       }
    }
+   ul li{
+    display:inline;
+    //display:list-item;
+}
 }

@@ -17,38 +17,45 @@ export class OtppagePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public rp: RestProvider) {
     this.phoneNumber = this.navParams.get("phoneNo");
-    console.log(this.phoneNumber);
+    this.GenOTP();
     
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OtppagePage');
-    
+   
+    // if(this.phoneNumber !== undefined) this.GenOTP();
+   
   }
   
 
   GenOTP(): void {
+    if(undefined !== this.phoneNumber){
     this.rp.sendOtp(this.phoneNumber).then(data=>{
       console.log(data);
       this.dummyData = data;
       if (this.dummyData.type === "success"){
-        this.replyMsg =   "OTP Sent to "+ this.phoneNumber;
+        // this.replyMsg =   "OTP Sent to "+ this.phoneNumber;
         this.flag = 1;
       }
       else{
-        this.replyMsg = "An error occured. please try again later."
+        this.replyMsg = "An error occured. Please try again later."
       }
     }).catch(err=>{
-      console.log(err);
-      
-    })
+      console.log(err); 
+    });
    }
+   else{
+     console.log("phone no not set.");
+     
+   }
+}
   verOTP(): void {
   let
    otp: any = this.OTP;
    if(otp){
 console.log("verifying");
 
+     if (undefined !== this.phoneNumber) {
     this.rp.verifyOtp( this.phoneNumber, otp).then(data=>{
       console.log(data);
       //Check if success.
@@ -60,10 +67,15 @@ console.log("verifying");
         this.replyMsg = "Incorrect OTP. Try Again."
     }).catch(err=>{
       console.log(err);
-      
-    })
-
+    });
     
-   }
+     } 
+     else {
+       console.log("phone no not set.");
+       //this.replyMsg = "Incorrect OTP. Try Again."
+
+     }
   }
+}
+
 }
