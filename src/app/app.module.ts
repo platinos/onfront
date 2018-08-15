@@ -21,6 +21,7 @@ import { QRScanner } from '@ionic-native/qr-scanner';
 import { CurrenciesProvider } from '../providers/currencies/currencies';
 import { Contacts } from '@ionic-native/contacts';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     Contacts,
     SocialSharing,
     CurrenciesProvider,
+    CallNumber,
   ],
 })
 export class AppModule {}

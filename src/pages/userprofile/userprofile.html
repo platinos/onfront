@@ -13,9 +13,25 @@
     <h5>{{person?.phone}}</h5>
   </ion-toolbar>
   <ion-card>
-    <ion-card-header>
-    </ion-card-header>
     <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block [disabled]="!person?.phone" (click)="call()">Call</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block [disabled]="!person?.wallets.length" (click)="sendMoney()">Send money</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block [disabled]="!person" (click)="chat()">Chat</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block [disabled]="!person?.wallets.length" (click)="requestMoney()">Request money</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 
