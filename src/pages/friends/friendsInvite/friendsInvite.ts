@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 
@@ -11,22 +10,21 @@ type Invitation = {
   date?: string,
 };
 
-@IonicPage()
 @Component({
-  selector: 'page-friendsInvite',
+  selector: 'friendsInvite',
   templateUrl: 'friendsInvite.html',
 })
 export class FriendsInvitePage {
-  invitations: Invitation[];
-  invitationsFiltered: Invitation[];
-  searchString: '';
+  private invitations: Invitation[];
+  private invitationsFiltered: Invitation[];
+  private searchString: '';
 
   constructor(
     private sanitizer: DomSanitizer,
     private contactsProvider: Contacts,
   ) { }
 
-  ionViewDidLoad() {
+  ngAfterContentInit() {
     this.loadContacts();
   }
 

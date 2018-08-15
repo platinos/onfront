@@ -37,6 +37,9 @@
       <ion-segment-button value="friends">
         Friends
       </ion-segment-button>
+      <ion-segment-button value="invites">
+        Invites
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <div [ngSwitch]="chatpages">
@@ -68,6 +71,8 @@
         </ion-item>
       </ion-list>
     </div>
+
+    <friendsInvite *ngSwitchCase="'invites'"></friendsInvite>
   </div>
 
   <!-- Action Buttons -->
