@@ -1,29 +1,28 @@
-
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Verify Phone Number</ion-title>
-  </ion-navbar>
-
+<ion-header no-border>
 </ion-header>
 
+<ion-content padding class="masters">
+  <img class="bullets" src="assets/imgs/bullets2.png" alt="Sheq Wallet">
+  <img class="logo" src="assets/imgs/title-logo.png" alt="Sheq Wallet">
+  <h5 text-center ion-text color="accent">We sent you a Verification Code</h5>
+  <h5 text-center ion-text color="accent">on <b>{{phoneNumber}}</b></h5>
+  <h5 text-center ion-text color="accent">Check your SMS Inbox.</h5>
+  <br>
+  <br>
+  <div class="login" text-center>
+<ion-item margin-bottom style="background: transparent">
+  <ion-label color="lighttext" floating>Enter Verification Code</ion-label>
+    <ion-input  type="number" [(ngModel)]="OTP"></ion-input>
+   
+  </ion-item>
+  <p ion-text color="danger">{{replyMsg}}</p>
 
-<ion-content padding>
+  <button ion-button color="primary" text-center round (click)="verOTP()">Verify Mobile Number</button>
+  <button text-left ion-button clear color="primary" (click)="GenOTP()">Didn't Recieve Code?</button>
+  <!-- <button text-left ion-button clear color="primary" navPop>Edit Mobile Number.</button> -->
 
-    <ion-list no-lines [hidden]="flag===1">
-      <h2>Your Number : {{phoneNumber}}</h2>
-      <button ion-button color="primary" text-center outline rounded (click)="GenOTP()">Send OTP</button>
-    </ion-list>
-
-        <h3>{{replyMsg}}</h3>
-      <ion-list no-lines [hidden]="flag===0">
-      <ion-item margin-bottom>
-        <ion-input placeholder="Enter OTP" type="number" [(ngModel)]="OTP"></ion-input>
-      </ion-item>
-     
-      <button ion-button color="primary" text-center outline rounded (click)="verOTP()">Continue</button>
-      <button text-left ion-button clear icon-end color="primary" (click)="GenOTP()">Resend OTP</button>
-    </ion-list>
+  </div>
+        
 
 
 </ion-content>

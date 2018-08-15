@@ -1,33 +1,85 @@
+
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>My Projects</ion-title>
-  </ion-navbar>
+    <ion-toolbar>
+      <ion-title>
+        <img src="assets/imgs/title-logo.png" width="50px">
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-</ion-header>
 
+<ion-content class="cards-bg social-cards page-bg">
+<ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content  refreshingText='
+  <img src="assets/imgs/loading.gif"/>'>
+  </ion-refresher-content>
+</ion-refresher>
 
-<ion-content padding class="card-background-page">
-<ion-list>
-  <ion-item (click)="gotoPage(ChatscreenPage)" text-wrap no-lines *ngFor="let key of [1,2,3]">
-    <ion-avatar item-left>
-      <img src="../../assets/imgs/Anu-Bhardwaj.png">
+<ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
+
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="assets/imgs/user.png">
     </ion-avatar>
-    <h2 color="primary">Anu Bhardwaj</h2>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p>
+    <h2>{{content.PostByUser.name}}</h2>
+    <p>Yesterday</p>
   </ion-item>
-  
 
-</ion-list>
-
-<ion-slides>
-  <ion-slide *ngFor="let c of [1,2,3,4,5,6]">
-    <ion-card>
-      <img src="assets/imgs/item1.png" />
-      <div class="card-title">Amsterdam</div>
+  <img src="{{content.image}}">
+  <ion-card-content>
+    <p>{{content.content}}</p>
+    <ion-card *ngIf="content?.isShared">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/imgs/user.png">
+        </ion-avatar>
+        <!-- <h2>{{content?.parent.user?.name}}</h2> -->
+        <p>Yesterday</p>
+      </ion-item>
+      <ion-card-content>
+        <p>{{content.parent?.content}}</p>
+      </ion-card-content>
     </ion-card>
-    
-  </ion-slide>
-</ion-slides>
 
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-start clear small>
+        <ion-icon name="download"></ion-icon>
+        <div>{{content.likesCount}} Saves</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-start clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>{{content.commentsCount}} Comments</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-start clear small>
+        <ion-icon name="open"></ion-icon>
+        <div>Apply</div>
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="presentCreateModal($event)">
+      <ion-icon name="create"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
+<style>
+  .social-cards ion-col {
+    padding: 0;
+  }
+</style>

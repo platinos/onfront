@@ -31,19 +31,19 @@
       src="{{person.pic || 'assets/imgs/user_female.png'}}"
       (click)="gotoPage('ProfileEditPage')"
     />
-    <h4>{{person.name}}</h4>
-    <h5>@{{person.phone}}</h5>
+    <h4>{{person?.name}}</h4>
+    <h5>@{{person?.phone}}</h5>
   </div>
 
-  <ion-slides pager>
+  <ion-slides>
     <ion-slide>
-      <ion-card #myElement class="walletCard2">
+      <ion-card #myElement class="">
         <ion-card-header (click)="animateElem()">
          <h1>{{balancedata?.response?.label}}</h1>
         </ion-card-header>
 
         <ion-card-content [hidden]="hasWallet()">
-          <button ion-button outline block (click)="createWallet()">Create Wallet</button>
+          <button ion-button outline block (click)="createWallet()">Setup Wallet Passcode</button>
         </ion-card-content>
 
         <ion-card-content [hidden]="!hasWallet() || showDetails">
@@ -78,54 +78,19 @@
         </ion-card-content>
       </ion-card>
     </ion-slide>
-    <ion-slide>
-      <ion-card #myElement class="walletCard2">
-        <ion-card-header (click)="animateElem()">
-          <h1>{{balancedata?.response?.label}}</h1>
-        </ion-card-header>
 
-        <ion-card-content [hidden]="hasWallet()">
-          <button ion-button outline block (click)="createWallet()">Create Wallet</button>
-        </ion-card-content>
-
-        <ion-card-content [hidden]="!hasWallet() || showDetails">
-          <h1 text-center>
-            <ion-icon name="logo-bitcoin" color='primary'></ion-icon> {{balance}}
-          </h1>
-          <ion-grid>
-            <ion-row>
-              <ion-col text-center>
-                <button ion-button block outline color="primary" (click)="paymentmethodPrompt()">Send</button>
-              </ion-col>
-              <ion-col text-center>
-                <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage', walletid)">Recieve</button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-        <ion-card-content [hidden]="!showDetails">
-          <ion-list>
-            <!-- <ion-item-divider color="light">My Assets</ion-item-divider> -->
-            <h2>My Assets</h2>
-            <ion-item *ngFor="let coin of walletCoins">
-              <ion-avatar item-left>
-                <img src="assets/imgs/{{coin.icon}}" style="width:50px;height:50px">
-              </ion-avatar>
-              <!-- <h2 color="primary">{{coin.name}}</h2> -->
-              <h2>{{coin.value}}</h2>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide>
   </ion-slides>
 
   <!-- Action Buttons -->
   <ion-fab right bottom>
-    <button ion-fab color="primary">
+    <button ion-fab color="primary" (click)="menuPrompt()">
       <ion-icon name="flash"></ion-icon>
     </button>
-    <ion-fab-list side="top">
+    <!-- <ion-fab-list side="top">
+      <button ion-fab color="primary" (click)="gotoPage('AddfundsPage', {'myaddress' : balancedata.response.receiveAddress.address})">
+        <ion-icon name="add" color='light'></ion-icon>
+        <ion-label>Add Funds</ion-label>
+      </button>
       <button ion-fab color="primary" (click)="gotoPage('WalletPage')">
         <ion-icon name="logo-bitcoin" color='light'></ion-icon>
         <ion-label>My Wallet</ion-label>
@@ -145,11 +110,6 @@
       <button ion-fab color="primary" (click)="gotoPage('ShopPage')">
         <ion-icon name="cart" color='light'></ion-icon>
         <ion-label>Sheq Shop</ion-label>
-      </button>
-      <!-- <button ion-fab (click)="gotoPage('ChatscreenPage')">
-        <ion-icon name="flash" color='icons'></ion-icon>
-        <ion-label>Sheq Smartbot</ion-label>
-      </button> -->
-    </ion-fab-list>
+      </button>  -->
   </ion-fab>
 </ion-content>

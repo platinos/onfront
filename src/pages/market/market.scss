@@ -1,3 +1,78 @@
-page-market {
+.market-page {
+  display:flex;
+  flex-direction: column;
+  height: 100%;
 
+  &__main {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+
+  &__canvas-wraper {
+    flex-grow: 1;
+  }
+
+  &__main-currency-icon {
+    margin: auto -10px auto 10px;
+    background: transparent;
+  }
+
+  &__select-wraper {
+    position: relative;
+    display: flex;
+  }
+
+  &__currencies {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__currencies-item {
+    display: inline-block;
+    width: 100px;
+  }
+}
+
+.flat-radio {
+  &__label {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+    &_active {
+      font-weight: bold;
+      color: deeppink;
+    }
+  }
+  &__input {
+    display: none;
+  }
+}
+
+.flat-cards {
+  .card {
+    width: 100%;
+  }
+}
+
+.text-muted {
+  opacity: 0.5;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.grid-vertical-lines {
+  .col {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    &:last-child {
+      border: 0;
+    }
+  }
 }

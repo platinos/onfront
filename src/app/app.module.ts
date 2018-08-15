@@ -18,6 +18,7 @@ import { ProfileProvider } from '../providers/profileProvider';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { CurrenciesProvider } from '../providers/currencies/currencies';
 import { Contacts } from '@ionic-native/contacts';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -56,6 +57,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     QRScanner,
     Contacts,
     SocialSharing,
+    CurrenciesProvider,
   ],
 })
 export class AppModule {}

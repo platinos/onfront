@@ -23,6 +23,8 @@ import { AuthenticationProvider } from '../../providers/authentication/authentic
 export class CreateprofilePage {
   public profileimage : any;
   public phoneNumber;
+  flag=0;
+  uname:any;
 
   public form: FormGroup;
 
@@ -91,7 +93,10 @@ createprofile() {
   
 
 }
-
+  changeFlag(){
+    this.uname = this.form.controls['name'].value;
+    this.flag= this.flag==1? 0: 1;
+  }
   selectImage() {
     this._IMG.selectImage()
       .then((data) => {

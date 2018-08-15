@@ -1,38 +1,38 @@
 <ion-header no-border>
-  <ion-navbar transparent>
-
-    <ion-title>Signup</ion-title>
-  </ion-navbar>
 
 </ion-header>
 
 <ion-content padding class="masters">
-
-  <img class="logo" src="assets/imgs/SHEQ_gold_ID.png" alt="Sheq Wallet">
-
-
+  <img class="bullets" src="assets/imgs/bullets1.png" alt="Sheq Wallet">
+  <img class="logo" src="assets/imgs/title-logo.png" alt="Sheq Wallet">
+  <h4 text-center ion-text color="accent">Ready to co-invest in your <b>future</b>?</h4>
+  <h5 text-center ion-text color="accent">Cool! Let's get you set up.</h5>
+  <br>
+  <br>
 <div>
   <div class="login" text-center *ngIf="flag==0">
      <form [formGroup]="form">
-      <ion-list no-lines>
-        <ion-item margin-bottom>
-          <ion-input placeholder="Enter your phone number" type="tel" formControlName="phoneNo" [(ngModel)]="number"></ion-input>
+      <!-- <ion-list no-lines> -->
+        <ion-item margin-bottom style="background: transparent">
+          <ion-label  color="lighttext" floating>What's your Mobile Number? </ion-label>
+          <ion-input  type="tel" formControlName="phoneNo" [(ngModel)]="number"></ion-input>
         </ion-item>
-        <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid" (click)="isregistered()">Continue</button>
-      </ion-list>
+        <button ion-button color="accent" text-center  round [disabled]="!form.valid" (click)="isregistered()">Continue</button>
+      <!-- </ion-list> -->
     </form>
   </div>
     <!-- *ngIf="flag==1" -->
   <div class="login" text-center *ngIf="flag==1">
       <form [formGroup]="form2" (ngSubmit)="logIn()">
        <ion-list no-lines>
-         <ion-item margin-bottom>
-           <ion-input placeholder="Enter your phone number" type="tel" formControlName="phoneNo" [(ngModel)]="number"></ion-input>
+         <ion-item margin-bottom style="background: transparent">
+           <ion-input type="tel" formControlName="phoneNo" [(ngModel)]="number"></ion-input>
          </ion-item>
-         <ion-item  margin-bottom >
-            <ion-input placeholder="Enter a Password" type="password" formControlName="password"></ion-input>
+         <ion-item  margin-bottom style="background: transparent">
+          <ion-label color="lighttext" floating>Enter Password </ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
-         <button ion-button color="primary" text-center outline rounded [disabled]="!form.valid">login</button>
+         <button ion-button color="accent" text-center round [disabled]="!form.valid">login</button>
        </ion-list>
      </form>
    </div>
