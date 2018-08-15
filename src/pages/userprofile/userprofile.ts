@@ -9,53 +9,42 @@ import { RestProvider } from '../../providers/rest/rest';
  * Ionic pages and navigation.
  */
 
+type Person = {
+  name: string,
+  phone: string,
+  userId: string,
+  status: string,
+};
+
 @IonicPage()
 @Component({
   selector: 'page-userprofile',
   templateUrl: 'userprofile.html',
 })
 export class UserprofilePage {
-  userTemp:any;
-  storyTemp:any;
-  public person: { name: string, phone: string, userId: string, status:string };
-  userId: any;
+  public stories: any;
+  public person: Person;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
-    this.person = { name: "", phone: "", userId: "" , status:""};
-    
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public rest: RestProvider,
+  ) { }
 
   ionViewDidLoad() {
-     this.userId = this.navParams.get('userId');
-    //console.log('content/user/' + this.userId);
-    
-    this.rest.getData('profile/'+this.userId).then(data => {
-      console.log(data);
-      
-      this.userTemp = data;
-      this.userTemp = this.userTemp.response;
+    const userId = this.navParams.get('userId');
 
-      this.person.name = this.userTemp.user.name;
-      this.person.phone = this.userTemp.user.phone;
-      this.person.userId = this.userTemp.user.userId;
-      this.person.status = this.userTemp.status;
-      console.log(this.person);
-      
+    this.rest.getData(`profile/${userId}`).then(({ response: { user: { name, phone, _id: userId }, status } }) => {
+      this.person = { name, phone, userId, status };
+      console.log('PERSON', this.person);
     });
-    this.rest.addData('content/user/' + this.userId, {'page':0}).then(data => {
-      console.log(data);
-      this.storyTemp = data;
-      this.storyTemp = this.storyTemp.response[0];
-      console.log(this.storyTemp);
-      
-      this.storyTemp = this.storyTemp.contents;
-      console.log(this.storyTemp);
-
+    this.rest.addData(`content/user/${userId}`, { page: 0 }).then(({ response }) => {
+      this.stories = response[0].contents;
+      console.log('STORY', this.stories);
     });
   }
+
   presentPostModal(postId) {
-    this.navCtrl.push('PostsPage', { 'postId': postId });
+    this.navCtrl.push('PostsPage', { postId });
   }
-
 }

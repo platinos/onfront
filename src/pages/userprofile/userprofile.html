@@ -1,16 +1,16 @@
 <ion-header>
 <ion-navbar color="light">
   <ion-title>
-    {{person.name}}'s Profile
+    {{person?.name}}'s Profile
   </ion-title>
 </ion-navbar>
 
 </ion-header>
 <ion-content>
   <ion-toolbar class="profile" color="primary">
-    <img class="profile-image" src="{{person.ImageUrl || 'assets/imgs/user.png'}}">
-    <h4>{{person.name}}</h4>
-    <h5>{{person.phone}}</h5>
+    <img class="profile-image" src="{{person?.ImageUrl || 'assets/imgs/user.png'}}">
+    <h4>{{person?.name}}</h4>
+    <h5>{{person?.phone}}</h5>
   </ion-toolbar>
   <ion-card>
     <ion-card-header>
@@ -19,14 +19,14 @@
     </ion-card-content>
   </ion-card>
 
-<ion-card *ngIf="storyTemp?.length === 0">
+<ion-card *ngIf="stories?.length === 0">
   <ion-card-title>
-    <p>{{person.name}} has not shared any stories...</p>
+    <p>{{person?.name}} has not shared any stories...</p>
   </ion-card-title>
 </ion-card>
 
 
-<ion-card *ngFor="let content of storyTemp" (click)="presentPostModal(content._id)">
+<ion-card *ngFor="let content of stories" (click)="presentPostModal(content._id)">
   <ion-item>
     <ion-avatar item-start>
       <img src="assets/imgs/user.png">
@@ -35,7 +35,7 @@
   <img src="{{content.image}}">
   <ion-card-content>
     <p>{{content.content}}</p>
-  </ion-card-content> 
+  </ion-card-content>
   <ion-row>
     <ion-col>
       <button ion-button icon-start clear small>
