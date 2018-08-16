@@ -25,6 +25,7 @@
     "@ionic-native/camera": "^4.11.0",
     "@ionic-native/contacts": "^4.11.0",
     "@ionic-native/core": "4.7.0",
+    "@ionic-native/file-path": "^4.11.0",
     "@ionic-native/qr-scanner": "^4.11.0",
     "@ionic-native/social-sharing": "^4.11.0",
     "@ionic-native/splash-screen": "4.7.0",
@@ -40,6 +41,7 @@
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-contacts": "^3.0.1",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-filepath": "^1.4.2",
     "cordova-plugin-ionic": "^4.1.7",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
@@ -85,7 +87,8 @@
       "cordova-plugin-qrscanner": {},
       "cordova-plugin-contacts": {},
       "cordova-plugin-x-socialsharing": {},
-      "mx.ferreyra.callnumber": {}
+      "mx.ferreyra.callnumber": {},
+      "cordova-plugin-filepath": {}
     },
     "platforms": [
       "android",

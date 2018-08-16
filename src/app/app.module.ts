@@ -22,6 +22,7 @@ import { CurrenciesProvider } from '../providers/currencies/currencies';
 import { Contacts } from '@ionic-native/contacts';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { CallNumber } from '@ionic-native/call-number';
+import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { CallNumber } from '@ionic-native/call-number';
     SocialSharing,
     CurrenciesProvider,
     CallNumber,
+    FilePath,
   ],
 })
 export class AppModule {}

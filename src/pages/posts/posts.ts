@@ -104,6 +104,6 @@ export class PostsPage {
 
   public share(contentId: string) {
     const content = this.contentList;
-    this.socialSharing.share(content.content, 'SHAQ - share', content.image);
+    this.socialSharing.share(content.content, 'SHEQ - share', content.image);
   }
 }

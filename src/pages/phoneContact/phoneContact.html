@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="light">
+    <ion-title>
+      {{person?.name}}'s Profile
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-toolbar class="profile" color="primary">
+
+    <img class="profile-image" [src]="person?.photo ? sanitizeImage(person?.photo) : 'assets/imgs/user.png'">
+    <h4>{{person?.name}}</h4>
+    <h5>{{person?.phone||''}}</h5>
+  </ion-toolbar>
+  <ion-card>
+    <ion-card-content>
+      <button ion-button block (click)="invite()">Invite</button>
+    </ion-card-content>
+  </ion-card>

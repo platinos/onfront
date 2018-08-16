@@ -104,7 +104,7 @@ export class StoriesPage {
 
   public share(contentId: string) {
     const content = this.getContentById(contentId);
-    this.socialSharing.share(content.content, 'SHAQ - share', content.image);
+    this.socialSharing.share(content.content, 'SHEQ - share', content.image);
   }
 
   doRefresh(refresher) {

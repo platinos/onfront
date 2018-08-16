@@ -3,7 +3,7 @@
     *ngFor="let invitation of invitationsFiltered"
     text-wrap
     no-lines
-    (click)="sendInvitation(invitation.phoneNumber)"
+    (click)="goToProfile(invitation.id)"
   >
     <ion-avatar item-left>
       <img [src]="invitation.contactPhoto || 'assets/imgs/user.png'" />

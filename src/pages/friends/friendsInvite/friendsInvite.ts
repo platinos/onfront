@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 
 type Invitation = {
+  id: string,
   contactName: string,
   contactPhoto: string | SafeUrl,
   phoneNumber: string,
@@ -20,6 +22,7 @@ export class FriendsInvitePage {
   private searchString: '';
 
   constructor(
+    public navCtrl: NavController,
     private sanitizer: DomSanitizer,
     private contactsProvider: Contacts,
   ) { }
@@ -45,6 +48,7 @@ export class FriendsInvitePage {
       const contactPhoto = contact.photos ? contact.photos[0].value : '';
 
       return {
+        id: contact.id,
         contactName: contact.displayName,
         contactPhoto: contactPhoto ? this.sanitizer.bypassSecurityTrustUrl(contactPhoto) : '',
         phoneNumber,
@@ -53,7 +57,8 @@ export class FriendsInvitePage {
     this.filterInvitations();
   }
 
-  public sendInvitation(phoneNumber) {
-    console.log('SEND INVITATION', phoneNumber);
+  public goToProfile(phoneContactId: string) {
+    console.log('phoneContactId', phoneContactId);
+    this.navCtrl.push('PhoneContactPage', { phoneContactId });
   }
 }
