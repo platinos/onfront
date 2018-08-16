@@ -12,43 +12,32 @@ type User = {
   templateUrl: 'friends.html',
 })
 export class FriendsPage {
-  temparr = [];
-
-  showOptionsToggle = false;
-  chatpages = '' ;
+  chatpages = 'chats';
   userResponse: [string];
   users: any;
-  usersResponse: any;
   usersList: User[];
   usersListFiltered: User[];
   isSearchToggled = false;
   searchString: '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) {
-
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public restProvider: RestProvider
+  ) { }
 
   ionViewDidLoad() {
-    this.chatpages = 'chats';
     this.getUsers();
-
   }
+
   toggleSearch() {
     this.isSearchToggled = !this.isSearchToggled;
   }
 
-  showOptions(){
-    this.showOptionsToggle = !this.showOptionsToggle;
-  }
-
-  gotoPage(page, data){
+  gotoPage(page, data) {
     this.navCtrl.push(page, data);
   }
-  swipeEvent(event){
-    if(event.direction === 2)
-      this.chatpages = 'friends';
-    else this.chatpages = 'chats';
-  }
+
   getUsers() {
     this.restProvider.getData('users')
       .then(({ response }) => {
@@ -56,15 +45,17 @@ export class FriendsPage {
         this.filterData();
         this.userResponse = response;
       });
-
-
   }
+
   doRefresh(refresher) {
-    setTimeout(() => {
-      this.ionViewDidLoad();
-      refresher.complete();
-    }, 2000);
+    setTimeout(
+      () => {
+        this.ionViewDidLoad();
+        refresher.complete();
+      },
+      2000);
   }
+
   filterData() {
     this.usersListFiltered = [...this.usersList];
     console.log(this.usersListFiltered);

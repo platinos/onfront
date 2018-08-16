@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { CallNumber } from '@ionic-native/call-number';
+import { UserData, User } from '../../providers/user-data';
 
-type Person = {
+type Contact = {
   name: string,
   phone: string,
   userId: string,
@@ -17,24 +18,39 @@ type Person = {
   templateUrl: 'userprofile.html',
 })
 export class UserprofilePage {
+  private contactId: string;
+  private user: User;
+  private contact: Contact;
   private stories: any;
-  private person: Person;
+  private isFriend: boolean;
+  private isFriendRequested: boolean;
 
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
     private callNumber: CallNumber,
-    private rest: RestProvider,
+    private userProvider: UserData,
+    private restProvider: RestProvider,
   ) { }
 
   ionViewDidLoad() {
-    const userId = this.navParams.get('userId');
+    this.contactId = this.navParams.get('userId');
 
-    this.rest.getData(`profile/${userId}`)
+    this.getData();
+  }
+
+  async getData() {
+    this.user = await this.userProvider.getUser();
+
+    const profile = await this.restProvider.getData(`profile/${this.user.userId}`);
+    this.isFriend = false;
+    this.isFriendRequested = false;
+
+    this.restProvider.getData(`profile/${this.contactId}`)
       .then(({ response: { user: { name, phone, _id: userId }, status, wallets } }) =>
-        this.person = { name, phone, userId, status, wallets });
+        this.contact = { name, phone, userId, status, wallets });
 
-    this.rest.addData(`content/user/${userId}`, { page: 0 })
+    this.restProvider.addData(`content/user/${this.contactId}`, { page: 0 })
       .then(({ response }) => this.stories = response[0].contents);
   }
 
@@ -43,12 +59,12 @@ export class UserprofilePage {
   }
 
   call() {
-    const { phone } = this.person;
+    const { phone } = this.contact;
     this.callNumber.callNumber(phone, true);
   }
 
   chat() {
-    const { userId } = this.person;
+    const { userId } = this.contact;
     this.navCtrl.push('ChatscreenPage', { friendId: userId });
   }
 
@@ -58,5 +74,15 @@ export class UserprofilePage {
 
   requestMoney() {
     console.log('SEND MONEY');
+  }
+
+  addToFriends() {
+    console.log('addToFriends', this);
+    // this.restProvider.addData(`profile/addrequest/${this.user.userId}/${this.contact.userId}`, {});
+    this.restProvider.addData(`profile/addrequest/${this.user.userId}/${this.contact.userId}`, {});
+  }
+
+  removeFromFriends() {
+    console.log('remove from friends', this);
   }
 }
