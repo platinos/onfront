@@ -75,8 +75,4 @@ export class FriendsPage {
       );
     }
   }
-
-  showAddFriendPrompt() {
-    this.navCtrl.push('FriendsInvitePage');
-  }
 }

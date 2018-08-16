@@ -56,21 +56,15 @@
     </ion-list>
 
     <!-- Friend list -->
-    <div *ngSwitchCase="'friends'">
-      <button ion-button full clear icon-start (click)="showAddFriendPrompt()">
-        <ion-icon name="person-add"></ion-icon>
-        Find friends
-      </button>
-      <ion-list>
-        <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('UserprofilePage', {userId: user._id})">
-          <ion-avatar item-left>
-            <img src="assets/imgs/Anu-Bhardwaj.png" />
-          </ion-avatar>
-          <h2 color="primary">{{user.name}}</h2>
-          <p>last seen 1 hour ago</p>
-        </ion-item>
-      </ion-list>
-    </div>
+    <ion-list *ngSwitchCase="'friends'">
+      <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('UserprofilePage', {userId: user._id})">
+        <ion-avatar item-left>
+          <img src="assets/imgs/Anu-Bhardwaj.png" />
+        </ion-avatar>
+        <h2 color="primary">{{user.name}}</h2>
+        <p>last seen 1 hour ago</p>
+      </ion-item>
+    </ion-list>
 
     <friendsInvite *ngSwitchCase="'invites'"></friendsInvite>
   </div>
