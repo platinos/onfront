@@ -21,5 +21,8 @@ export class ShopPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
   }
+  createshop(){
+    this.navCtrl.push('CreateshopPage');
+  }
 
 }
