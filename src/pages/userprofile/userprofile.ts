@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
+import { CallNumber } from '@ionic-native/call-number';
+import { UserData, User } from '../../providers/user-data';
 
-/**
- * Generated class for the UserprofilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+type Contact = {
+  name: string,
+  phone: string,
+  userId: string,
+  status: string,
+  wallets: string,
+};
 
 @IonicPage()
 @Component({
@@ -15,47 +18,71 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'userprofile.html',
 })
 export class UserprofilePage {
-  userTemp:any;
-  storyTemp:any;
-  public person: { name: string, phone: string, userId: string, status:string };
-  userId: any;
+  private contactId: string;
+  private user: User;
+  private contact: Contact;
+  private stories: any;
+  private isFriend: boolean;
+  private isFriendRequested: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
-    this.person = { name: "", phone: "", userId: "" , status:""};
-    
-
-  }
+  constructor(
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private callNumber: CallNumber,
+    private userProvider: UserData,
+    private restProvider: RestProvider,
+  ) { }
 
   ionViewDidLoad() {
-     this.userId = this.navParams.get('userId');
-    //console.log('content/user/' + this.userId);
-    
-    this.rest.getData('profile/'+this.userId).then(data => {
-      console.log(data);
-      
-      this.userTemp = data;
-      this.userTemp = this.userTemp.response;
+    this.contactId = this.navParams.get('userId');
 
-      this.person.name = this.userTemp.user.name;
-      this.person.phone = this.userTemp.user.phone;
-      this.person.userId = this.userTemp.user.userId;
-      this.person.status = this.userTemp.status;
-      console.log(this.person);
-      
-    });
-    this.rest.addData('content/user/' + this.userId, {'page':0}).then(data => {
-      console.log(data);
-      this.storyTemp = data;
-      this.storyTemp = this.storyTemp.response[0];
-      console.log(this.storyTemp);
-      
-      this.storyTemp = this.storyTemp.contents;
-      console.log(this.storyTemp);
-
-    });
+    this.getData();
   }
+
+  async getData() {
+    this.user = await this.userProvider.getUser();
+
+    const profile = await this.restProvider.getData(`profile/${this.user.userId}`);
+    this.isFriend = false;
+    this.isFriendRequested = false;
+
+    this.restProvider.getData(`profile/${this.contactId}`)
+      .then(({ response: { user: { name, phone, _id: userId }, status, wallets } }) =>
+        this.contact = { name, phone, userId, status, wallets });
+
+    this.restProvider.addData(`content/user/${this.contactId}`, { page: 0 })
+      .then(({ response }) => this.stories = response[0].contents);
+  }
+
   presentPostModal(postId) {
-    this.navCtrl.push('PostsPage', { 'postId': postId });
+    this.navCtrl.push('PostsPage', { postId });
   }
 
+  call() {
+    const { phone } = this.contact;
+    this.callNumber.callNumber(phone, true);
+  }
+
+  chat() {
+    const { userId } = this.contact;
+    this.navCtrl.push('ChatscreenPage', { friendId: userId });
+  }
+
+  sendMoney() {
+    console.log('SEND MONEY');
+  }
+
+  requestMoney() {
+    console.log('SEND MONEY');
+  }
+
+  addToFriends() {
+    console.log('addToFriends', this);
+    // this.restProvider.addData(`profile/addrequest/${this.user.userId}/${this.contact.userId}`, {});
+    this.restProvider.addData(`profile/addrequest/${this.user.userId}/${this.contact.userId}`, {});
+  }
+
+  removeFromFriends() {
+    console.log('remove from friends', this);
+  }
 }
