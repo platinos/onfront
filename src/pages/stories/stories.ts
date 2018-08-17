@@ -14,6 +14,7 @@ export class StoriesPage {
   contents: any;
   newComment:string = "";
   userID: any;
+  feedpages='';
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
@@ -36,6 +37,15 @@ export class StoriesPage {
     this.navCtrl.push('PostsPage', { 'postId': postId });
     // let createModal = this.modalCtrl.create();
     // createModal.present();
+  }
+
+  swipeEvent(event){
+    if(event.direction === 2)
+      this.feedpages = 'projects';
+    else if(event.direction === 3)
+     this.feedpages = 'products';
+     else if(event.direction === 1)
+     this.feedpages = 'posts';
   }
 
   getStories() {
