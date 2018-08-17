@@ -63,7 +63,7 @@ export class ProfileEditPage {
     const profileData = (({ address, status, about, dob }) => ({ address, status, about, dob }))(formValues);
     const pic = this.userPic.includes('data:image/jpeg;base64') ? await this.uploadPic() : this.userPic;
 
-    await this.userProvider.setUser({ userId, ...userData, pic });
+    await this.userProvider.setUser({ userId, ...userData, pic, email });
     await this.profileProvider.setProfile(profileData);
 
     this.restProvider.putData(`profile/${userId}`, { ...userData, ...profileData, pic });

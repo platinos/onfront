@@ -12,6 +12,7 @@ export type User = {
 
 @Injectable()
 export class UserData {
+  
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
@@ -73,6 +74,11 @@ export class UserData {
       return value;
     });
   }
+  getEmail(): Promise<string> {
+    return this.storage.get('email').then((value) => {
+      return value;
+    });
+  }
 
   getUser(): Promise<User> {
     return Promise.all([
@@ -80,7 +86,8 @@ export class UserData {
       this.getUsername(),
       this.getPhone(),
       this.getPic(),
-    ]).then(([userId, name, phone, pic]) => ({ userId, name, phone, pic }));
+      this.getEmail(),
+    ]).then(([userId, name, phone, pic, email]) => ({ userId, name, phone, pic, email }));
   }
 
   hasLoggedIn(): Promise<boolean> {

@@ -54,5 +54,8 @@ export class EditprofilePage {
         this.profileimage = data;
       });
   }
+  createprofile(){
+
+  }
 
 }
