@@ -14,13 +14,28 @@
   </ion-header>
 
 
-<ion-content class="cards-bg social-cards page-bg">
+<ion-content  class="cards-bg social-cards page-bg">
 <ion-refresher (ionRefresh)="doRefresh($event)">
   <ion-refresher-content  refreshingText='
   <img src="assets/imgs/loading.gif"/>'>
   </ion-refresher-content>
 </ion-refresher>
 
+<ion-toolbar>
+    <ion-segment [(ngModel)]="feedpages">
+      <ion-segment-button value="posts">
+        Posts
+      </ion-segment-button>
+      <ion-segment-button value="projects">
+        Projects
+      </ion-segment-button>
+      <ion-segment-button value="products">
+          Products
+        </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div [ngSwitch]="feedpages">
+      <ion-list *ngSwitchCase="'posts'">
 <ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
 
   <ion-item>
@@ -71,6 +86,8 @@
   </ion-row>
 
 </ion-card>
+</ion-list>
+</div>
 
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="presentCreateModal($event)">
