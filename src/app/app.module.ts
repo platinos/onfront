@@ -19,6 +19,10 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { ImageuploaderProvider } from '../providers/imageuploader/imageuploader';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { CurrenciesProvider } from '../providers/currencies/currencies';
+// import { Contacts } from '@ionic-native/contacts';
+// import { SocialSharing } from '@ionic-native/social-sharing';
+import { CallNumber } from '@ionic-native/call-number';
+// import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,7 @@ import { CurrenciesProvider } from '../providers/currencies/currencies';
     AnimationService,
     QRScanner,
     CurrenciesProvider,
+    CallNumber
   ],
 })
 export class AppModule {}
