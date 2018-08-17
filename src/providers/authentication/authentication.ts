@@ -60,7 +60,9 @@ export class AuthenticationProvider {
           this.user.signup({
             name: this.dataResponse.name,
             userId: this.dataResponse._id,
-            phone: this.dataResponse.phone});
+            phone: this.dataResponse.phone,
+            email: this.dataResponse.email,
+            });
         }
       });
       loading.dismiss();

@@ -45,26 +45,7 @@ export class SignupPage {
 
   }
   
-  logIn2(): void {
-    let
-      // name: any = this.form.controls['name'].value,
-      phoneNo: any = this.form.controls['phoneNo'].value
-      
-      // password: any = this.form.controls['password'].value,
-      // confirmpassword: any = this.form.controls['confirmpassword'].value;
-      // if(password === confirmpassword){
-      //   this.auth.signup(name,phoneNo, password);
-      // }
-  }
-  /* gotoPage(page, data:any = null) {
-    if(data===null)
-    this.navCtrl.push(page);
-    else{
-      console.log(data);
-      
-      this.navCtrl.push(page, {'data': data});
-    }
-  } */
+ 
   isregistered(): void {
     let
       No: any = this.form.controls['phoneNo'].value;

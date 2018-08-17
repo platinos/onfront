@@ -13,7 +13,8 @@ const httpOptions = {
 
 @Injectable()
 export class RestProvider {
-  apiUrl = 'http://35.194.226.60:3002/api/v1/';
+  // apiUrl = 'http://35.194.226.60:3002/api/v1/';  //Old Cloud Instance
+  apiUrl = 'http://35.229.41.156:3002/api/v1/';
   constructor(public http: HttpClient) {
 
   }
@@ -64,7 +65,7 @@ export class RestProvider {
   sendOtp(phoneNo) {
     let authKey = "147351AegMLMB0q58e0e449";
     let msg = "Hey! Your OTP is ##OTP##";
-    let otp = 1234;
+    //let otp = 1234;
     let url = "http://control.msg91.com/api/sendotp.php?authkey=" + authKey + "&mobile=" + phoneNo + "&message=##OTP##" + msg +"&sender=ELZIRE";
 
     return new Promise((resolve, reject) => {

@@ -7,6 +7,7 @@ export type User = {
   name: string,
   phone: string,
   pic?: string,
+  email: string
 };
 
 @Injectable()
@@ -46,6 +47,7 @@ export class UserData {
     this.storage.set('username', user.name);
     this.storage.set('phone', user.phone);
     this.storage.set('pic', user.pic);
+    this.storage.set('email', user.email);
   }
 
   getUsername(): Promise<string> {

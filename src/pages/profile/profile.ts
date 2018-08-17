@@ -19,7 +19,7 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
 export class ProfilePage {
   @ViewChild('myElement') myElem;
   private animator: AnimationBuilder;
-  public person: User = { userId: '', name: '' , phone: '', pic: '' };
+  public person: User = { userId: '', name: '' , phone: '', pic: '', email: '' };
   profilePages = 'trends';
 
   userHasWallet = false;
