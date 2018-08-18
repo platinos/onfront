@@ -25,15 +25,13 @@
   </ion-refresher>
 
 
-  <div class="profile">
-    <img
-      class="profile-image"
-      src="{{person.pic || 'assets/imgs/user_female.png'}}"
-      (click)="gotoPage('ProfileEditPage')"
-    />
-    <h4>{{person?.name}}</h4>
-    <h5>@{{person?.phone}}</h5>
-  </div>
+    <ion-item class="profile" no-lines>
+      <ion-avatar item-start>
+        <img src="{{person.pic || 'assets/imgs/user_female.png'}}">
+      </ion-avatar>
+      <h2 item-start>Welcome <b>{{person?.name}}</b></h2>
+    </ion-item>
+
 
   <ion-slides>
     <ion-slide>
@@ -41,9 +39,11 @@
         <ion-card-header (click)="animateElem()">
          <h1>{{balancedata?.response?.label}}</h1>
         </ion-card-header>
-
         <ion-card-content [hidden]="hasWallet()">
-          <button ion-button outline block (click)="createWallet()">Setup Wallet Passcode</button>
+           <h1 ion-text color="accent">Welcome to SHEQ <b>{{person?.name}}</b>. </h1><br>
+            <p ion-text color="primary" text-left >This is your place to manage your profile, assets, projects and shop.
+            But first you will need to create a wallet passcode.</p><br>
+          <button ion-button outline color="accent" round (click)="createWallet()">Setup Passcode</button>
         </ion-card-content>
 
         <ion-card-content [hidden]="!hasWallet() || showDetails">
