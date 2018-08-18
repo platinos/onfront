@@ -24,6 +24,7 @@ export class StoriesPage {
   }
 
   ionViewDidLoad() {
+    this.feedpages = 'posts';
     this.getStories();
   }
   presentCreateModal() {
@@ -39,14 +40,6 @@ export class StoriesPage {
     // createModal.present();
   }
 
-  swipeEvent(event){
-    if(event.direction === 2)
-      this.feedpages = 'projects';
-    else if(event.direction === 3)
-     this.feedpages = 'products';
-     else if(event.direction === 1)
-     this.feedpages = 'posts';
-  }
 
   getStories() {
     let loading = this.loadingCtrl.create({
