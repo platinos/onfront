@@ -36,18 +36,18 @@
   </ion-toolbar>
   <div [ngSwitch]="feedpages">
       <ion-list *ngSwitchCase="'posts'">
-<ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
+<ion-card *ngFor="let content of contentList"  class="storyCard">
 
   <ion-item>
     <ion-avatar item-start>        
       <img  src="{{content.PostByUser.image || 'assets/imgs/user.png'}}">
     </ion-avatar>
     <h2>{{content.PostByUser.name}}</h2>
-    <p>Yesterday</p>
+    <p>{{content.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
   </ion-item>
 
-  <img src="{{content.image}}">
-  <ion-card-content>
+  <img src="{{content.image}}" (click)="presentPostModal(content.Id)">
+  <ion-card-content (click)="presentPostModal(content.Id)">
     <p>{{content.content}}</p>
     <ion-card *ngIf="content?.isShared">
       <ion-item>
@@ -67,8 +67,8 @@
   <ion-row>
     <ion-col>
       <button ion-button icon-start clear small>
-        <ion-icon name="download"></ion-icon>
-        <div>{{content.likesCount}} Saves</div>
+        <ion-icon name="heart"></ion-icon>
+        <div>{{content.likesCount}} Likes</div>
       </button>
     </ion-col>
     <ion-col>
@@ -78,9 +78,9 @@
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="open"></ion-icon>
-        <div>Apply</div>
+      <button ion-button icon-start clear small (click)="share(content.Id)">
+        <ion-icon name="share"></ion-icon>
+        <div>Share</div>
       </button>
     </ion-col>
   </ion-row>

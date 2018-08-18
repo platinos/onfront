@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, ViewController, AlertController  } from 'ionic-angular';
 import { CreatepostPage } from '../createpost/createpost';
 import { RestProvider } from '../../providers/rest/rest';
+import { User, UserData } from '../../providers/user-data';
+
+
+
 
 @IonicPage()
 @Component({
@@ -9,18 +13,26 @@ import { RestProvider } from '../../providers/rest/rest';
   templateUrl: 'stories.html',
 })
 export class StoriesPage {
-
+  public person: User = { userId: '', name: '' , phone: '', pic: '', email: '' };
   contentList: any;
   contents: any;
   newComment:string = "";
   userID: any;
   feedpages='';
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,     
     public navParams: NavParams, 
+    private alertCtrl: AlertController,
     public modalCtrl: ModalController, 
     public restProvider: RestProvider,
+    public user:UserData,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController) {
+  }
+
+  async ionViewWillEnter() {
+    this.person = await this.user.getUser();
+    console.log(this.person);     
+    
   }
 
   ionViewDidLoad() {
@@ -38,6 +50,49 @@ export class StoriesPage {
     this.navCtrl.push('PostsPage', { 'postId': postId });
     // let createModal = this.modalCtrl.create();
     // createModal.present();
+  }
+  private getContentById(contentId: string) {
+    return this.contentList.find(content => content.Id === contentId);
+  }
+  public share(contentId: string) {
+    const content = this.getContentById(contentId);
+    var message_temp = content.content;
+    if(content.image!=undefined)
+    { 
+      message_temp += '<img src='+content.image+' >';
+    }
+
+
+    const alert = this.alertCtrl.create({
+      title: 'Sharing '+content.PostByUser.name+'\'s post',      
+      message:message_temp,
+      inputs: [
+        {
+          name: 'message',
+          placeholder: 'Write Something......',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => console.log('Cancel clicked'),
+        },
+        {
+          text: 'Share',
+          handler: (data) => {
+            // to call api
+            this.restProvider .addData('content/share/'+contentId+'/' + this.person.userId, {             
+              content: data.message,
+            }).then((data) => {              
+              console.log(data);
+              this.reloadStories();
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
   }
 
 
