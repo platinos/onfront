@@ -45,7 +45,7 @@
     <ion-row class="message_row">
       <ion-col col-8>
         <ion-item no-lines>
-          <ion-input type="text" placeholder="Type a message" [(ngModel)]="newmessage"></ion-input>
+          <ion-input type="text" placeholder="Type a message" [(ngModel)]="newmessage" (keyup.enter)="send()"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col col-1>
