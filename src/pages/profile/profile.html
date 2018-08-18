@@ -3,11 +3,11 @@
     <ion-title>
       <img src="assets/imgs/title-logo.png" width="50px" />
     </ion-title>
-    <ion-buttons start>
+    <!-- <ion-buttons start>
       <button ion-button (click)="gotoPage('ProfileEditPage')">
         <ion-icon name="create"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-buttons end>
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
@@ -27,7 +27,7 @@
 
     <ion-item class="profile" no-lines>
       <ion-avatar item-start>
-        <img src="{{person.pic || 'assets/imgs/user_female.png'}}">
+        <img src="{{person.pic || 'assets/imgs/user.png'}}">
       </ion-avatar>
       <h2 item-start>Welcome <b>{{person?.name}}</b></h2>
     </ion-item>
@@ -37,26 +37,32 @@
     <ion-slide>
       <ion-card #myElement class="">
         <ion-card-header (click)="animateElem()">
-         <h1>{{balancedata?.response?.label}}</h1>
+         <h1 ion-text color="accent">{{balancedata?.response?.label}}</h1>
         </ion-card-header>
         <ion-card-content [hidden]="hasWallet()">
            <h1 ion-text color="accent">Welcome to SHEQ <b>{{person?.name}}</b>. </h1><br>
-            <p ion-text color="primary" text-left >This is your place to manage your profile, assets, projects and shop.
-            But first you will need to create a wallet passcode.</p><br>
-          <button ion-button outline color="accent" round (click)="createWallet()">Setup Passcode</button>
+            <p ion-text color="primary" text-left>This is your place to manage your profile, assets, projects and shop.
+            But first you will need to create a wallet passcode.</p>
+            <br>
+            <br>
+            
+          <button ion-button outline color="accent" round large icon-start (click)="createWallet()">
+            <ion-icon name="lock"></ion-icon>
+            Setup Passcode
+          </button>
         </ion-card-content>
 
         <ion-card-content [hidden]="!hasWallet() || showDetails">
-          <h1 text-center>
+          <h1 text-center ion-text color="accent">
             <ion-icon name="logo-bitcoin" color='primary'></ion-icon> {{balance}}
           </h1>
           <ion-grid>
             <ion-row>
               <ion-col text-center>
-                <button ion-button block outline color="primary" (click)="paymentmethodPrompt()">Send</button>
+                <button ion-button outline color="accent" round large (click)="paymentmethodPrompt()">Send</button>
               </ion-col>
               <ion-col text-center>
-                <button ion-button block outline color="primary" (click)="gotoPage('RecievecoinPage', walletid)">Recieve</button>
+                <button ion-button outline color="accent" round large (click)="gotoPage('RecievecoinPage', walletid)">Recieve</button>
               </ion-col>
 
             </ion-row>

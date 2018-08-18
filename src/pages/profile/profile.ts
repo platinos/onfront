@@ -6,7 +6,8 @@ import {
   AlertController,
   ActionSheetController,
   Platform,
-  ModalController } from 'ionic-angular';
+  ModalController, 
+  PopoverController} from 'ionic-angular';
 import { User, UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 import { AnimationService, AnimationBuilder } from 'css-animator';
@@ -43,7 +44,8 @@ export class ProfilePage {
     public actionSheetCtrl: ActionSheetController,
     public platform: Platform,
     public modalCtrl: ModalController,
-    animationService: AnimationService,
+    public animationService: AnimationService,
+    public popoverCtrl: PopoverController
   ) {
     this.profilePages = 'wallet';
     this.animator = animationService.builder();
@@ -98,13 +100,15 @@ export class ProfilePage {
         this.walletid = this.walletData.response.walletId;
         this.userHasWallet = true;
         this.getWallet();
-        this.animator.setType('bounce').show(this.myElem.nativeElement);
+        //this.animator.setType('bounce').show(this.myElem.nativeElement);
       }
     });
   }
 
   createWallet(){
     this.presentPrompt();
+    // let x:any
+    // this.presentPopover(x);
     console.log('Wallet Created!');
   }
 
@@ -285,6 +289,7 @@ export class ProfilePage {
           role: 'cancel',
           handler: () => {
             // console.log('Cancel clicked');
+            
           },
         },
       ],
@@ -297,5 +302,11 @@ export class ProfilePage {
     this.animator.setType('flipInX').show(this.myElem.nativeElement);
     this.showDetails = this.showDetails === true ? false : true;
     }
+  }
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create('WalletpasscodePage');
+    popover.present({
+      ev: myEvent
+    });
   }
 }
