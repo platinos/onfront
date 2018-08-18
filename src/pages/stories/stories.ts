@@ -51,6 +51,18 @@ export class StoriesPage {
     // let createModal = this.modalCtrl.create();
     // createModal.present();
   }
+
+  async like(contentId: string) {
+    const content = this.getContentById(contentId);
+    // TODO: remove try/catch when fix unlike request error on server
+    try {
+      await this.restProvider.putData(`content/${contentId}/${this.person.userId}`, {});
+      content.likesCount ++;
+    } catch (e) {
+      content.likesCount --;
+    }
+  }
+
   private getContentById(contentId: string) {
     return this.contentList.find(content => content.Id === contentId);
   }
