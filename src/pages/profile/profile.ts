@@ -226,62 +226,47 @@ export class ProfilePage {
   }
   menuPrompt() {
     const actionSheet = this.actionSheetCtrl.create({
-      title: 'What do you want to do?',
+      title: 'Lets go to',
       cssClass: 'action-sheets-basic-page',
       buttons: [
         {
-          text: 'Send to Wallet',
-          icon: !this.platform.is('ios') ? 'at' : null,
+          text: 'My Profile',
+          icon: !this.platform.is('ios') ? 'contact' : null,
           handler: () => {
-            this.gotoPage('SendcoinPage', 'walletid');
+            this.gotoPage('MyprofilePage');
             
           },
         },
         {
-          text: 'Watch Market',
-          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+          text: 'My Assets',
+          icon: !this.platform.is('ios') ? 'logo-buffer' : null,
           handler: () => {
             //console.log('Archive clicked');
-            this.gotoPage("MarketPage");
+            this.gotoPage("WalletPage");
           }
         },
         {
-          text: 'Shop',
-          icon: !this.platform.is('ios') ? 'qr-scanner' : null,
+          text: 'My Posts',
+          icon: !this.platform.is('ios') ? 'images' : null,
           handler: () => {
             //console.log('Archive clicked');
-            this.gotoPage("ShopPage");
+            this.gotoPage("MypostsPage");
           }
         },
         {
-          text: 'Select from contacts',
+          text: 'My Projects',
+          icon: !this.platform.is('ios') ? 'flash' : null,
+          handler: () => {
+            //console.log('Archive clicked');
+            this.gotoPage("ProjectPage");
+          }
+        },
+        {
+          text: 'My Shop',
           // icon: 'contacts',
-          icon: !this.platform.is('ios') ? 'contacts' : null,
+          icon: !this.platform.is('ios') ? 'cart' : null,
           handler: () => {
-            const senders = this.modalCtrl.create('SenderslistPage');
-            senders.present();
-            senders.onDidDismiss((data) => {
-              if (data !== undefined) {
-
-                this.rp.getData('wallet/' + data.friendId).then((data) => {
-                  console.log(data);
-                  const temp: any = data;
-                  if (temp.error === undefined) {
-                    const tempWalletId = temp.response.walletId;
-
-                    this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
-                      const tempWalletdata: any = data;
-
-                      const addressee = tempWalletdata.response.receiveAddress.address;
-                      console.log(`Sending to: ${addressee}`);
-
-                      this.gotoPage('SendcoinPage', { destAddress: addressee });
-                    });
-
-                  }
-                });
-              }
-            });
+            this.gotoPage("ShopPage");
           },
         },
         {

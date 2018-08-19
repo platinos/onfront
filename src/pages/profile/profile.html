@@ -53,9 +53,15 @@
         </ion-card-content>
 
         <ion-card-content [hidden]="!hasWallet() || showDetails">
-          <h1 text-center ion-text color="accent">
-            <ion-icon name="logo-bitcoin" color='primary'></ion-icon> {{balance}}
-          </h1>
+          
+          <ion-item *ngFor="let coin of walletCoins">
+            <ion-avatar item-left>
+              <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
+            </ion-avatar>
+            <!-- <h2 color="primary">{{coin.name}}</h2> -->
+            <h2>{{coin.value}}</h2>
+          </ion-item>
+
           <ion-grid>
             <ion-row>
               <ion-col text-center>
