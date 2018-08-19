@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
@@ -27,6 +27,7 @@ export class SendcoinPage {
     private _FB: FormBuilder,
     private rp: RestProvider,
     private alertCtrl: AlertController,
+    public modalCtrl: ModalController,
     private qrScanner: QRScanner) {
       this.form = this._FB.group({
         'amount': ['', Validators.required],
@@ -155,33 +156,31 @@ export class SendcoinPage {
     this.viewCtrl.dismiss();
   }
   presentPrompt() {
-    let alert = this.alertCtrl.create({
-      title: 'choose a recipient',
-    
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Next',
-          handler: data => {
-            console.log(data);
-            this.setDestination(data);
-          }
-        }
-      ]
-    });
-    this.allWallets.forEach((item, index) => {
-      alert.addInput({ type: 'radio', label: item.userId.name, value: item.addresses[0].address });
-      
-    });
-    
+    const senders = this.modalCtrl.create('SenderslistPage');
+    senders.present();
+    senders.onDidDismiss((data) => {
+      if (data !== undefined) {
 
-    alert.present();
+        this.rp.getData('wallet/' + data.friendId).then((data) => {
+          console.log(data);
+          const temp: any = data;
+          if (temp.error === undefined) {
+            const tempWalletId = temp.response.walletId;
+
+            this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
+              const tempWalletdata: any = data;
+
+              const addressee = tempWalletdata.response.receiveAddress.address;
+              console.log(`Sending to: ${addressee}`);
+
+              //this.gotoPage('SendcoinPage', { destAddress: addressee });
+              this.setDestination(addressee);
+            });
+
+          }
+        });
+      }
+    });
   }
   setDestination(destId){
         this.form.controls['dest'].setValue(destId);
@@ -202,7 +201,9 @@ scan() {
           window.document.querySelector('ion-app').classList.add('transparentBody')
           this.qrScanner.show();
           console.log('Scanned something', text);
+          if (text.length > 10)
           this.qrText = text;
+          this.setDestination(this.qrText);
           this.qrScanner.hide(); // hide camera preview
           scanSub.unsubscribe(); // stop scanning
         });
