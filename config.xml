@@ -3,7 +3,7 @@
     <name>Sheq Wallet</name>
     <description>Sheq | made real by FYL</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.103:8101" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -93,9 +93,10 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-qrscanner" spec="^2.6.0" />
     <allow-navigation href="http://192.168.0.102:8100" />
+    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
+    <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
+    <allow-navigation href="http://192.168.0.103:8101" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
-    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
-    <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
 </widget>

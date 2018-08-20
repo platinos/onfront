@@ -13,6 +13,7 @@ import {
   Contacts,
   Contact
 } from '@ionic-native/contacts';
+import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
 
 type User = {
   name: string,
@@ -37,24 +38,49 @@ export class FriendsPage {
   usersListFiltered: User[];
   isSearchToggled = false;
   searchString: '';
+  contactList = [];
 
   constructor(
-    //private contacts: Contacts,
+    private contacts: Contacts,
     public navCtrl: NavController,
     public navParams: NavParams,
     public restProvider: RestProvider,
+    private sanitizer: DomSanitizer
   ) {
-    /*contacts.find(['name', 'phoneNumbers'], {filter: "", multiple: true})
-    .then(data => {
-      this.allContacts = data
-      console.log(this.allContacts);
-    });*/
+
 
   }
+  getContacts(): void {
+    
+    this.contacts.find(
+      ["displayName", "phoneNumbers", "photos"],
+      { multiple: true, hasPhoneNumber: true }
+    ).then((contacts) => {
+      for (var i = 0; i < contacts.length; i++) {
+        if (contacts[i].displayName !== null) {
+          var contact = {};
+          contact["name"] = contacts[i].displayName;
+          contact["number"] = contacts[i].phoneNumbers[0].value;
+          if (contacts[i].photos != null) {
+            console.log(contacts[i].photos);
+            contact["image"] = this.sanitizer.bypassSecurityTrustUrl(contacts[i].photos[0].value);
+            console.log(contact);
+          } else {
+            contact["image"] = "assets/imgs/user.png";
+          }
+          this.contactList.push(contact);
+        }
+      }
+    });
+    console.log(this.contactList);
+    
+  }
+
 
   ionViewDidLoad() {
     this.chatpages = 'chats';
     this.getUsers();
+    this.getContacts();
 
   }
   toggleSearch() {

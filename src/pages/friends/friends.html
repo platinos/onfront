@@ -59,9 +59,9 @@
         Find friends
       </button>
       <ion-list>
-        <ion-item *ngFor="let user of allContacts" (click)="gotoPage('UserprofilePage', {userId: user._id})">
+        <ion-item *ngFor="let user of contactList" (click)="gotoPage('UserprofilePage', {userId: user._id})">
           <ion-avatar item-left>
-            <img src="assets/imgs/user.png" />
+            <img [src]="user.image" />
           </ion-avatar>
           <h2 color="primary">{{user.name}}</h2>
 

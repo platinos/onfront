@@ -34,17 +34,29 @@ export class SendcoinPage {
         'pass': ['', Validators.required],
         'dest': ['', Validators.required]});
       this.person = { name:"" , phone: "", userId: ""};
-      let paramData = this.navParams.get('data');
-    let amount = paramData.amount;
-    let recipient = paramData.destAddress;
-        console.log("got values: "+amount+recipient);
-        
-        this.form.controls['amount'].setValue(amount);
-        this.form.controls['dest'].setValue(recipient);
+      
       
 
   }
 
+ionViewWillEnter(){
+  let paramData = this.navParams.get('data');
+  let amount = paramData.amount;
+  let recipient = paramData.destAddress;
+  console.log("got values: " + amount + recipient);
+
+  this.form.controls['amount'].setValue(amount);
+  this.form.controls['dest'].setValue(recipient);
+
+  this.qrText = this.navParams.get("qrText") || undefined;
+  if(this.qrText){
+    console.log(this.qrText);
+    
+  }
+  else console.log("Nothing came back");
+  
+
+}
 
   ionViewDidLoad() {
     this.user.getPhone().then((phone) => { 
@@ -186,25 +198,34 @@ export class SendcoinPage {
         this.form.controls['dest'].setValue(destId);
   
       }
-
+      test: any;
+  myCallbackFunction = (_params) => {
+    return new Promise((resolve, reject) => {
+      this.test = _params;
+      resolve();
+    });
+  }
+tempdata: any;
 scan() {
-  
-  // Optionally request the permission early
   this.qrScanner.prepare()
     .then((status: QRScannerStatus) => {
       if (status.authorized) {
         // camera permission was granted
-        
+
 
         // start scanning
+        //window.document.querySelector('ion-app').classList.add('transparentBody');
+        this.showCamera();
         let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-          window.document.querySelector('ion-app').classList.add('transparentBody')
+
           this.qrScanner.show();
           console.log('Scanned something', text);
           if (text.length > 10)
-          this.qrText = text;
-          this.setDestination(this.qrText);
+            this.qrText = text;
+          this.form.controls['dest'].setValue(this.qrText);
+          //this.viewCtrl.dismiss({ destAddress: text });
           this.qrScanner.hide(); // hide camera preview
+          this.hideCamera();
           scanSub.unsubscribe(); // stop scanning
         });
 
@@ -218,11 +239,17 @@ scan() {
       }
     })
     .catch((e: any) => console.log('Error is:', e));
-
-
   }
-  ionViewDidLeave() {
-    window.document.querySelector('ion-app').classList.remove('transparentBody')
+  showCam: any = false
+  private showCamera() {
+    this.showCam = true;
+    ((<any>window).document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
+  }
+  private hideCamera() {
+    console.log("hiding");
+    
+    this.showCam = false;
+    ((<any>window).document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
   }
 
 }
