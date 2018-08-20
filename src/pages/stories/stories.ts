@@ -124,7 +124,7 @@ export class StoriesPage {
       });
   }
   reloadStories() {
-    this.restProvider.getData('content')
+    this.restProvider.getData('content/type/post')
       .then(data => {
         this.contents = data;
         this.contentList = this.contents.response;

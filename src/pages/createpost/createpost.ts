@@ -41,14 +41,14 @@ export class CreatepostPage {
                snapshot.ref.getDownloadURL().then(downloadURL => {
                  let uploadedImage: any = downloadURL;
                  console.log(uploadedImage);
-                this.rs.addData('content/post/' + uid, { content: contentText, image: uploadedImage }).then(data => {
+                this.rs.addData('content/post/' + uid, { content: contentText, image: uploadedImage, type: "post" }).then(data => {
                    this.dismiss();
                  });
               });
             });
           }
       else {
-        this.rs.addData('content/post/' + uid, { content: contentText}).then(data => {
+        this.rs.addData('content/post/' + uid, { content: contentText , type: "post"}).then(data => {
           this.dismiss();
         });
 
