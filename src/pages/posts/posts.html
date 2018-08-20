@@ -13,21 +13,21 @@
 
 
 <ion-content>
-<ion-card> 
+  <ion-card>
 
-  <ion-item>
-    <ion-avatar item-start>
-      <img src="{{contentList?.PostByUser?.image || 'assets/imgs/user.png'}}">
-    </ion-avatar>
-    <h2>{{contentList?.PostByUser?.name}}</h2>
-    <p>{{contentList?.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
-  </ion-item>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{contentList?.PostByUser?.image || 'assets/imgs/user.png'}}">
+      </ion-avatar>
+      <h2>{{contentList?.PostByUser?.name}}</h2>
+      <p>{{contentList?.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
+    </ion-item>
 
-  <img src="{{contentList?.image}}">
+    <img src="{{contentList?.image}}">
 
-  <ion-card-content>
-    <p>{{contentList?.content}}</p>
-  </ion-card-content>
+    <ion-card-content>
+      <p>{{contentList?.content}}</p>
+    </ion-card-content>
     <ion-card *ngIf="contentList?.isShared">
       <ion-item>
         <ion-avatar item-start>
@@ -41,39 +41,39 @@
       </ion-card-content>
     </ion-card>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="heart"></ion-icon>
-        <div>{{contentList?.likesCount}} Likes</div>
-      </button>
-    </ion-col>
-    <ion-col>
-    </ion-col>
-    <ion-col>
-     <!-- <button ion-button icon-start clear small (click)="share(content.Id)">
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="heart"></ion-icon>
+          <div>{{contentList?.likesCount}} Likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <!-- <button ion-button icon-start clear small (click)="share(content.Id)">
         <ion-icon name="share"></ion-icon>
         <div>Share</div>
       </button>-->
-    </ion-col>
-  </ion-row>
-  <ion-toolbar class="no-border" color="white">
-    <ion-input [(ngModel)]="newComment" placeholder="Write a comment ..."></ion-input>
-    <ion-buttons end>
-      <button ion-button large (click)="sendComment(contentList._id)">
-        <ion-icon name="send" color="primary"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+      </ion-col>
+    </ion-row>
+    <ion-toolbar class="no-border" color="white">
+      <ion-input [(ngModel)]="newComment" placeholder="Write a comment ..."></ion-input>
+      <ion-buttons end>
+        <button ion-button large (click)="sendComment(contentList._id)">
+          <ion-icon name="send" color="primary"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
 
-</ion-card>
-<div class="comment-box">
-  <ion-item>Displaying {{contentList?.comments.length}} Comments</ion-item>
-   <ion-list *ngFor="let comments of commentList?.comments">
-    <ion-item>
-<h2>{{comments?.user?.name}}</h2>
-<p>{{comments?.comment}}</p>
-    </ion-item>
-  </ion-list> 
+  </ion-card>
+  <div class="comment-box">
+    <ion-item>Displaying {{contentList?.comments.length}} Comments</ion-item>
+    <ion-list *ngFor="let comments of commentList?.comments">
+      <ion-item>
+        <h2>{{comments?.user?.name}}</h2>
+        <p>{{comments?.comment}}</p>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>
