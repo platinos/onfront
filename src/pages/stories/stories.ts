@@ -171,6 +171,8 @@ export class StoriesPage {
       .then(data => {
         this.contents = data;
         this.contentList = this.contents.response;
+        console.log(this.contentList);
+        
       });
     this.restProvider.getData('content/type/project')
       .then(data => {

@@ -30,7 +30,7 @@
 
       <p>{{contentList?.content}}</p>
     </ion-card-content>
-    <ion-card *ngIf="contentList?.isShared">
+    <ion-card *ngIf="contentList?.isShared" >
       <ion-item>
         <ion-avatar item-start>
           <img src="{{contentList?.parentContentId.user?.ImageUrl || 'assets/imgs/user.png'}}">
@@ -40,6 +40,7 @@
       </ion-item>
       <ion-card-content>
         <h1>{{contentList?.parentContentId.title}}</h1>
+        <img src="{{contentList?.parentContentId.image}}">
         <p>{{contentList?.parentContentId.content}}</p>
       </ion-card-content>
     </ion-card>

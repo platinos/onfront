@@ -25,7 +25,7 @@
     <form (ngSubmit)="sendCoin()" [formGroup]="form">
       <ion-row>
         <ion-col>
-          <ion-list>
+          <ion-list no-lines>
 
             <ion-item>
               <ion-input placeholder="Amount" formControlName="amount" required clearInput></ion-input>
@@ -45,8 +45,8 @@
       </ion-row>
 
       <ion-row>
-        <ion-col class="signup-col">
-          <button ion-button class="submit-btn"  round outline type="submit">Send</button>
+        <ion-col text-center>
+          <button ion-button outline color="accent" round large type="submit">Send</button>
         </ion-col>
       </ion-row>
 
