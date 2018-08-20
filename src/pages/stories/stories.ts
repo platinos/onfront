@@ -114,7 +114,7 @@ export class StoriesPage {
     });
     loading.setSpinner("none");
     loading.present();
-    this.restProvider.getData('content')
+    this.restProvider.getData('content/type/post')
       .then(data => {
         this.contents = data;
         this.contentList = this.contents.response;

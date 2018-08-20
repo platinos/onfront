@@ -17,10 +17,10 @@
 
   <ion-item>
     <ion-avatar item-start>
-      <img src="{{contentList?.user?.ImageUrl || 'assets/imgs/user.png'}}">
+      <img src="{{contentList?.PostByUser?.ImageUrl || 'assets/imgs/user.png'}}">
     </ion-avatar>
-    <h2>{{contentList?.user?.name}}</h2>
-    <p>{{contentList?.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
+    <h2>{{contentList?.PostByUser?.name}}</h2>
+    <p>{{contentList?.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
   </ion-item>
 
   <img src="{{contentList?.image}}">
@@ -31,13 +31,13 @@
     <ion-card *ngIf="contentList?.isShared">
       <ion-item>
         <ion-avatar item-start>
-          <img src="assets/imgs/user.png">
+          <img src="{{contentList?.parentContentId.user?.ImageUrl || 'assets/imgs/user.png'}}">
         </ion-avatar>
-        <h2>{{contentList?.parent.user?.name}}</h2>
-        <p>{{contentList.parent.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
+        <h2>{{contentList?.parentContentId.user?.name}}</h2>
+        <p>{{contentList.parentContentId.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
       </ion-item>
       <ion-card-content>
-        <p>{{contentList?.parent.content}}</p>
+        <p>{{contentList?.parentContentId.content}}</p>
       </ion-card-content>
     </ion-card>
 
@@ -45,7 +45,7 @@
     <ion-col>
       <button ion-button icon-start clear small>
         <ion-icon name="heart"></ion-icon>
-        <div>{{contentList?.likes.length}} Likes</div>
+        <div>{{contentList?.likesCount}} Likes</div>
       </button>
     </ion-col>
     <ion-col>
