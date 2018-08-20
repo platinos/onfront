@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController, ActionSheetController } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 import { AlertController } from 'ionic-angular';
@@ -20,6 +20,7 @@ export class SendcoinPage {
   allWallets:any;
   recipient: string;
   qrText: string;
+  coins: any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
@@ -28,11 +29,13 @@ export class SendcoinPage {
     private rp: RestProvider,
     private alertCtrl: AlertController,
     public modalCtrl: ModalController,
-    private qrScanner: QRScanner) {
+    private qrScanner: QRScanner,
+    private actionSheetCtrl: ActionSheetController) {
       this.form = this._FB.group({
         'amount': ['', Validators.required],
         'pass': ['', Validators.required],
-        'dest': ['', Validators.required]});
+        'dest': ['', Validators.required],
+        'coins': ['', Validators.required]});
       this.person = { name:"" , phone: "", userId: ""};
       
       
@@ -57,6 +60,64 @@ ionViewWillEnter(){
   
 
 }
+
+  typeAddress() {
+    const alert = this.alertCtrl.create({
+      inputs: [
+        {
+          name: 'label',
+          placeholder: 'Enter Wallet Address',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => console.log('Cancel clicked'),
+        },
+        {
+          text: 'Next',
+          handler: (data) => {
+            this.form.controls['dest'].setValue(data.label);
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+  chooseRecipient(){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Select Recipient',
+      buttons: [
+        {
+          text: 'Choose from contacts',
+          handler: () => {
+            this.presentPrompt();
+          },
+        },
+        {
+          text: 'Scan QR',
+          handler: () => {
+            this.scan();
+          }
+        },
+        {
+          text: 'Type address',
+          handler: () => {
+            this.typeAddress();
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    actionSheet.present();
+  }
 
   ionViewDidLoad() {
     this.user.getPhone().then((phone) => { 

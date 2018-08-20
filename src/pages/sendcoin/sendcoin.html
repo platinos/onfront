@@ -14,30 +14,37 @@
 
 
 <ion-content class="login-content" padding>
-  <ion-row class="logo-row">
-    <ion-col></ion-col>
-    <ion-col>
-      <img src="assets/imgs/bitcoin.png" />
-    </ion-col>
-    <ion-col></ion-col>
-  </ion-row>
+
+  <h1 ion-text color="accent">You are on Bitgo Prod. Real tokens will be sent.</h1>
+ 
   <div class="login-box" [hidden]="showCam" >
     <form (ngSubmit)="sendCoin()" [formGroup]="form">
       <ion-row>
         <ion-col>
           <ion-list no-lines>
-
+             <!-- <a ion-button clear (click)="scan()">Scan QR-code</a>
+            <a ion-button clear (click)="presentPrompt()">Choose Recipient</a> -->
             <ion-item>
-              <ion-input placeholder="Amount" formControlName="amount" required clearInput></ion-input>
+              <ion-label color="lighttext" floating>Choose Recipient</ion-label>
+              <ion-input formControlName="dest" required clearInput (click)="chooseRecipient()"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label color="lighttext" floating>Asset</ion-label>
+              <ion-select formControlName="coins">
+                <ion-option value="tbtc">Bitcoins</ion-option>
+                <ion-option value="eth">Ether</ion-option>
+              </ion-select>
             </ion-item>
             <ion-item>
-              <ion-input placeholder="Recipient" formControlName="dest" required clearInput></ion-input>
+              <ion-label color="lighttext" floating>Amount</ion-label>
+              <ion-input formControlName="amount" required clearInput></ion-input>
             </ion-item>
             <ion-item>
-               <ion-input type="password" placeholder="Your Wallet Password" formControlName="pass" required clearInput></ion-input>
+              <ion-label color="lighttext" floating>Your Wallet Passphrase</ion-label>
+               <ion-input type="password" formControlName="pass" required clearInput></ion-input>
               </ion-item>
-            <a ion-button clear (click)="presentPrompt()">Choose Recipient</a>
-            <a ion-button clear (click)="scan()">Scan QR-code</a>
+            
             <!-- <h1>{{qrText}}</h1> -->
 
           </ion-list>
