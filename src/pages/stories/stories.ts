@@ -95,7 +95,7 @@ export class StoriesPage {
           handler: (data) => {
             // to call api
             this.restProvider .addData('content/share/'+contentId+'/' + this.person.userId, {             
-              content: data.message,
+              content: data.message, type:"post"
             }).then((data) => {              
               console.log(data);
               this.reloadStories();
