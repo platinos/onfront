@@ -14,6 +14,9 @@ import {
   CreatepostPage
 } from '../createpost/createpost';
 import {
+  CreateprojectPage
+} from '../createproject/createproject';
+import {
   RestProvider
 } from '../../providers/rest/rest';
 import {
@@ -44,6 +47,7 @@ export class StoriesPage {
   newComment: string = "";
   userID: any;
   feedpages = '';
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
@@ -64,11 +68,22 @@ export class StoriesPage {
     this.getStories();
   }
   presentCreateModal() {
-    let createModal = this.modalCtrl.create(CreatepostPage);
+
+    if (this.feedpages == "posts") {
+      let createModal = this.modalCtrl.create(CreatepostPage);
+      createModal.present();
+      createModal.onDidDismiss(data => {
+        this.reloadStories();
+      });
+    }
+    else if (this.feedpages == "projects") {
+      let createModal = this.modalCtrl.create("CreateprojectPage");
     createModal.present();
     createModal.onDidDismiss(data => {
       this.reloadStories();
     });
+    }
+   
   }
   presentPostModal(postId) {
     this.navCtrl.push('PostsPage', {
