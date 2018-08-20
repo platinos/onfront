@@ -176,6 +176,8 @@ export class StoriesPage {
       .then(data => {
         this.project = data;
         this.projectList = this.project.response;
+        console.log(this.projectList);
+        
       });
   }
   sendComment(contentId) {

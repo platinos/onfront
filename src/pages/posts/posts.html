@@ -26,6 +26,8 @@
     <img src="{{contentList?.image}}">
 
     <ion-card-content>
+    <h1>{{contentList?.title}}</h1>
+
       <p>{{contentList?.content}}</p>
     </ion-card-content>
     <ion-card *ngIf="contentList?.isShared">
@@ -37,6 +39,7 @@
         <p>{{contentList.parentContentId.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
       </ion-item>
       <ion-card-content>
+        <h1>{{contentList?.parentContentId.title}}</h1>
         <p>{{contentList?.parentContentId.content}}</p>
       </ion-card-content>
     </ion-card>

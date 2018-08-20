@@ -61,7 +61,8 @@ export class CreateprojectPage {
               let uploadedImage: any = downloadURL;
               console.log(uploadedImage);
               this.rs.addData('content/post/' + uid, {
-                content: contentText +" "+ contentTextDescription,
+                title: contentText,
+                content: contentTextDescription,
                 image: uploadedImage,
                 "type":"project"
               }).then(data => {
@@ -71,7 +72,8 @@ export class CreateprojectPage {
           });
       } else {
         this.rs.addData('content/post/' + uid, {
-          content: contentText +" "+ contentTextDescription,
+          title: contentText,
+          content: contentTextDescription,
           "type":"project"
         }).then(data => {
           this.dismiss();

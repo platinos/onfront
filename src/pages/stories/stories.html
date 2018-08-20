@@ -99,6 +99,7 @@
 
         <img src="{{content.image}}" (click)="presentPostModal(content.Id)">
         <ion-card-content (click)="presentPostModal(content.Id)">
+          <h1>{{content.title}}</h1>
           <p>{{content.content}}</p>
           <ion-card *ngIf="content?.isShared">
             <ion-item>
