@@ -195,38 +195,38 @@ export class ProfilePage {
             //console.log('Archive clicked');
             this.gotoPage('AddfundsPage', { 'myaddress': this.balancedata.response.receiveAddress.address })
           }
-        },
-        {
-          text: 'Select from contacts',
-          // icon: 'contacts',
-          icon: !this.platform.is('ios') ? 'contacts' : null,
-          handler: () => {
-            const senders = this.modalCtrl.create('SenderslistPage');
-            senders.present();
-            senders.onDidDismiss((data) => {
-              if (data !== undefined) {
+         },
+        // {
+        //   text: 'Select from contacts',
+        //   // icon: 'contacts',
+        //   icon: !this.platform.is('ios') ? 'contacts' : null,
+        //   handler: () => {
+        //     const senders = this.modalCtrl.create('SenderslistPage');
+        //     senders.present();
+        //     senders.onDidDismiss((data) => {
+        //       if (data !== undefined) {
 
-                this.rp.getData('wallet/' + data.friendId).then((data) => {
-                  console.log(data);
-                  const temp: any = data;
-                  if (temp.error === undefined) {
-                    const tempWalletId = temp.response.walletId;
+        //         this.rp.getData('wallet/' + data.friendId).then((data) => {
+        //           console.log(data);
+        //           const temp: any = data;
+        //           if (temp.error === undefined) {
+        //             const tempWalletId = temp.response.walletId;
 
-                    this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
-                      const tempWalletdata: any = data;
+        //             this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
+        //               const tempWalletdata: any = data;
 
-                      const addressee = tempWalletdata.response.receiveAddress.address;
-                      console.log(`Sending to: ${addressee}`);
+        //               const addressee = tempWalletdata.response.receiveAddress.address;
+        //               console.log(`Sending to: ${addressee}`);
 
-                      this.gotoPage('SendcoinPage', { destAddress: addressee });
-                    });
+        //               this.gotoPage('SendcoinPage', { destAddress: addressee });
+        //             });
 
-                  }
-                });
-              }
-            });
-          },
-        },
+        //           }
+        //         });
+        //       }
+        //     });
+        //   },
+        // },
         {
           text: 'Cancel',
           role: 'cancel',
@@ -256,7 +256,7 @@ export class ProfilePage {
           icon: !this.platform.is('ios') ? 'logo-buffer' : null,
           handler: () => {
             //console.log('Archive clicked');
-            this.gotoPage("WalletPage");
+            this.gotoPage("MarketPage");
           }
         },
         {
