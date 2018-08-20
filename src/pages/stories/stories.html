@@ -1,27 +1,26 @@
-
 <ion-header>
 
-    <ion-toolbar>
-      <ion-title>
-        <img src="assets/imgs/title-logo.png" width="50px">
-      </ion-title>
-      <ion-buttons end>
-        <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <img src="assets/imgs/title-logo.png" width="50px">
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 
-<ion-content  class="cards-bg social-cards page-bg">
-<ion-refresher (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content  refreshingText='
+<ion-content class="cards-bg social-cards page-bg">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingText='
   <img src="assets/imgs/loading.gif"/>'>
-  </ion-refresher-content>
-</ion-refresher>
+    </ion-refresher-content>
+  </ion-refresher>
 
-<ion-toolbar>
+  <ion-toolbar>
     <ion-segment [(ngModel)]="feedpages">
       <ion-segment-button value="posts">
         Posts
@@ -30,168 +29,168 @@
         Projects
       </ion-segment-button>
       <ion-segment-button value="products">
-          Products
-        </ion-segment-button>
+        Products
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <div [ngSwitch]="feedpages">
-      <ion-list *ngSwitchCase="'posts'">
-<ion-card *ngFor="let content of contentList"  class="storyCard">
+    <ion-list *ngSwitchCase="'posts'">
+      <ion-card *ngFor="let content of contentList" class="storyCard">
 
-  <ion-item>
-    <ion-avatar item-start>        
-      <img  src="{{content.PostByUser.image || 'assets/imgs/user.png'}}">
-    </ion-avatar>
-    <h2>{{content.PostByUser.name}}</h2>
-    <p>{{content.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
-  </ion-item>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{content.PostByUser.image || 'assets/imgs/user.png'}}">
+          </ion-avatar>
+          <h2>{{content.PostByUser.name}}</h2>
+          <p>{{content.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
+        </ion-item>
 
-  <img src="{{content.image}}" (click)="presentPostModal(content.Id)">
-  <ion-card-content (click)="presentPostModal(content.Id)">
-    <p>{{content.content}}</p>
-    <ion-card *ngIf="content?.isShared">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="{{content.parentContentId.user.ImageUrl}}">
-        </ion-avatar>
-        <!-- <h2>{{content?.parent.user?.name}}</h2> -->
-        <p>{{content.parentContentId.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
-      </ion-item>
-      <ion-card-content>
-        <p>{{content.parentContentId.content}}</p>
-      </ion-card-content>
-    </ion-card>
+        <img src="{{content.image}}" (click)="presentPostModal(content.Id)">
+        <ion-card-content (click)="presentPostModal(content.Id)">
+          <p>{{content.content}}</p>
+          <ion-card *ngIf="content?.isShared">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="{{content.parentContentId.user.ImageUrl}}">
+              </ion-avatar>
+              <!-- <h2>{{content?.parent.user?.name}}</h2> -->
+              <p>{{content.parentContentId.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
+            </ion-item>
+            <ion-card-content>
+              <p>{{content.parentContentId.content}}</p>
+            </ion-card-content>
+          </ion-card>
 
-  </ion-card-content>
+        </ion-card-content>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-start clear small (click)="like(content.Id)">
-        <ion-icon name="heart"></ion-icon>
-        <div>{{content.likesCount}} Likes</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>{{content.commentsCount}} Comments</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-start clear small (click)="share(content.Id)">
-        <ion-icon name="share"></ion-icon>
-        <div>Share</div>
-      </button>
-    </ion-col>
-  </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small (click)="like(content.Id)">
+              <ion-icon name="heart"></ion-icon>
+              <div>{{content.likesCount}} Likes</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>{{content.commentsCount}} Comments</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small (click)="share(content.Id)">
+              <ion-icon name="share"></ion-icon>
+              <div>Share</div>
+            </button>
+          </ion-col>
+        </ion-row>
 
-</ion-card>
-</ion-list>
-<ion-list *ngSwitchCase="'projects'">
-    <ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
-    
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="assets/imgs/user.png">
-        </ion-avatar>
-        <h2>{{content.PostByUser.name}}</h2>
-        <p>Yesterday</p>
-      </ion-item>
-    
-      <img src="{{content.image}}">
-      <ion-card-content>
-        <p>{{content.content}}</p>
-        <ion-card *ngIf="content?.isShared">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="assets/imgs/user.png">
-            </ion-avatar>
-            <!-- <h2>{{content?.parent.user?.name}}</h2> -->
-            <p>Yesterday</p>
-          </ion-item>
-          <ion-card-content>
-            <p>{{content.parent?.content}}</p>
-          </ion-card-content>
-        </ion-card>
-    
-      </ion-card-content>
-    
-      <ion-row>
-        <ion-col>
-          <button ion-button icon-start clear small>
-            <ion-icon name="download"></ion-icon>
-            <div>{{content.likesCount}} Saves</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-start clear small>
-            <ion-icon name="text"></ion-icon>
-            <div>{{content.commentsCount}} Comments</div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-start clear small>
-            <ion-icon name="open"></ion-icon>
-            <div>Apply</div>
-          </button>
-        </ion-col>
-      </ion-row>
-    
-    </ion-card>
+      </ion-card>
+    </ion-list>
+    <ion-list *ngSwitchCase="'projects'">
+      <ion-card *ngFor="let content of projectList" class="storyCard">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{content.PostByUser.image || 'assets/imgs/user.png'}}">
+          </ion-avatar>
+          <h2>{{content.PostByUser.name}}</h2>
+          <p>{{content.createdAt | date:'dd.MM.yyyy h:mm:ss'}}</p>
+        </ion-item>
+
+        <img src="{{content.image}}" (click)="presentPostModal(content.Id)">
+        <ion-card-content (click)="presentPostModal(content.Id)">
+          <p>{{content.content}}</p>
+          <ion-card *ngIf="content?.isShared">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="{{content.parentContentId.user.ImageUrl}}">
+              </ion-avatar>
+              <!-- <h2>{{content?.parent.user?.name}}</h2> -->
+              <p>{{content.parentContentId.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
+            </ion-item>
+            <ion-card-content>
+              <p>{{content.parentContentId.content}}</p>
+            </ion-card-content>
+          </ion-card>
+
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small (click)="like(content.Id)">
+              <ion-icon name="heart"></ion-icon>
+              <div>{{content.likesCount}} Likes</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>{{content.commentsCount}} Comments</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small (click)="share(content.Id)">
+              <ion-icon name="share"></ion-icon>
+              <div>Share</div>
+            </button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
     </ion-list>
     <ion-list *ngSwitchCase="'products'">
-        <ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
-        
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="assets/imgs/user.png">
-            </ion-avatar>
-            <h2>{{content.PostByUser.name}}</h2>
-            <p>Yesterday</p>
-          </ion-item>
-        
-          <img src="{{content.image}}">
-          <ion-card-content>
-            <p>{{content.content}}</p>
-            <ion-card *ngIf="content?.isShared">
-              <ion-item>
-                <ion-avatar item-start>
-                  <img src="assets/imgs/user.png">
-                </ion-avatar>
-                <!-- <h2>{{content?.parent.user?.name}}</h2> -->
-                <p>Yesterday</p>
-              </ion-item>
-              <ion-card-content>
-                <p>{{content.parent?.content}}</p>
-              </ion-card-content>
-            </ion-card>
-        
-          </ion-card-content>
-        
-          <ion-row>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <ion-icon name="download"></ion-icon>
-                <div>{{content.likesCount}} Saves</div>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <ion-icon name="text"></ion-icon>
-                <div>{{content.commentsCount}} Comments</div>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <ion-icon name="open"></ion-icon>
-                <div>Apply</div>
-              </button>
-            </ion-col>
-          </ion-row>
-        
-        </ion-card>
-        </ion-list>
-</div>
+      <ion-card *ngFor="let content of contentList" (click)="presentPostModal(content.Id)" class="storyCard">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="assets/imgs/user.png">
+          </ion-avatar>
+          <h2>{{content.PostByUser.name}}</h2>
+          <p>Yesterday</p>
+        </ion-item>
+
+        <img src="{{content.image}}">
+        <ion-card-content>
+          <p>{{content.content}}</p>
+          <ion-card *ngIf="content?.isShared">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="assets/imgs/user.png">
+              </ion-avatar>
+              <!-- <h2>{{content?.parent.user?.name}}</h2> -->
+              <p>Yesterday</p>
+            </ion-item>
+            <ion-card-content>
+              <p>{{content.parent?.content}}</p>
+            </ion-card-content>
+          </ion-card>
+
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="download"></ion-icon>
+              <div>{{content.likesCount}} Saves</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>{{content.commentsCount}} Comments</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="open"></ion-icon>
+              <div>Apply</div>
+            </button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+    </ion-list>
+  </div>
 
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="presentCreateModal($event)">
