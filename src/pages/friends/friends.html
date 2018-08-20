@@ -45,7 +45,7 @@
     <ion-list *ngSwitchCase="'chats'">
       <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('ChatscreenPage', {friendId: user._id})" text-wrap no-lines>
         <ion-avatar item-left>
-          <img src="assets/imgs/user.png" />
+          <img src="{{ user.ImageUrl || 'assets/imgs/user.png'}}" />
         </ion-avatar>
         <h2 color="primary">{{user.name}}</h2>
         <p>last seen 1 hour ago</p>
@@ -59,12 +59,12 @@
         Find friends
       </button>
       <ion-list>
-        <ion-item *ngFor="let user of usersListFiltered" (click)="gotoPage('UserprofilePage', {userId: user._id})">
+        <ion-item *ngFor="let user of allContacts" (click)="gotoPage('UserprofilePage', {userId: user._id})">
           <ion-avatar item-left>
-            <img src="assets/imgs/Anu-Bhardwaj.png" />
+            <img src="assets/imgs/user.png" />
           </ion-avatar>
           <h2 color="primary">{{user.name}}</h2>
-          <p>last seen 1 hour ago</p>
+          
         </ion-item>
       </ion-list>
     </div>

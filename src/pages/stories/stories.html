@@ -52,13 +52,13 @@
     <ion-card *ngIf="content?.isShared">
       <ion-item>
         <ion-avatar item-start>
-          <img src="assets/imgs/user.png">
+          <img src="{{content.parentContentId.user.ImageUrl}}">
         </ion-avatar>
         <!-- <h2>{{content?.parent.user?.name}}</h2> -->
-        <p>Yesterday</p>
+        <p>{{content.parentContentId.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
       </ion-item>
       <ion-card-content>
-        <p>{{content.parent?.content}}</p>
+        <p>{{content.parentContentId.content}}</p>
       </ion-card-content>
     </ion-card>
 

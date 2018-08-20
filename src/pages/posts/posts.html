@@ -17,10 +17,10 @@
 
   <ion-item>
     <ion-avatar item-start>
-      <img src="assets/imgs/user.png">
+      <img src="{{contentList?.user?.ImageUrl || 'assets/imgs/user.png'}}">
     </ion-avatar>
     <h2>{{contentList?.user?.name}}</h2>
-    <p>Yesterday</p>
+    <p>{{contentList?.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
   </ion-item>
 
   <img src="{{contentList?.image}}">
@@ -34,7 +34,7 @@
           <img src="assets/imgs/user.png">
         </ion-avatar>
         <h2>{{contentList?.parent.user?.name}}</h2>
-        <p>Yesterday</p>
+        <p>{{contentList.parent.created_at | date:'dd.MM.yyyy h:mm:ss'}}</p>
       </ion-item>
       <ion-card-content>
         <p>{{contentList?.parent.content}}</p>
@@ -44,17 +44,17 @@
   <ion-row>
     <ion-col>
       <button ion-button icon-start clear small>
-        <ion-icon name="download"></ion-icon>
-        <div>{{contentList?.likes.length}} Saves</div>
+        <ion-icon name="heart"></ion-icon>
+        <div>{{contentList?.likes.length}} Likes</div>
       </button>
     </ion-col>
     <ion-col>
     </ion-col>
     <ion-col>
-      <button ion-button icon-start clear small>
-        <ion-icon name="open"></ion-icon>
-        <div>Apply</div>
-      </button>
+     <!-- <button ion-button icon-start clear small (click)="share(content.Id)">
+        <ion-icon name="share"></ion-icon>
+        <div>Share</div>
+      </button>-->
     </ion-col>
   </ion-row>
   <ion-toolbar class="no-border" color="white">

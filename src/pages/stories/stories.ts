@@ -57,7 +57,7 @@ export class StoriesPage {
     // TODO: remove try/catch when fix unlike request error on server
     try {
       await this.restProvider.putData(`content/${contentId}/${this.person.userId}`, {});
-      content.likesCount ++;
+      content.likesCount ++; 
     } catch (e) {
       content.likesCount --;
     }
