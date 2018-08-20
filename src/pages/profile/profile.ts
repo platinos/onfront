@@ -55,10 +55,10 @@ export class ProfilePage {
   showDisclaimer(){
     let disclaimer = this.alertCtrl.create({
       title: 'Disclaimer',
-      subTitle: 'Thanks for choosing SHEQ!\
-     We are now in Beta, which means we do not gurantee all the security and functionality within the app.\
-     We advise you that using this app should be done for testing purpose only.\
-     You assume the full responsibility for all risks concerning your data and funds.',
+      subTitle: 'Thanks for choosing SHEQ!<br>\
+     We are now in Beta, which means we do not gurantee all the security and functionality within the app.<br>\
+     We advise you that using this app should be done for testing purpose only.<br>\
+     <b>You assume the full responsibility for all risks concerning your data and funds.</b>',
       buttons: ['I Agree']
     });
     disclaimer.present();
@@ -67,8 +67,11 @@ export class ProfilePage {
     this.person = await this.user.getUser();
     console.log(this.person);
     this.userHasWalletInSystem();
-    this.showDisclaimer();
     
+    
+  }
+  ionViewDidLoad(){
+    this.showDisclaimer();
   }
  
   checkProfilePage(pageName) {
