@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class RestProvider {
   // apiUrl = 'http://35.194.226.60:3002/api/v1/';  //Old Cloud Instance
-  apiUrl = 'http://35.229.41.156:3002/api/v1/';
+  apiUrl = 'http://35.237.6.35:3002/api/v1/';
   constructor(public http: HttpClient) {
 
   }

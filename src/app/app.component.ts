@@ -8,12 +8,12 @@ import * as firebase from 'firebase';
 
 
 const config = {
-  apiKey: "AIzaSyA-Yqf-gIlNn7x_EEmumaKkRzS9dRPe0zk",
-  authDomain: "platinos-d1714.firebaseapp.com",
-  databaseURL: "https://platinos-d1714.firebaseio.com",
-  projectId: "platinos-d1714",
-  storageBucket: "platinos-d1714.appspot.com",
-  messagingSenderId: "261363919704"
+  apiKey: "AIzaSyB1vM874WUL05RPjgZyddkrL102K4AdIRU",
+  authDomain: "uplifted-sol-213610.firebaseapp.com",
+  databaseURL: "https://uplifted-sol-213610.firebaseio.com",
+  projectId: "uplifted-sol-213610",
+  storageBucket: "uplifted-sol-213610.appspot.com",
+  messagingSenderId: "837548497206"
 };
 
 

@@ -91,7 +91,7 @@ export class ChatscreenPage {
                   to: data.val().to,
                   created: data.val().created,
                   type: data.val().type,
-                  imageUrl: data.val().imageUrl,
+                  imageUrl: data.val().imageUrl || undefined,
                   amount: data.val().amount
                 })
               });
@@ -164,6 +164,7 @@ export class ChatscreenPage {
   attach(){
     this.selectImage();
     this.type="image";
+    
   }
 
   uploadImage(imageString): Promise<any> {

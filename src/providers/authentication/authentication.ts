@@ -48,9 +48,6 @@ export class AuthenticationProvider {
 
       loading.present();
 
-      // setTimeout(() => {
-      //   loading.dismiss();
-      // }, 5000);
       this.rs.addData("users/signup", { 'name':name ,'phone': uname, 'password': pass, "email":email, "ImageUrl":ImageUrl }).then(data => {
         this.dataList = data;
         this.dataError = this.dataList.error;
