@@ -25,6 +25,7 @@
     "@ionic-native/camera": "^4.11.0",
     "@ionic-native/contacts": "^4.12.0",
     "@ionic-native/core": "4.7.0",
+    "@ionic-native/fcm": "^4.12.0",
     "@ionic-native/qr-scanner": "^4.11.0",
     "@ionic-native/social-sharing": "^4.12.0",
     "@ionic-native/splash-screen": "4.7.0",
@@ -36,11 +37,12 @@
     "contacts": "^1.0.0",
     "cordova-android": "7.0.0",
     "cordova-browser": "5.0.3",
-    "cordova-ios": "4.5.4",
+    "cordova-ios": "4.5.5",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-contacts": "^3.0.1",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-fcm-with-dependecy-updated": "^2.2.4",
     "cordova-plugin-ionic": "^4.1.7",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
@@ -56,7 +58,8 @@
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "tslint-config-airbnb": "^5.9.2",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "mx.ferreyra.callnumber": "~0.0.2"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.10",
@@ -85,11 +88,11 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-qrscanner": {},
       "mx.ferreyra.callnumber": {},
-      "cordova-plugin-contacts": {}
+      "cordova-plugin-contacts": {},
+      "cordova-plugin-fcm-with-dependecy-updated": {}
     },
     "platforms": [
       "android",
-      "ios",
       "browser"
     ]
   }

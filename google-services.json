@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "837548497206",
+    "firebase_url": "https://uplifted-sol-213610.firebaseio.com",
+    "project_id": "uplifted-sol-213610",
+    "storage_bucket": "uplifted-sol-213610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837548497206:android:3436cc6225ed9308",
+        "android_client_info": {
+          "package_name": "com.sheqwallet.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837548497206-ffqn4v5jtapmijgvbttdpm7d0pf00ard.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRd2eXJQ6dvZl8n4dQNQdOBmp0VF-K2bc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

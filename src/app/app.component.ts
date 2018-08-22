@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // import { LandingPage } from "../pages/landing/landing";
 import * as firebase from 'firebase';
+import { FCM } from '@ionic-native/fcm';
 
 
 
@@ -27,10 +28,33 @@ export class MyApp {
   constructor(platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    public events: Events,) {
+    public events: Events,
+    public fcm: FCM) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+        //Notifications
+        fcm.subscribeToTopic('all');
+        fcm.getToken().then(token => {
+          console.log(token);
+        })
+        fcm.onNotification().subscribe(data => {
+          if (data.wasTapped) {
+            console.log("Received in background");
+          } else {
+            console.log("Received in foreground");
+          };
+        })
+        fcm.onTokenRefresh().subscribe(token => {
+          console.log(token);
+        });
+        
+      
+
+
+
+
       statusBar.styleDefault();
       splashScreen.hide();
     });
@@ -43,7 +67,7 @@ export class MyApp {
     });
 
     this.events.subscribe('user:signup', () => {
-      this.nav.setRoot('OnboardPage');
+      this.nav.setRoot('TabsPage');
     });
 
     this.events.subscribe('user:logout', () => {

@@ -24,6 +24,7 @@ import { CurrenciesProvider } from '../providers/currencies/currencies';
 import { CallNumber } from '@ionic-native/call-number';
 import { Contacts } from '../../node_modules/@ionic-native/contacts';
 // import { FilePath } from '@ionic-native/file-path';
+import { FCM } from '@ionic-native/fcm';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { Contacts } from '../../node_modules/@ionic-native/contacts';
     QRScanner,
     CurrenciesProvider,
     CallNumber,
-    Contacts
+    Contacts,
+    FCM
   ],
 })
 export class AppModule {}
