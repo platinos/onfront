@@ -31,6 +31,7 @@ export class CreatepostPage {
   public form: FormGroup;
   storyImage: any;
   contentData: any;
+  datacheck:any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -39,10 +40,15 @@ export class CreatepostPage {
     public user: UserData,
     private _IMG: ImageuploaderProvider, ) {
     this.form = this._FB.group({
-      'contentText': ['', Validators.required]
+      'contentText': ['', Validators.required],
+      'contentTextDescription': ['', Validators.required],
+      'price': ['', Validators.required],
+      'quantity': ['', Validators.required],
     });
   }
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    this.datacheck=1;
+  }
   dismiss() {;
     this.viewCtrl.dismiss();
   }
@@ -79,6 +85,90 @@ export class CreatepostPage {
     });
   }
 
+
+  postContent1() {
+    let uid = "";
+    this.user.getUserId().then((userName) => {
+      uid = userName;
+      let contentText: any = this.form.controls['contentText'].value;
+      let contentTextDescription: any = this.form.controls['contentTextDescription'].value;
+      console.log(contentTextDescription);
+      if (undefined !== this.storyImage) {
+        this.uploadImage(this.storyImage)
+          .then((snapshot: any) => {
+            snapshot.ref.getDownloadURL().then(downloadURL => {
+              let uploadedImage: any = downloadURL;
+              console.log(uploadedImage);
+              this.rs.addData('content/post/' + uid, {
+                title: contentText,
+                content: contentTextDescription,
+                image: uploadedImage,
+                "type":"project"
+              }).then(data => {
+                this.dismiss();
+              });
+            });
+          });
+      } else {
+        this.rs.addData('content/post/' + uid, {
+          title: contentText,
+          content: contentTextDescription,
+          "type":"project"
+        }).then(data => {
+          this.dismiss();
+        });
+
+      }
+
+    });
+  }
+
+  postContent2() {
+    let uid = "";
+    this.user.getUserId().then((userName) => {
+      uid = userName;
+      let contentText: any = this.form.controls['contentText'].value;
+      let contentTextDescription: any = this.form.controls['contentTextDescription'].value;
+      let price: any = this.form.controls['price'].value;
+      let quantity: any = this.form.controls['quantity'].value;
+      if (undefined !== this.storyImage) {
+        this.uploadImage(this.storyImage)
+          .then((snapshot: any) => {
+            snapshot.ref.getDownloadURL().then(downloadURL => {
+              let uploadedImage: any = downloadURL;
+              console.log(uploadedImage);
+              this.rs.addData('product/', {
+                name: contentText,
+                desc: contentTextDescription,
+                Image: uploadedImage,
+                Price:price,
+                Quantity:quantity,
+                userId:uid
+              }).then(data => {
+                this.dismiss();
+              });
+            });
+          });
+      } else {
+        this.rs.addData('product/', {
+                name: contentText,
+                desc: contentTextDescription,               
+                Price:price,
+                Quantity:quantity,
+                userId:uid         
+        }).then(data => {
+          this.dismiss();
+        });
+
+      }
+
+    });
+  }
+
+  dataset(id : string){
+    this.datacheck=id;
+    console.log(this.datacheck);
+  }
 
   uploadImage(imageString): Promise < any > {
     let image: string = 'movie-' + new Date().getTime() + '.jpg',

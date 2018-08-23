@@ -44,6 +44,8 @@ export class StoriesPage {
   contents: any;
   projectList: any;
   project: any;
+  product: any;
+  productList:any;
   newComment: string = "";
   userID: any;
   feedpages = '';
@@ -161,6 +163,11 @@ export class StoriesPage {
       .then(data => {
         this.project = data;
         this.projectList = this.project.response;
+      });
+      this.restProvider.getData('product/')
+      .then(data => {
+        this.product = data;
+        this.productList = this.product.response;
         setTimeout(() => {
           loading.dismiss();
         }, 0);
@@ -180,6 +187,12 @@ export class StoriesPage {
         this.projectList = this.project.response;
         console.log(this.projectList);
         
+      });
+      this.restProvider.getData('product/')
+      .then(data => {
+        this.product = data;
+        this.productList = this.product.response;      
+        console.log(this.productList); 
       });
   }
   sendComment(contentId) {
