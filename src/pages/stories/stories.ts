@@ -71,22 +71,16 @@ export class StoriesPage {
   }
   presentCreateModal() {
 
-    if (this.feedpages == "posts") {
+    
       let createModal = this.modalCtrl.create(CreatepostPage);
       createModal.present();
       createModal.onDidDismiss(data => {
-        this.reloadStories();
-      });
-    }
-    else if (this.feedpages == "projects") {
-      let createModal = this.modalCtrl.create("CreateprojectPage");
-    createModal.present();
-    createModal.onDidDismiss(data => {
-      this.reloadStories();
+        this.reloadStories();    
+
     });
     }
    
-  }
+  
   presentPostModal(postId) {
     this.navCtrl.push('PostsPage', {
       'postId': postId
