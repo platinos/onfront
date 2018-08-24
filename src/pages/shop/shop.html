@@ -2,52 +2,49 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>shop</ion-title>
+    <ion-title>My Products</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content  class="card-background-page">
+<ion-content>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshingText='
+      <img src="assets/imgs/loading.gif"/>'>
+        </ion-refresher-content>
+      </ion-refresher>
     
+    <ion-list>
+      <button ion-item (click)="presentCreateModal($event)">
+          <ion-icon name="briefcase" item-start></ion-icon>
+          Create a new Product
+        </button>
+      </ion-list>
+    <ion-card *ngFor="let product of productList">
+        <img src="{{product?.image || 'https://marketingweek.imgix.net/content/uploads/2017/09/06163244/price-tags_750.jpg?auto=compress,format,&crop=faces,entropy,edges&fit=crop&q=60&w=750&h=460'}}"/>
+        <ion-card-content>
+          <ion-card-title>
+            {{product.Name}}
+            </ion-card-title>
+          <p>
+            {{product.Desc}}
+          </p>
+        </ion-card-content>
+     
+      <ion-row no-padding>
+        <ion-col>
+          <button ion-button clear small >            
+            <b>${{product?.Price}}</b>
+          </button>
+        </ion-col>
+        
+        <ion-col text-right>
+        <button  (click)="presentCreateModal1($event)" ion-button clear small button-end><b>Edit</b> </button>
+          
+        </ion-col>
+      </ion-row>
+    </ion-card>
 
-    <ion-card-content>
-        <h1 text-center>
-          <ion-icon name="basket" color='primary'></ion-icon><br> Have your own shop
-        </h1>
-        <ion-grid>
-          <ion-row>
-            <ion-col text-center>
-              <button ion-button block outline color="primary" (click)="createshop()">Create Shop</button>
-            </ion-col>
-           
-
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-
-    <ion-card>
-      <img src="assets/imgs/111.jpg"/>
-      <div class="card-title">São Paulo</div>
-      <div class="card-subtitle">41 Listings</div>
-    </ion-card>
-  
-    <ion-card>
-      <img src="assets/imgs/111.jpg"/>
-      <div class="card-title">Amsterdam</div>
-      <div class="card-subtitle">64 Listings</div>
-    </ion-card>
-  
-    <ion-card>
-      <img src="assets/imgs/111.jpg"/>
-      <div class="card-title">San Francisco</div>
-      <div class="card-subtitle">72 Listings</div>
-    </ion-card>
-  
-    <ion-card>
-      <img src="assets/imgs/111.jpg"/>
-      <div class="card-title">Madison</div>
-      <div class="card-subtitle">28 Listings</div>
-    </ion-card>
   
   </ion-content>
