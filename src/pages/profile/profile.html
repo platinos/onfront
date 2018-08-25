@@ -53,14 +53,24 @@
         </ion-card-content>
 
         <ion-card-content [hidden]="!hasWallet() || showDetails">
-          
-          <ion-item *ngFor="let coin of walletCoins">
+          <canvas #doughnutCanvas></canvas>
+          <ion-grid>
+            <ion-row>
+              
+              <ion-col *ngFor="let coin of walletCoins">
+                <ion-avatar item-left>
+                  <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
+                </ion-avatar>
+                <h3>{{coin.value}}</h3>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!-- <ion-item >
             <ion-avatar item-left>
               <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
             </ion-avatar>
-            <!-- <h2 color="primary">{{coin.name}}</h2> -->
-            <h2>{{coin.value}}</h2>
-          </ion-item>
+            
+          </ion-item> -->
 
           <ion-grid>
             <ion-row>

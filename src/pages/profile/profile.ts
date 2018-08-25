@@ -11,6 +11,7 @@ import {
 import { User, UserData } from '../../providers/user-data';
 import { RestProvider } from '../../providers/rest/rest';
 import { AnimationService, AnimationBuilder } from 'css-animator';
+import { Chart } from 'chart.js';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,8 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  @ViewChild('doughnutCanvas') doughnutCanvas;
+  doughnutChart: any;
   @ViewChild('myElement') myElem;
   private animator: AnimationBuilder;
   public person: User = { userId: '', name: '' , phone: '', pic: '', email: '' };
@@ -26,7 +29,7 @@ export class ProfilePage {
   userHasWallet = false;
   walletData:any;
   walletCoins = [
-    { name: 'Bitcoin', value: 0, icon: 'bitcoin.png' },
+    { name: 'Bitcoin', value: 20, icon: 'bitcoin.png' },
     { name: 'Ether', value: 0, icon: 'ether.png' },
     { name: 'Angur', value: 0, icon: 'angur.png' },
     { name: 'Dash', value: 0, icon: 'dash.png' },
@@ -72,6 +75,42 @@ export class ProfilePage {
   }
   ionViewDidLoad(){
     this.showDisclaimer();
+
+    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+
+      type: 'doughnut',
+      data: {
+        labels: ["Bitcoin", "Ether", "Angur", "Dash"],
+        datasets: [{
+          //label: '# of Votes',
+          data: [this.walletCoins[0].value, 19, 3, 5],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 206, 86)',
+            'rgb(75, 192, 192)'
+          
+          ],
+          hoverBackgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384"
+          ]
+
+        }]
+
+      },
+      options: {
+        cutoutPercentage: 70,
+        legend: {
+          display: false
+        },
+      }
+
+    });
+
+
   }
  
   checkProfilePage(pageName) {
@@ -102,6 +141,8 @@ export class ProfilePage {
       console.log(this.balance);
       console.log(this.balancedata);
       this.walletCoins[0].value = this.balance;
+      this.doughnutChart.data.datasets[0].data[0] = this.walletCoins[0].value;
+      this.doughnutChart.update();
     });
   }
 
@@ -171,6 +212,7 @@ export class ProfilePage {
       () => {
         this.ionViewWillEnter();
         refresher.complete();
+        this.doughnutChart.update();
       },
       2000);
   }

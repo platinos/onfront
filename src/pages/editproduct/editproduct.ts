@@ -25,12 +25,6 @@ import {
   ImageuploaderProvider
 } from '../../providers/imageuploader/imageuploader';
 
-/**
- * Generated class for the EditproductPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -53,22 +47,33 @@ export class EditproductPage {
     public loadingCtrl: LoadingController,
     public user: UserData,
     private _IMG: ImageuploaderProvider, ) {
-      this.iddata=(navParams.get('iddata'));
+      
+    
     this.form = this._FB.group({
       'contentText': ['', Validators.required],
       'contentTextDescription': ['', Validators.required],
       'price': ['', Validators.required],
       'quantity': ['', Validators.required],
     });
+   
+  }
+
+  ionViewWillEnter() {
+    this.iddata = this.navParams.get('iddata');
+    console.log(this.iddata);
+    this.getdata();
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditproductPage');
-    this.getdata();
+    //
   }
   dismiss() {;
     this.viewCtrl.dismiss();
   }
+
+  
   getdata(){
     let loading = this.loadingCtrl.create({
       content: '<img src="assets/imgs/loading.gif"/> <br>  Loading Stories.. Please wait.'
@@ -78,11 +83,21 @@ export class EditproductPage {
     this.rs.getData('product/'+ this.iddata)
       .then(data => {
         this.product = data; 
-        console.log(this.product);       
+        console.log(this.product); 
+        
+        this.form.controls['contentText'].setValue(this.product.Name);
+        this.form.controls['contentTextDescription'].setValue(this.product.Desc);
+        this.form.controls['price'].setValue(this.product.Price);
+        this.form.controls['quantity'].setValue(this.product.Quantity);
+        
+
+
         setTimeout(() => {
           loading.dismiss();
         }, 0);
       });
+
+
  }
 
 
