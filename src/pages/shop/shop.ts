@@ -107,13 +107,13 @@ export class ShopPage {
   });
   }
 
-  presentCreateModal1() {
+  presentCreateModal1(id:any) {
 
-    
-    let createModal = this.modalCtrl.create("CreateshopPage");
+    console.log(id);
+    let createModal = this.modalCtrl.create("EditproductPage",{iddata: id});
     createModal.present();
     createModal.onDidDismiss(data => {
-      this.reloadStories();    
+    this.reloadStories();    
 
   });
   }
