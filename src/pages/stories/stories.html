@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-toolbar>
     <ion-title>
       <img src="assets/imgs/title-logo.png" width="50px">
@@ -11,8 +10,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-
 <ion-content class="cards-bg social-cards page-bg">
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingText='
@@ -20,8 +17,8 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="feedpages">
+  <ion-toolbar color="primary">
+    <ion-segment [(ngModel)]="feedpages" color="light">
       <ion-segment-button value="posts">
         Posts
       </ion-segment-button>
