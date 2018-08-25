@@ -101,47 +101,46 @@ export class EditproductPage {
  }
 
 
-  postContent2() {
-    let uid = "";
-    this.user.getUserId().then((userName) => {
-      uid = userName;
-      let contentText: any = this.form.controls['contentText'].value;
-      let contentTextDescription: any = this.form.controls['contentTextDescription'].value;
-      let price: any = this.form.controls['price'].value;
-      let quantity: any = this.form.controls['quantity'].value;
-      if (undefined !== this.storyImage) {
-        this.uploadImage(this.storyImage)
-          .then((snapshot: any) => {
-            snapshot.ref.getDownloadURL().then(downloadURL => {
-              let uploadedImage: any = downloadURL;
-              console.log(uploadedImage);
-              this.rs.addData('product/', {
-                name: contentText,
-                desc: contentTextDescription,
-                Image: uploadedImage,
-                Price:price,
-                Quantity:quantity,
-                userId:uid
-              }).then(data => {
-                this.dismiss();
-              });
+ postContent2() {
+  let uid = "";
+  this.user.getUserId().then((userName) => {
+    uid = userName;
+    let contentText: any = this.form.controls['contentText'].value;
+    let contentTextDescription: any = this.form.controls['contentTextDescription'].value;
+    let price: any = this.form.controls['price'].value;
+    let quantity: any = this.form.controls['quantity'].value;
+    if (undefined !== this.storyImage) {
+      this.uploadImage(this.storyImage)
+        .then((snapshot: any) => {
+          snapshot.ref.getDownloadURL().then(downloadURL => {
+            let uploadedImage: any = downloadURL;
+            console.log(uploadedImage);
+            this.rs.putData('product/update/'+this.iddata, {
+              Name: contentText,
+              Desc: contentTextDescription,
+              image: uploadedImage,
+              Price:price,
+              Quantity:quantity
+            }).then(data => {
+              this.dismiss();
             });
           });
-      } else {
-        this.rs.addData('product/', {
-                name: contentText,
-                desc: contentTextDescription,               
-                Price:price,
-                Quantity:quantity,
-                userId:uid         
-        }).then(data => {
-          this.dismiss();
         });
+    } else {
+      this.rs.addData('product/update/'+this.iddata, {
+        Name: contentText,
+        Desc: contentTextDescription,
+        Price:price,
+        Quantity:quantity         
+      }).then(data => {
+        this.dismiss();
+      });
 
-      }
+    }
 
-    });
-  }
+  });
+}
+
   
   uploadImage(imageString): Promise < any > {
     let image: string = 'movie-' + new Date().getTime() + '.jpg',
