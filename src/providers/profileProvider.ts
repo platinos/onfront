@@ -25,6 +25,8 @@ export class ProfileProvider {
   }
 
   setProfile(profile: Profile): Promise<void> {
+    console.log(profile);
+    
     return this.storage.set(profileField, profile);
   }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {RestProvider} from '../rest/rest'
 import { UserData } from "../user-data";
 import { LoadingController } from 'ionic-angular';
-import { ProfileProvider } from "../profileProvider";
+import { Profile, ProfileProvider } from "../profileProvider";
 
 @Injectable()
 export class AuthenticationProvider {
@@ -11,7 +11,10 @@ export class AuthenticationProvider {
   dataList: any;
   dataResponse:any;
   dataError:any;
-  profileData: any;
+  profileData: Profile = {
+    address : "", about: "", status: "", dob:""
+
+  };
   constructor(public http: HttpClient, 
     public rs: RestProvider, 
     public user: UserData, 
@@ -38,17 +41,16 @@ export class AuthenticationProvider {
             let profileDataResponse:any;
             profileDataResponse = data;
             profileDataResponse = profileDataResponse.response;
-          let profileData: {
-            address: string,
-            status: string,
-            about: string,
-            dob: string,
-              }
-          profileData.about = profileDataResponse.about;
-          profileData.address = profileDataResponse.address;
-          profileData.dob = profileDataResponse.dob;
-          profileData.status = profileDataResponse.status;
-          this.profile.setProfile(profileData);
+          //console.log(profileDataResponse);
+            
+          
+          this.profileData.about = profileDataResponse.about || undefined;
+          this.profileData.address = profileDataResponse.address || undefined;
+          this.profileData.dob = profileDataResponse.dob || undefined;
+          this.profileData.status = profileDataResponse.status || undefined;
+          
+          
+          this.profile.setProfile(this.profileData);
           this.user.login({ name: this.dataResponse.name, userId: this.dataResponse._id, phone: this.dataResponse.phone, pic: this.dataResponse.ImageUrl, email: this.dataResponse.email });
 
         });
