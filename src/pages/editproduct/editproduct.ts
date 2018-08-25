@@ -127,7 +127,7 @@ export class EditproductPage {
           });
         });
     } else {
-      this.rs.addData('product/update/'+this.iddata, {
+      this.rs.putData('product/update/'+this.iddata, {
         Name: contentText,
         Desc: contentTextDescription,
         Price:price,
