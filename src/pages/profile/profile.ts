@@ -289,7 +289,7 @@ export class ProfilePage {
           text: 'My Profile',
           icon: !this.platform.is('ios') ? 'contact' : null,
           handler: () => {
-            this.gotoPage('MyprofilePage');
+            this.gotoPage('EditprofilePage');
             
           },
         },
