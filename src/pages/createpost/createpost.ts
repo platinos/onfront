@@ -28,7 +28,9 @@ import {
   templateUrl: 'createpost.html',
 })
 export class CreatepostPage {
-  public form: FormGroup;
+  public form3: FormGroup;
+  public form2: FormGroup;
+  public form1: FormGroup;
   storyImage: any;
   contentData: any;
   datacheck:any;
@@ -39,11 +41,20 @@ export class CreatepostPage {
     public rs: RestProvider,
     public user: UserData,
     private _IMG: ImageuploaderProvider, ) {
-    this.form = this._FB.group({
+    this.form3 = this._FB.group({
       'contentText': ['', Validators.required],
       'contentTextDescription': ['', Validators.required],
       'price': ['', Validators.required],
       'quantity': ['', Validators.required],
+    });
+    this.form2 = this._FB.group({
+      'contentText': ['', Validators.required],
+      'contentTextDescription': ['', Validators.required]
+    
+    });
+    this.form1 = this._FB.group({
+      'contentText': ['', Validators.required]
+     
     });
   }
   ionViewDidLoad() {
@@ -56,7 +67,7 @@ export class CreatepostPage {
     let uid = "";
     this.user.getUserId().then((userName) => {
       uid = userName;
-      let contentText: any = this.form.controls['contentText'].value;
+      let contentText: any = this.form1.controls['contentText'].value;
       if (undefined !== this.storyImage) {
         this.uploadImage(this.storyImage)
           .then((snapshot: any) => {
@@ -90,8 +101,8 @@ export class CreatepostPage {
     let uid = "";
     this.user.getUserId().then((userName) => {
       uid = userName;
-      let contentText: any = this.form.controls['contentText'].value;
-      let contentTextDescription: any = this.form.controls['contentTextDescription'].value;
+      let contentText: any = this.form2.controls['contentText'].value;
+      let contentTextDescription: any = this.form2.controls['contentTextDescription'].value;
       console.log(contentTextDescription);
       if (undefined !== this.storyImage) {
         this.uploadImage(this.storyImage)
@@ -127,10 +138,10 @@ export class CreatepostPage {
     let uid = "";
     this.user.getUserId().then((userName) => {
       uid = userName;
-      let contentText: any = this.form.controls['contentText'].value;
-      let contentTextDescription: any = this.form.controls['contentTextDescription'].value;
-      let price: any = this.form.controls['price'].value;
-      let quantity: any = this.form.controls['quantity'].value;
+      let contentText: any = this.form3.controls['contentText'].value;
+      let contentTextDescription: any = this.form3.controls['contentTextDescription'].value;
+      let price: any = this.form3.controls['price'].value;
+      let quantity: any = this.form3.controls['quantity'].value;
       if (undefined !== this.storyImage) {
         this.uploadImage(this.storyImage)
           .then((snapshot: any) => {

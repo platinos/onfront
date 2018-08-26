@@ -36,7 +36,7 @@
 
 
   <ion-grid *ngIf="datacheck==1">
-    <form [formGroup]="form" (ngSubmit)="postContent()">
+    <form [formGroup]="form1" (ngSubmit)="postContent()">
 
     <ion-row>
       <ion-col>
@@ -59,7 +59,7 @@
       </ion-row>
     <ion-row text-center>
       <ion-col>
-      <button ion-button round large [disabled]="!form.valid">POST</button>
+      <button ion-button round large [disabled]="!form1.valid">POST</button>
       </ion-col>
     </ion-row>
     </form>
@@ -68,7 +68,7 @@
   </ion-grid>
 
   <ion-grid *ngIf="datacheck==2">
-      <form [formGroup]="form" (ngSubmit)="postContent1()">
+      <form [formGroup]="form2" (ngSubmit)="postContent1()">
         <ion-row>
           <ion-col>
             <ion-textarea rows="4" placeholder="Project Title" formControlName="contentText"></ion-textarea>
@@ -99,7 +99,7 @@
   
         <ion-row text-center>
           <ion-col>
-            <button ion-button round large [disabled]="!form.valid">POST</button>
+            <button ion-button round large [disabled]="!form2.valid">POST</button>
           </ion-col>
         </ion-row>
       </form>
@@ -108,7 +108,7 @@
     </ion-grid>
 
     <ion-grid *ngIf="datacheck==3">
-        <form [formGroup]="form" (ngSubmit)="postContent2()">
+        <form [formGroup]="form3" (ngSubmit)="postContent2()">
           <ion-row>
             <ion-col>
               <ion-textarea rows="4" placeholder="Product Name" formControlName="contentText"></ion-textarea>
@@ -150,7 +150,7 @@
     
           <ion-row text-center>
             <ion-col>
-              <button ion-button round large [disabled]="!form.valid">POST</button>
+              <button ion-button round large [disabled]="!form3.valid">POST</button>
             </ion-col>
           </ion-row>
         </form>
