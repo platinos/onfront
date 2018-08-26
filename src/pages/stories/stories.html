@@ -160,7 +160,7 @@
         </ion-col>
         
         <ion-col text-right>
-        <button *ngIf="product?.Quantity>0" ion-button clear small button-end><b>Buy Now</b>  </button>
+        <button *ngIf="product?.Quantity>0" ion-button clear small button-end (click)="gotoPage('ChatscreenPage', {friendId: product.userId._id})"><b>Buy Now</b>  </button>
           <button *ngIf="product?.Quantity<1" ion-button clear small button-end disabled><b>Out of stock</b>  </button>
           
         </ion-col>

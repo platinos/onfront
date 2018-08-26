@@ -205,4 +205,8 @@ export class StoriesPage {
       refresher.complete();
     }, 2000);
   }
+
+  gotoPage(page, data) {
+    this.navCtrl.push(page, data);
+  }
 }
