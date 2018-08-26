@@ -54,7 +54,13 @@ export class ProfileEditPage {
     console.log(this.profile);
     const { userId, pic, ...formValues } = this.user;
     this.userPic = pic;
-    this.form.setValue({ ...formValues, ...this.profile });
+
+    this.form.controls['name'].setValue(this.user.name);
+    this.form.controls['phone'].setValue(this.user.phone);
+    this.form.controls['address'].setValue(this.profile.address);
+    this.form.controls['status'].setValue(this.profile.status);
+    this.form.controls['about'].setValue(this.profile.about);
+    this.form.controls['dob'].setValue(this.profile.dob);
   }
 
   public async update() {
