@@ -40,7 +40,7 @@ export class RecievecoinPage {
     this.viewCtrl.dismiss();
   }
   getWallet() {
-    this.rp.getData('wallet/tbtc/' + this.walletid).then(data => {
+    this.rp.getData('wallet/btc/' + this.walletid).then(data => {
       this.walletData = data;
       this.walletData = this.walletData.response;
       this.receiveAddress = this.walletData.receiveAddress.address;
