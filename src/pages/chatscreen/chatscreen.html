@@ -4,7 +4,7 @@
      <ion-title (click)="openPage('UserprofilePage', reciever)">
       {{recieverName}}</ion-title>
     <ion-buttons end>
-      <img src="assets/imgs/user.png" width="40px" style="display:inline-block" height="40px" />
+      <img src="{{recieverImage || 'assets/imgs/user.png'}}" width="40px" style="display:inline-block" height="40px" />
     </ion-buttons>
   </ion-navbar>
 

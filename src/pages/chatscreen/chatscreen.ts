@@ -27,6 +27,7 @@ export class ChatscreenPage {
   amount: any;
   chatImage: any;
   type= "text";
+  recieverImage:any;
 
   @ViewChild(Content) contentArea: Content;
   constructor(public navCtrl: NavController, 
@@ -72,6 +73,7 @@ export class ChatscreenPage {
           .then(data => {
             this.temp = data;
             this.recieverName = this.temp.response[0].name;
+            this.recieverImage = this.temp.response[0].ImageUrl;
             this.ref1 = firebase.database().ref(this.sender + '-' + this.reciever);
             this.ref2 = firebase.database().ref(this.reciever + '-' + this.sender);
             this.ready = true;
