@@ -20,7 +20,7 @@
           </ion-item>
           <ion-item>
             <button ion-button type="button" color="secondary" *ngIf="!userPic" (click)="selectImage()">Upload avatar</button>
-            <img src="{{userPic}}" width="200" (click)="selectImage()" />
+            <img src="{{userPic || 'assets/imgs/user.png'}}" width="100" (click)="selectImage()" />
           </ion-item>
 
             
