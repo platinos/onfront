@@ -29,7 +29,7 @@ export class ProfilePage {
   userHasWallet = false;
   walletData:any;
   walletCoins = [
-    { name: 'Bitcoin', value: 20, icon: 'bitcoin.png' },
+    { name: 'Bitcoin', value: 20, icon: 'bitcoin.svg' },
     { name: 'Ether', value: 0, icon: 'ether.png' },
     { name: 'Angur', value: 0, icon: 'angur.png' },
     { name: 'Dash', value: 0, icon: 'dash.png' },
@@ -135,7 +135,7 @@ export class ProfilePage {
   }
 
   getWallet() {
-    this.rp.getData('wallet/tbtc/' + this.walletid).then((data) => {
+    this.rp.getData('wallet/btc/' + this.walletid).then((data) => {
       this.balancedata = data;
       this.balance = parseInt(this.balancedata.response.spendableBalance, 0) / 100000000;
       console.log(this.balance);
@@ -192,7 +192,7 @@ export class ProfilePage {
           handler: (data) => {
             // to call api
             this.rp.addData('wallet/' + this.person.userId, {
-              coin: 'tbtc',
+              coin: 'btc',
               label: data.label,
               password: data.password,
             }).then((data) => {
