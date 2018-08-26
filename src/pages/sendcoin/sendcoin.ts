@@ -146,7 +146,7 @@ ionViewWillEnter(){
       this.walletData = data;
       this.walletid = this.walletData.response.walletId;
       //if(this.walletid!=undefined){
-      this.rp.getData('wallet/tbtc/' + this.walletid).then(data1 => {
+      this.rp.getData('wallet/btc/' + this.walletid).then(data1 => {
         this.balancedata = data1;
         this.balance = this.balancedata.response.balance;
         console.log(this.balance);
