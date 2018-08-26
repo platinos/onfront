@@ -50,6 +50,8 @@ export class ProfileEditPage {
   private async getUserProfile() {
     this.user = await this.userProvider.getUser();
     this.profile = await this.profileProvider.getProfile();
+    console.log(this.user);
+    console.log(this.profile);
     const { userId, pic, ...formValues } = this.user;
     this.userPic = pic;
     this.form.setValue({ ...formValues, ...this.profile });

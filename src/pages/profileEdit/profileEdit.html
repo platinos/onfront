@@ -1,21 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      <img src="assets/imgs/title-logo.png" width="50px" />
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-navbar>
+        <ion-title>My Profile</ion-title>
+      </ion-navbar>
 </ion-header>
 
 
 <ion-content>
   <form (ngSubmit)="update()" [formGroup]="form">
     <ion-row>
-      <ion-col>
+      <ion-card>
+      
         <ion-list>
 
           <ion-item>
@@ -29,7 +23,7 @@
             <img src="{{userPic}}" width="200" (click)="selectImage()" />
           </ion-item>
 
-          <h5>Profile</h5>
+            
           <ion-item>
             <ion-datetime placeholder="DoB" displayFormat="MM/DD/YYYY" formControlName="dob"></ion-datetime>
           </ion-item>
@@ -43,7 +37,8 @@
             <ion-textarea rows="5" placeholder="About" formControlName="about"></ion-textarea>
           </ion-item>
         </ion-list>
-      </ion-col>
+      
+    </ion-card>
     </ion-row>
 
     <ion-row>
