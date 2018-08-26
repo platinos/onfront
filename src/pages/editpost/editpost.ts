@@ -38,6 +38,7 @@ import {
 export class EditpostPage {
   public form: FormGroup;
   storyImage: any;
+  storyImage2: any;
   iddata:any;
   contentData: any;
   datacheck:any;
@@ -84,8 +85,8 @@ export class EditpostPage {
     
     
       let contentText: any = this.form.controls['contentText'].value;
-      if (undefined !== this.storyImage) {
-        this.uploadImage(this.storyImage)
+      if (undefined !== this.storyImage2) {
+        this.uploadImage(this.storyImage2)
           .then((snapshot: any) => {
             snapshot.ref.getDownloadURL().then(downloadURL => {
               let uploadedImage: any = downloadURL;
@@ -102,6 +103,7 @@ export class EditpostPage {
       } else {
         this.rs.putData('content/' + this.iddata, {
           content: contentText,
+          image: this.storyImage,
           type: "post"
         }).then(data => {
           this.dismiss();
@@ -136,7 +138,7 @@ export class EditpostPage {
   selectImage() {
     this._IMG.selectImage()
       .then((data) => {
-        this.storyImage = data;
+        this.storyImage2 = data;
       });
   }
 

@@ -318,7 +318,7 @@ export class ProfilePage {
           }
         },
         {
-          text: 'My Shop',
+          text: 'My Products',
           // icon: 'contacts',
           icon: !this.platform.is('ios') ? 'cart' : null,
           handler: () => {
