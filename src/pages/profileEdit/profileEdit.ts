@@ -75,7 +75,8 @@ export class ProfileEditPage {
     await this.userProvider.setUser({ userId, ...userData, pic, email });
     await this.profileProvider.setProfile(profileData);
 
-    this.restProvider.putData(`profile/${userId}`, { ...userData, ...profileData, pic });
+    this.restProvider.putData(`profile/${userId}`, { ...userData, ...profileData });
+    this.restProvider.putData(`users/${userId}`, { ImageUrl: pic });
 
     this.navCtrl.pop();
   }
