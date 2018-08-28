@@ -54,12 +54,12 @@
     "firebase": "^5.2.0",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "mx.ferreyra.callnumber": "~0.0.2",
     "run": "1.4.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "tslint-config-airbnb": "^5.9.2",
-    "zone.js": "0.8.26",
-    "mx.ferreyra.callnumber": "~0.0.2"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.10",
@@ -93,7 +93,8 @@
     },
     "platforms": [
       "android",
-      "browser"
+      "browser",
+      "ios"
     ]
   }
 }

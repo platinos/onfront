@@ -24,46 +24,62 @@
         <form [formGroup]="form" (ngSubmit)="postContent2()">
           <ion-row>
             <ion-col>
-              <ion-textarea rows="4"  placeholder="Product Name" formControlName="contentText"></ion-textarea>
+              <ion-item>
+                <ion-label floating>
+                  Name of the Product.
+                </ion-label>
+                <ion-input formControlName="contentText"></ion-input>
+              </ion-item>
             </ion-col>
           </ion-row>
-    
+        
           <ion-row>
             <ion-col>
-              <ion-textarea rows="8" placeholder="Product Description" formControlName="contentTextDescription"></ion-textarea>
+              <ion-item>
+                <ion-label floating>
+                  Describe the Product.
+                </ion-label>
+                <ion-textarea rows="4" formControlName="contentTextDescription"></ion-textarea>
+              </ion-item>
             </ion-col>
-          </ion-row>
-          <ion-row>
-              <ion-col>
-                <ion-input  type="number" placeholder="Product price" formControlName="price"></ion-input>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-                <ion-col>
-                  <ion-input type="number" placeholder="Product Quantity" formControlName="quantity"></ion-input>
-                </ion-col>
-              </ion-row>
-    
-    
-          <ion-row text-center justify-content-around>
-            <ion-col>
-              <div (click)="selectImage()">
-                <ion-icon name="attach" style="zoom:4.0;" color='icons'></ion-icon>
-                <h4 class="card-title" color='icons'>Media</h4>
-              </div>
-            </ion-col>
-    
           </ion-row>
           <ion-row>
             <ion-col>
-              <img src="{{storyImage2}}" width="200">
+              <ion-item>
+                <ion-label floating>
+                  Product Price.
+                </ion-label>
+                <ion-input type="number" formControlName="price"></ion-input>
+              </ion-item>
             </ion-col>
           </ion-row>
-    
+        
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label floating>
+                  Total quantity.
+                </ion-label>
+                <ion-input type="number" formControlName="quantity"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        
+        
+          <ion-row>
+            <ion-col>
+              <button ion-button clear icon-start color="primary" (click)="selectImage()">
+                <ion-icon name="attach" color='primary'></ion-icon> Add Media
+              </button>
+            </ion-col>
+            <ion-col>
+              <img src="{{storyImage}}" width="200">
+            </ion-col>
+          </ion-row>
+        
           <ion-row text-center>
             <ion-col>
-              <button ion-button round large [disabled]="!form.valid">POST</button>
+              <button ion-button round large color="accent" [disabled]="!form.valid">Publish</button>
             </ion-col>
           </ion-row>
         </form>

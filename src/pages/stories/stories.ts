@@ -144,11 +144,12 @@ export class StoriesPage {
 
 
   getStories() {
-    let loading = this.loadingCtrl.create({
-      content: '<img src="assets/imgs/loading.gif"/> <br>  Loading Stories.. Please wait.'
+    let loadingAlert = this.alertCtrl.create({
+      title: 'Loading Stories',
+      subTitle: '<img src="assets/imgs/loading.gif"><br>Please wait.'
     });
-    loading.setSpinner("none");
-    loading.present();
+
+    loadingAlert.present();
     this.restProvider.getData('content/type/post')
       .then(data => {
         this.contents = data;
@@ -164,7 +165,7 @@ export class StoriesPage {
         this.product = data;
         this.productList = this.product.response;
         setTimeout(() => {
-          loading.dismiss();
+          loadingAlert.dismiss();
         }, 0);
       });
   }

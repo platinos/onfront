@@ -35,7 +35,6 @@ export class ProfileEditPage {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
-
       address: [''],
       status: [''],
       about: [''],

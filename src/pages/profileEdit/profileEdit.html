@@ -5,47 +5,44 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content padding class="masters">
+  <div class="login" text-center>
   <form (ngSubmit)="update()" [formGroup]="form">
-    <ion-row>
-      <ion-card>
-      
-        <ion-list>
-
-          <ion-item>
-            <ion-input placeholder="Name" formControlName="name" required clearInput></ion-input>
+    
+      <div (click)="selectImage()">
+        <img class="bullets profileimage" src="{{userPic || 'assets/imgs/user.png'}}" width="100">
+        <span ion-text text-center color="primary" class="bullets">Choose Profile Pic</span>
+      </div>
+          
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Name</ion-label>
+            <ion-input formControlName="name" required clearInput readonly></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-input placeholder="Phone" formControlName="phone" required clearInput></ion-input>
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Phone No.</ion-label>
+            <ion-input placeholder="Phone" formControlName="phone" required clearInput readonly></ion-input>
           </ion-item>
-          <ion-item>
-            <button ion-button type="button" color="secondary" *ngIf="!userPic" (click)="selectImage()">Upload avatar</button>
-            <img src="{{userPic || 'assets/imgs/user.png'}}" width="100" (click)="selectImage()" />
-          </ion-item>
-
-            
-          <ion-item>
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Date of Birth</ion-label>
             <ion-datetime placeholder="DoB" displayFormat="MM/DD/YYYY" formControlName="dob"></ion-datetime>
           </ion-item>
-          <ion-item>
-            <ion-input placeholder="Address" formControlName="address"></ion-input>
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Address</ion-label>
+            <ion-input formControlName="address"></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-input placeholder="Status" formControlName="status"></ion-input>
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>Today's Status</ion-label>
+            <ion-input  formControlName="status"></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-textarea rows="5" placeholder="About" formControlName="about"></ion-textarea>
+          <ion-item margin-bottom style="background: transparent">
+            <ion-label color="lighttext" floating>About Me</ion-label>
+            <ion-textarea rows="3"  formControlName="about"></ion-textarea>
           </ion-item>
-        </ion-list>
       
-    </ion-card>
-    </ion-row>
 
-    <ion-row>
-      <ion-col class="signup-col">
-        <button ion-button class="submit-btn" round outline type="submit">Update</button>
-      </ion-col>
-    </ion-row>
+        <button ion-button color="accent" text-center round type="submit">Update Profile</button>
+     
 
   </form>
+  </div>
 </ion-content>

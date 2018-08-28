@@ -1,9 +1,4 @@
-<!--
-  Generated template for the CreatepostPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Post your Content</ion-title>
@@ -20,18 +15,26 @@
 
 
     <ion-row text-center justify-content-around>
-    <button ion-button clear icon-start  (click)="dataset(1)">
-        <ion-icon name='book' is-active="false"></ion-icon>
-        
-      </button>
-      <button ion-button clear icon-start (click)="dataset(2)">
-          <ion-icon name='bulb' is-active="false"></ion-icon>
-          
-       </button>
-       <button ion-button clear icon-start (click)="dataset(3)">
-            <ion-icon name='briefcase' is-active="false"></ion-icon>
-            
-       </button>
+   
+
+        <ion-col>
+          <div (click)="dataset(1)">
+            <ion-icon name="images" style="zoom:3.0;" [color]="datacheck==1 ? 'accent' : 'icons'"></ion-icon>
+            <h4 class="card-title" color='icons'>Post</h4>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div (click)="dataset(2)">
+            <ion-icon name="flash" style="zoom:3.0;" [color]="datacheck==2 ? 'accent' : 'icons'"></ion-icon>
+            <h4 class="card-title" color='icons'>Project</h4>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div (click)="dataset(3)">
+            <ion-icon name="cart" style="zoom:3.0;" [color]="datacheck==3 ? 'accent' : 'icons'"></ion-icon>
+            <h4 class="card-title" color='icons'>Product</h4>
+          </div>
+        </ion-col>
     </ion-row>
 
 
@@ -40,26 +43,30 @@
 
     <ion-row>
       <ion-col>
-        <ion-textarea rows="8" placeholder="Whats on your mind today?" formControlName="contentText"></ion-textarea>
+        <ion-item>
+          <ion-label floating>
+             Whats on your mind today?
+          </ion-label>
+          <ion-textarea rows="8" formControlName="contentText"></ion-textarea>
+        </ion-item>
+        
       </ion-col>
     </ion-row>
-    <ion-row text-center justify-content-around>
+    <ion-row>
         <ion-col>
-          <div (click)="selectImage()">
-            <ion-icon name="attach" style="zoom:4.0;" color='icons'></ion-icon>
-            <h4 class="card-title" color='icons'>Media</h4>
-          </div>
+          <button ion-button clear icon-start color="primary" (click)="selectImage()">
+            <ion-icon name="attach" color='primary'></ion-icon> Add Media
+          </button>
           </ion-col>
-       
+          <ion-col>
+                <img src="{{storyImage}}" width="200">
+          </ion-col>
+      
       </ion-row>
-      <ion-row>
-        <ion-col>
-          <img src="{{storyImage}}" width="200">
-        </ion-col>
-      </ion-row>
+      
     <ion-row text-center>
       <ion-col>
-      <button ion-button round large [disabled]="!form1.valid">POST</button>
+      <button ion-button round large color="accent" [disabled]="!form1.valid">Publish</button>
       </ion-col>
     </ion-row>
     </form>
@@ -71,27 +78,33 @@
       <form [formGroup]="form2" (ngSubmit)="postContent1()">
         <ion-row>
           <ion-col>
-            <ion-textarea rows="4" placeholder="Project Title" formControlName="contentText"></ion-textarea>
+            <ion-item>
+              <ion-label floating>
+                Whats your Project's title?
+              </ion-label>
+              <ion-input formControlName="contentText"></ion-input>
+            </ion-item>
           </ion-col>
         </ion-row>
   
         <ion-row>
           <ion-col>
-            <ion-textarea rows="8" placeholder="Project Description" formControlName="contentTextDescription"></ion-textarea>
+            <ion-item>
+              <ion-label floating>
+                Describe your Project.
+              </ion-label>
+              <ion-textarea rows="8" formControlName="contentTextDescription"></ion-textarea>
+            </ion-item>
           </ion-col>
         </ion-row>
   
   
-        <ion-row text-center justify-content-around>
-          <ion-col>
-            <div (click)="selectImage()">
-              <ion-icon name="attach" style="zoom:4.0;" color='icons'></ion-icon>
-              <h4 class="card-title" color='icons'>Media</h4>
-            </div>
-          </ion-col>
-  
-        </ion-row>
         <ion-row>
+          <ion-col>
+            <button ion-button clear icon-start color="primary" (click)="selectImage()">
+              <ion-icon name="attach" color='primary'></ion-icon> Add Media
+            </button>
+          </ion-col>
           <ion-col>
             <img src="{{storyImage}}" width="200">
           </ion-col>
@@ -99,7 +112,7 @@
   
         <ion-row text-center>
           <ion-col>
-            <button ion-button round large [disabled]="!form2.valid">POST</button>
+            <button ion-button round large color="accent" [disabled]="!form2.valid">Publish</button>
           </ion-col>
         </ion-row>
       </form>
@@ -111,46 +124,62 @@
         <form [formGroup]="form3" (ngSubmit)="postContent2()">
           <ion-row>
             <ion-col>
-              <ion-textarea rows="4" placeholder="Product Name" formControlName="contentText"></ion-textarea>
+            <ion-item>
+              <ion-label floating>
+                Name of the Product.
+              </ion-label>
+              <ion-input formControlName="contentText"></ion-input>
+            </ion-item>
             </ion-col>
           </ion-row>
     
           <ion-row>
             <ion-col>
-              <ion-textarea rows="8" placeholder="Product Description" formControlName="contentTextDescription"></ion-textarea>
+            <ion-item>
+              <ion-label floating>
+                Describe the Product.
+              </ion-label>
+              <ion-textarea rows="4" formControlName="contentTextDescription"></ion-textarea>
+            </ion-item>
             </ion-col>
           </ion-row>
           <ion-row>
               <ion-col>
-                <ion-input type="number" placeholder="Product price" formControlName="price"></ion-input>
+                <ion-item>
+                  <ion-label floating>
+                    Product Price.
+                  </ion-label>
+                <ion-input type="number" formControlName="price"></ion-input>
+                </ion-item>
               </ion-col>
             </ion-row>
 
             <ion-row>
                 <ion-col>
-                  <ion-input type="number" placeholder="Product Quantity" formControlName="quantity"></ion-input>
+                  <ion-item>
+                    <ion-label floating>
+                      Total quantity.
+                    </ion-label>
+                  <ion-input type="number" formControlName="quantity"></ion-input>
+                  </ion-item>
                 </ion-col>
               </ion-row>
     
     
-          <ion-row text-center justify-content-around>
-            <ion-col>
-              <div (click)="selectImage()">
-                <ion-icon name="attach" style="zoom:4.0;" color='icons'></ion-icon>
-                <h4 class="card-title" color='icons'>Media</h4>
-              </div>
-            </ion-col>
-    
-          </ion-row>
           <ion-row>
             <ion-col>
-              <img src="{{storyImage}}" width="200">
+              <button ion-button clear icon-start color="primary" (click)="selectImage()">
+                <ion-icon name="attach" color='primary'></ion-icon> Add Media
+              </button>
             </ion-col>
+              <ion-col>
+                <img src="{{storyImage}}" width="200">
+              </ion-col>
           </ion-row>
     
           <ion-row text-center>
             <ion-col>
-              <button ion-button round large [disabled]="!form3.valid">POST</button>
+              <button ion-button round large color="accent" [disabled]="!form3.valid">Publish</button>
             </ion-col>
           </ion-row>
         </form>

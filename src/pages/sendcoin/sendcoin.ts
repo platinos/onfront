@@ -240,7 +240,7 @@ ionViewWillEnter(){
           if (temp.error === undefined) {
             const tempWalletId = temp.response.walletId;
 
-            this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
+            this.rp.getData('wallet/btc/' + tempWalletId).then((data) => {
               const tempWalletdata: any = data;
 
               const addressee = tempWalletdata.response.receiveAddress.address;

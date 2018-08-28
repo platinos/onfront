@@ -89,6 +89,7 @@ export class EditproductPage {
         this.form.controls['contentTextDescription'].setValue(this.product.Desc);
         this.form.controls['price'].setValue(this.product.Price);
         this.form.controls['quantity'].setValue(this.product.Quantity);
+        this.storyImage = this.product.image;
         
 
 

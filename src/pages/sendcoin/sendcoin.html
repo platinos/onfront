@@ -15,7 +15,7 @@
 
 <ion-content class="login-content" padding>
 
-  <h1 ion-text color="accent">You are on Sheq Beta. Test tokens will be sent.</h1>
+  <h1 ion-text color="accent">You are on Sheq Beta. Real Tokens will be sent.</h1>
  
   <div class="login-box" [hidden]="showCam" >
     <form (ngSubmit)="sendCoin()" [formGroup]="form">
@@ -33,7 +33,7 @@
               <ion-label color="lighttext" floating>Asset</ion-label>
               <ion-select formControlName="coins">
                 <ion-option value="tbtc">Bitcoins</ion-option>
-                <ion-option value="eth">Ether</ion-option>
+                <ion-option value="eth" disabled>Ether</ion-option>
               </ion-select>
             </ion-item>
             <ion-item>
