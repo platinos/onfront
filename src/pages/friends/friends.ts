@@ -14,6 +14,8 @@ import {
   Contact
 } from '@ionic-native/contacts';
 import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
+import { Diagnostic } from '@ionic-native/diagnostic';
+
 
 type User = {
   name: string,
@@ -45,6 +47,7 @@ export class FriendsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public restProvider: RestProvider,
+    private _DIAGNOSTIC  : Diagnostic,
     private sanitizer: DomSanitizer
   ) {
 
@@ -52,6 +55,10 @@ export class FriendsPage {
   }
   getContacts(): void {
     
+    this._DIAGNOSTIC.isContactsAuthorized()
+      .then((isAuthorised : any) =>
+      {
+
     this.contacts.find(
       ["displayName", "phoneNumbers", "photos"],
       { multiple: true, hasPhoneNumber: true }
@@ -73,7 +80,11 @@ export class FriendsPage {
       }
     });
     console.log(this.contactList);
-    
+  })
+  .catch((error : any) =>
+      {
+         console.dir('Contacts is:' + error);
+      });
   }
 
 
