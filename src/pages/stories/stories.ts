@@ -73,7 +73,7 @@ export class StoriesPage {
   presentCreateModal() {
 
     
-      let createModal = this.modalCtrl.create(CreatepostPage);
+      let createModal = this.modalCtrl.create('CreatepostPage');
       createModal.present();
       createModal.onDidDismiss(data => {
         this.reloadStories();    

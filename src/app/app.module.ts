@@ -5,11 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
-import { AnimationService, AnimatesDirective } from 'css-animator';
+import { AnimationService } from 'css-animator';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { CreatepostPage } from '../pages/createpost/createpost';
+//import { CreatepostPage } from '../pages/createpost/createpost';
 import { RestProvider } from '../providers/rest/rest';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { IonicStorageModule } from '@ionic/storage';
@@ -25,26 +25,28 @@ import { CallNumber } from '@ionic-native/call-number';
 import { Contacts } from '../../node_modules/@ionic-native/contacts';
 // import { FilePath } from '@ionic-native/file-path';
 import { FCM } from '@ionic-native/fcm';
+//import { Diagnostic } from '@ionic-native/diagnostic';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    CreatepostPage,
+    //CreatepostPage,
     HeaderMenuComponent,
-    AnimatesDirective,
+    //AnimatesDirective,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    CreatepostPage,
+    //CreatepostPage,
   ],
   providers: [
     StatusBar,

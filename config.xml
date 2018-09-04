@@ -97,9 +97,9 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
     <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.2.4" />
+    <plugin name="cordova-plugin-ios-contacts-permissions" spec="^1.0.0" />
+    <plugin name="cordova.plugins.diagnostic" spec="^4.0.9" />
     <engine name="android" spec="7.0.0" />
     <engine name="browser" spec="5.0.3" />
     <engine name="ios" spec="4.5.5" />
-    <plugin name="cordova-plugin-ios-contacts-permissions" spec="^1.0.0" />
-    <plugin name="cordova.plugins.diagnostic" spec="^4.0.9" />
 </widget>
