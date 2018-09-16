@@ -1,7 +1,7 @@
 <ion-list>
 
-  <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
-    <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+  <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p.page)">
+    <ion-icon item-start [name]="p.icon"></ion-icon>
     {{p.title}}
   </button>
   <button ion-item menuClose (click)="logout()">Logout</button>

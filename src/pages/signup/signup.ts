@@ -61,8 +61,8 @@ export class SignupPage {
     }
     else
     {
-      this.navCtrl.push("OtppagePage", {'phoneNo' : No});
-      
+        // this.navCtrl.push("OtppagePage", {'phoneNo' : No});
+           this.navCtrl.push("CreateprofilePage", { 'phoneNo': No });
     }
       });
     

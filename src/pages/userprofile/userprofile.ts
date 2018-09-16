@@ -6,10 +6,13 @@ import { UserData, User } from '../../providers/user-data';
 
 type Contact = {
   name: string,
+  userImage: string,
   phone: string,
   userId: string,
   status: string,
   wallets: string,
+  about: string,
+  address: string
 };
 
 @IonicPage()
@@ -25,6 +28,9 @@ export class UserprofilePage {
   private isFriend: boolean;
   private isFriendRequested: boolean;
 
+
+
+  
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
@@ -47,11 +53,16 @@ export class UserprofilePage {
     this.isFriendRequested = false;
 
     this.restProvider.getData(`profile/${this.contactId}`)
-      .then(({ response: { user: { name, phone, _id: userId }, status, wallets } }) =>
-        this.contact = { name, phone, userId, status, wallets });
-
-    this.restProvider.addData(`content/user/${this.contactId}`, { page: 0 })
-      .then(({ response }) => this.stories = response[0].contents);
+      .then(({ response: { user: { name, ImageUrl: userImage, phone, _id: userId}, status, wallets, about, address } }) =>{
+        this.contact = { name, userImage, phone, userId, status, wallets, about, address }
+      }
+        );
+    this.restProvider.getData('content/user/' + this.contactId + '/post')
+      .then(data => {
+        let contents:any = data;
+        this.stories = contents.response;
+      });
+    
   }
 
   presentPostModal(postId) {

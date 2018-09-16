@@ -53,24 +53,30 @@
         </ion-card-content>
 
         <ion-card-content [hidden]="!hasWallet() || showDetails">
-          <canvas #doughnutCanvas></canvas>
-          <ion-grid>
-            <ion-row>
-              
-              <ion-col *ngFor="let coin of walletCoins" text-center>
-                <ion-avatar>
-                  <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
-                </ion-avatar>
-                <h3>{{coin.value}}</h3>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <!-- <ion-item >
-            <ion-avatar item-left>
-              <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
-            </ion-avatar>
+          <ion-card-content>
+            <h1 ion-text color="accent">Hey <b>{{person?.name}}</b>. </h1><br>
+            <p ion-text color="primary" text-left>You do not have any balance in your wallet. Add some funds to get started.</p>
+            <br>
+            <br>
+            <button ion-button outline color="accent" round large icon-start (click)="gotoAddFunds()">
+              <ion-icon name="add"></ion-icon>
+              Add Funds
+            </button>
+          </ion-card-content>
+          <div [hidden]="balance===0">
+            <canvas #doughnutCanvas></canvas>
+            <ion-grid>
+              <ion-row>
             
-          </ion-item> -->
+                <ion-col *ngFor="let coin of walletCoins" text-center>
+                  <ion-avatar>
+                    <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
+                  </ion-avatar>
+                  <h3>{{coin.value}}</h3>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
 
           <ion-grid>
             <ion-row>
@@ -80,9 +86,19 @@
               <ion-col text-center>
                 <button ion-button outline color="accent" round large (click)="gotoPage('RecievecoinPage', walletid)">Receive</button>
               </ion-col>
-
+          
             </ion-row>
           </ion-grid>
+          </div>
+          
+          
+          <!-- <ion-item >
+            <ion-avatar item-left>
+              <img src="assets/imgs/{{coin.icon}}" style="width:40px;height:40px" />
+            </ion-avatar>
+            
+          </ion-item> -->
+
         </ion-card-content>
 
         <ion-card-content [hidden]="!showDetails">

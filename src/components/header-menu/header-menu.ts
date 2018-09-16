@@ -11,6 +11,15 @@ export class HeaderMenuComponent {
 
   text: string;
 
+  loggedInPages = [
+                    {'icon':"folder", 'title':"Funds", 'page':"ProfilePage" },
+                    {'icon':"folder", 'title':"Funds", 'page':"ProfilePage" },
+                    {'icon':"folder", 'title':"Funds", 'page':"ProfilePage" },
+                    {'icon':"folder", 'title':"Funds", 'page':"ProfilePage" },
+                    {'icon':"folder", 'title':"Funds", 'page':"ProfilePage" },
+                    {'icon':"folder", 'title':"Funds", 'page':"ProfilePage" },
+                  ]; 
+
   constructor(private auth: AuthenticationProvider) {
   }
   logout() {

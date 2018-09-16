@@ -8,10 +8,31 @@
 
 <ion-content>
   <ion-toolbar class="profile" color="primary">
-    <img class="profile-image" src="assets/imgs/user.png" />
+    <img class="profile-image" src="{{contact?.userImage || 'assets/imgs/user.png'}}" />
     <h4>{{contact?.name}}</h4>
     <h5>{{contact?.phone}}</h5>
+    <h6><i>{{contact?.status}}</i></h6>
   </ion-toolbar>
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <p>About me:</p>
+          </ion-col>
+          <ion-col col-8>
+            <p>{{contact?.about}}</p>
+          </ion-col>
+          <ion-col col-4>
+            <p>From:</p>
+          </ion-col>
+          <ion-col col-8>
+            <p>{{contact?.address}}</p>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+    </ion-card-content>
+  </ion-card>
   <ion-card>
     <ion-card-content>
       <ion-grid>
@@ -50,9 +71,9 @@
         <img src="assets/imgs/user.png" />
       </ion-avatar>
     </ion-item>
-    <img src="{{content.image}}">
+    <img src="{{content?.image}}">
     <ion-card-content>
-      <p>{{content.content}}</p>
+      <p>{{content?.content}}</p>
     </ion-card-content>
     <ion-row>
       <ion-col>
@@ -64,7 +85,7 @@
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="text"></ion-icon>
-          <div>{{content.comments.length}} Comments</div>
+          <div>{{content?.comments.length}} Comments</div>
         </button>
       </ion-col>
       <ion-col>

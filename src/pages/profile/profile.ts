@@ -83,7 +83,7 @@ export class ProfilePage {
         labels: ["Bitcoin", "Ether", "Angur", "Dash"],
         datasets: [{
           //label: '# of Votes',
-          data: [this.walletCoins[0].value, 19, 3, 5],
+          data: [this.walletCoins[0].value, 0, 0, 0],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -279,6 +279,9 @@ export class ProfilePage {
       ],
     });
     actionSheet.present();
+  }
+  gotoAddFunds(){
+    this.gotoPage('AddfundsPage', { 'myaddress': this.balancedata.response.receiveAddress.address });
   }
   menuPrompt() {
     const actionSheet = this.actionSheetCtrl.create({
