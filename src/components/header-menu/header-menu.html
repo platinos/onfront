@@ -1,8 +1,15 @@
-<ion-list>
 
-  <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p.page)">
-    <ion-icon item-start [name]="p.icon"></ion-icon>
+<ion-item class="profile" no-lines>
+  <ion-avatar item-start>
+    <img src="{{person.pic || 'assets/imgs/user.png'}}">
+  </ion-avatar>
+  <h2 item-start>Welcome <b>{{person?.name}}</b></h2>
+</ion-item>
+  <ion-item ion-text color="primary" no-lines menuClose *ngFor="let p of loggedInPages" (click)="openPage(p.page)" class="menu-item">
+    <ion-icon item-start [name]="p.icon" color="icons"></ion-icon>
     {{p.title}}
-  </button>
-  <button ion-item menuClose (click)="logout()">Logout</button>
-</ion-list>
+  </ion-item>
+  <ion-item ion-text color="primary" class="menu-item" no-lines menuClose (click)="logout()">
+    <ion-icon item-start name="exit" color="icons"></ion-icon>
+    <b>Logout</b>
+  </ion-item>

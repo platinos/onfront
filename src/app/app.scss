@@ -30,3 +30,6 @@
             border-radius: 4px;
         }
     }
+    .outer-content{
+        background: linear-gradient(to top, color($colors, accent) , color($colors, primary)) !important;
+    }
