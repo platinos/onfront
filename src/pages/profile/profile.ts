@@ -253,7 +253,7 @@ export class ProfilePage {
         //           const temp: any = data;
         //           if (temp.error === undefined) {
         //             const tempWalletId = temp.response.walletId;
-
+        
         //             this.rp.getData('wallet/tbtc/' + tempWalletId).then((data) => {
         //               const tempWalletdata: any = data;
 

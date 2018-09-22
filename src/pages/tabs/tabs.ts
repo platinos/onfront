@@ -30,4 +30,6 @@ export class TabsPage {
     //this.app.getRootNav().push('SupportPage');
     this.user.logout();
   }
+
+  
 }
