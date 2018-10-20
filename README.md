@@ -9,7 +9,7 @@
 
 ----
 ### Introduction
-Sheq is a hybrid mobile application based on Ionic 3. Main target platforms for the app are iOS and Android. To enhance the look and feel of the app as well to provide great user experience, we need to follow certain standards for the App designing and development process.
+On is a hybrid mobile application based on Ionic 3. Main target platforms for the app are iOS and Android. To enhance the look and feel of the app as well to provide great user experience, we need to follow certain standards for the App designing and development process.
 
 1. [Minimize Cognitive Load ](#Minimize-Cognitive-Load)
 2. [Decluttering](#decluttering)
